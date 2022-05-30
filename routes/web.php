@@ -8,6 +8,7 @@ use App\Http\Controllers\FeedController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\RoadMapController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::group(['prefix' => '{language}'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
     Route::get('/roadMap', [RoadMapController::class, 'index'])->name('roadMap');
+    Route::get('/user', [UserController::class, 'index'])->name('user');
 
     // Route::get('/quiz/send', [QuizController::class, 'create'])->name('quiz.send');
     Route::post('/send', [QuizController::class, 'store'])->name('quiz.store');

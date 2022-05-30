@@ -95,133 +95,25 @@
     </div>
 
     <main class="">
-        <div class="web-background w-100 h-100"></div>
-        <div class="container p-5">
-            <div class="row mx-3">
-                <div class="question">
-                    <h2>{{ __('Pergunta') }}</h2>
+        <section>
+            <img src="" alt="">
+            <div>
+                <h3>JOÃO CARNEIRO</h3>
+                <p>@xão_carneiro</p>
+                <p>Minhas cores favoritas são rosa e azul</p>
+                <p>Gastronomia</p>
+                <p>São Paulo</p>
+                <div>
+                    <span>tipo de perfil</span>
+                    <span>aventureiro</span>
+                </div>
+                <div>
+                    <span>Minhas publicações</span>
+                    <span>256</span>
                 </div>
             </div>
-            <div class="d-flex justify-content-center alternative-index">
-                <div class="col-9 alternative-container mx-3">
-                    <div class="card my-3">
-                        <div class="card-body">
-                            {{ __('Alternativa') }} 1.
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            {{ __('Alternativa') }} 2.
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            {{ __('Alternativa') }} 3.
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            {{ __('Alternativa') }} 4.
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            {{ __('Alternativa') }} 5.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 question-index-container mx-3">
-                    <div class="card my-3 text-center">
-                        <div class="card-header border-bottom-0 bg-transparent">
-                            {{ __('Perguntas') }}
-                        </div>
-                        <div class="card-body question-index">
-                            <div questao=1 class="quiz questao1">
-                                <button type="button" class="quiz-button quiz-button-active">
-                                    <p>1</p>
-                                </button>
-                            </div>
-                            <div questao=2 class="quiz questao2">
-                                <button type="button" class="quiz-button">
-                                    <p>2</p>
-                                </button>
-                            </div>
-                            <div questao=3 class="quiz questao3">
-                                <button type="button" class="quiz-button">
-                                    <p>3</p>
-                                </button>
-                            </div>
-                            <div questao=4 class="quiz questao4">
-                                <button type="button" class="quiz-button">
-                                    <p>4</p>
-                                </button>
-                            </div>
-                            <div questao=5 class="quiz questao5">
-                                <button type="button" class="quiz-button">
-                                    <p>5</p>
-                                </button>
-                            </div>
-                            <div questao=6 class="quiz questao6">
-                                <button type="button" class="quiz-button">
-                                    <p>6</p>
-                                </button>
-                            </div>
-                            <div questao=7 class="quiz questao7">
-                                <button type="button" class="quiz-button">
-                                    <p>7</p>
-                                </button>
-                            </div>
-                            <div questao=8 class="quiz questao8">
-                                <button type="button" class="quiz-button">
-                                    <p>8</p>
-                                </button>
-                            </div>
-                            <div questao=9 class="quiz questao9">
-                                <button type="button" class="quiz-button">
-                                    <p>9</p>
-                                </button>
-                            </div>
-                            <div questao=10 class="quiz questao10">
-                                <button type="button" class="quiz-button">
-                                    <p>10</p>
-                                </button>
-                            </div>
-                            <div questao=11 class="quiz questao11">
-                                <button type="button" class="quiz-button">
-                                    <p>11</p>
-                                </button>
-                            </div>
-                            <div questao=12 class="quiz questao12">
-                                <button type="button" class="quiz-button">
-                                    <p>12</p>
-                                </button>
-                            </div>
-                            <div questao=13 class="quiz questao13">
-                                <button type="button" class="quiz-button">
-                                    <p>13</p>
-                                </button>
-                            </div>
-                            <div questao=14 class="quiz questao14">
-                                <button type="button" class="quiz-button">
-                                    <p>14</p>
-                                </button>
-                            </div>
-                            <div questao=15 class="quiz questao15">
-                                <button type="button" class="quiz-button">
-                                    <p>15</p>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-footer border-top-0 bg-transparent text-start">
-                            <div class='button'>
-                                <input id='finalizar' type='submit' value="{{ __('Finalizar') }}" name='questionario' class='botao' disabled>
-                                <input type="hidden" id='resposta' name='resposta'>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <input type="button" value="Editar Perfil">
+        </section>
     </main>
 
 
