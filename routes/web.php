@@ -38,6 +38,7 @@ Route::group(['prefix' => '{language}'], function () {
     Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
     Route::get('/roadMap', [RoadMapController::class, 'index'])->name('roadMap');
     Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::get('/login', [UserController::class, 'login'])->name('login');
 
     // Route::get('/quiz/send', [QuizController::class, 'create'])->name('quiz.send');
     Route::post('/send', [QuizController::class, 'store'])->name('quiz.store');
