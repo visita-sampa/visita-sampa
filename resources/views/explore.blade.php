@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
                         <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
                     </a>
                 </li>
@@ -96,33 +96,171 @@
 
     <main class="">
         <div class="container">
+            <form class="search">
+                <div class="search-icon">
+                    <div class="icon">
+                        <i class="icon-search"></i>
+                    </div>
+                    <input class="form-control" type="text" placeholder="{{ __('Pesquisar') }}" aria-label="Search">
+                </div>
+            </form>
             <h1 class="title">{{ __('Explorar') }}</h1>
             <div class="grid-container">
-                @foreach ($pontos as $ponto)
                 <div class="grid-item">
                     <div class="local-image">
-                        <img src="{{$ponto->imagem}}" class="card-img-top">
+                        <img src="https://veja.abril.com.br/wp-content/uploads/2016/05/alx_sao-paulo-cultura-museu-masp-avenida-paulista-20140222-001_original2.jpeg" class="card-img-top">
+                        <div class="open-image">
+                            <button type="button" name="btn" class="btn-see-more" data-toggle="modal" data-target="#post-modal-1" value="Abrir Publicação">{{ __('Abrir Publicação') }}</button>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{$ponto->nome}}</h5>
-                        <p class="card-text">
-                            {{$ponto->informacoes}}
-                        </p>
+                    <!-- Modal -->
+                    <div class="modal fade" id="post-modal-1" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-1" aria-hidden="true">
+                        <div class="close-publication">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span class="close-post" aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <img src="https://veja.abril.com.br/wp-content/uploads/2016/05/alx_sao-paulo-cultura-museu-masp-avenida-paulista-20140222-001_original2.jpeg" class="img-publication">
+                                    <!-- Informações Usuário -->
+                                    <div class="modal-header">
+                                        <div class="user">
+                                            <div class="user-image">
+                                                <img src="https://yt3.ggpht.com/CfNetauYXfLTeJoYIqjtmykWwh1S_w9jDnX9uh7MXQxXAzehiZJRebXO-Han6uwZEuEyEzFm=s900-c-k-c0x00ffffff-no-rj">
+                                            </div>
+                                            <div class="user-information">
+                                                <p class="user-name">
+                                                    Shaun Carneiro
+                                                </p>
+                                                <p class="user-localization">
+                                                    Masp
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Denuncia -->
+                                        <button class="report" type="button" data-toggle="modal" data-target="#report-post-modal-1">
+                                            <i class="icon-alert-triangle"></i>
+                                        </button>
+                                    </div>
+                                    <!-- Comentário Publicação -->
+                                    <div class="comment-publication">
+                                        <div class="comment">
+                                            <div class="user">
+                                                <div class="user-image">
+                                                    <img src="https://yt3.ggpht.com/CfNetauYXfLTeJoYIqjtmykWwh1S_w9jDnX9uh7MXQxXAzehiZJRebXO-Han6uwZEuEyEzFm=s900-c-k-c0x00ffffff-no-rj">
+                                                </div>
+                                            </div>
+                                            <p class="user-comment">
+                                                <span class="name-comment">Shaun Carneiro</span>
+                                                Lugar lindo! Adorei conhecer aaaaaa aaaaaa aaaaaa aaaaaa bbbbb bbbbbb
+                                            </p>
+                                        </div>
+                                        <p class="post-date">
+                                            HÁ 6 dias
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="btn-information">
-                        <button class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</button>
+                    <div class="modal fade" id="report-post-modal-1" tabindex="-1" aria-labelledby="report-post-modal-label-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="report-post-modal-title-1">{{ __('DENÚNCIA') }}</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ __('Deseja mesmo denunciar essa publicação') }}?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn cancel" data-bs-dismiss="modal">{{ __('Cancelar') }}</button>
+
+                                    <button type="button" class="btn denounce" data-bs-toggle="modal" data-bs-target="#report-post-modal-two">
+                                        {{ __('Denunciar') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="report-post-modal-two-1" tabindex="-1" aria-labelledby="report-post-modal-two-label-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content two">
+                                <div class="modal-header">
+                                    <div class="text">
+                                        <h5 class="modal-title" id="report-post-modal-two-title-1">{{ __('Denunciar') }}</h5>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body two">
+                                    <p>{{ __('Por que deseja denunciar essa publicação') }}?</p>
+                                    <textarea name="motive-denounces" placeholder="{{ __('Explique seu motivo') }}" id="motive-denounces" cols="50" rows="10"></textarea>
+                                </div>
+                                <div class="modal-footer two">
+                                    <button type="button" class="btn denounce">{{ __('Enviar') }}</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                @endforeach
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="https://napaulista.com.br/wp-content/uploads/2020/03/Avenida-Paulista.jpeg" class="card-img-top">
+                        <div class="open-image">
+                            <button type="button" name="btn" class="btn-see-more" data-toggle="modal" data-target="#post-modal-2" value="Abrir Publicação">{{ __('Abrir Publicação') }}</button>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="post-modal-2" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-2" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="https://napaulista.com.br/wp-content/uploads/2020/03/Avenida-Paulista.jpeg" class="img-publication">
+                                    <div class="post">
+                                        <p class="comment">Lugar lindo! Adorei conhecer aaaaaa aaaaaa aaaaaa aaaaaa bbbbb bbbbbb </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="https://th.bing.com/th/id/R.f57f0929634d62f27b9a1dc91f91670f?rik=THbYK6eGBGQWbA&riu=http%3a%2f%2fspcine.com.br%2fwp-content%2fuploads%2fBairro-da-Liberdade_291113_Foto_JoseCordeiro_0199-2.jpg&ehk=xsZxRpxAS4y%2fSRYYHfmONM41pnvQjzLtCYyodh85VQg%3d&risl=&pid=ImgRaw&r=0" class="card-img-top">
+                        <div class="open-image">
+                            <button class="btn-see-more" name="btn" value="Abrir Publicação">{{ __('Abrir Publicação') }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="https://th.bing.com/th/id/R.8ba3fc946843ce3c249a28a47f3e6107?rik=hicQVzjXQPl9jQ&pid=ImgRaw&r=0" class="card-img-top">
+                        <div class="open-image">
+                            <button class="btn-see-more" name="btn" value="Abrir Publicação">{{ __('Abrir Publicação') }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="https://th.bing.com/th/id/OIP.jGMoY1auIBBSq_1HXcD6zwHaE8?pid=ImgDet&rs=1" class="card-img-top">
+                        <div class="open-image">
+                            <button class="btn-see-more" name="btn" value="Abrir Publicação">{{ __('Abrir Publicação') }}</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-
     <script src="/assets/js/jquery.slim.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
     <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {

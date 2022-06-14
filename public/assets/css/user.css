@@ -1,0 +1,190 @@
+:root {
+    --medium-gray: #767676;
+}
+
+/* seção de perfil (infos, foto, editar perfil) */
+.profile {
+    gap: 13rem;
+    font-size: 14px;
+}
+
+/* subseção do perfil */
+.profile-container {
+    gap: 4.6rem;
+}
+
+/* foto do perfil */
+.profile-img {
+    width: 12.56rem;
+    height: 12.56rem;
+    object-fit: cover;
+    filter: drop-shadow(0px 1.5px 6px rgba(0, 0, 0, 0.25));
+}
+
+.change-profile-img {
+    transition: 0.3s;
+    opacity: 0;
+    font-size: 1.3rem;
+    color: var(--light-gray);
+}
+
+.change-profile-img:hover {
+    transition: 0.3s;
+    opacity: 1;
+    cursor: pointer;
+    background-color: rgba(39, 36, 36, 0.4);
+}
+
+/* infos do perfil */
+.bio {
+    font-weight: 300;
+}
+
+p {
+    margin: 0;
+}
+
+h3 {
+    font-size: 1.7rem;
+    margin: 0;
+}
+
+h4 {
+    color: var(--medium-gray);
+    font-size: 1.25rem;
+    margin-bottom: 1.4rem;
+}
+
+/* tipo de perfil e minhas publicações */
+.bio-footer {
+    margin-top: 1.4rem;
+    grid-template-columns: auto auto;
+}
+
+/* botões*/
+.btns {
+    flex-direction: column;
+}
+.btn-edit,
+.btn-pub {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--blue);
+    height: fit-content;
+    background-color: var(--light-gray);
+    border-radius: 5px;
+    transition: all 0.2s;
+    margin-bottom: 0.5rem;
+}
+
+.btn-edit:hover,
+.btn-pub:hover {
+    color: var(--white);
+    background-color: var(--blue);
+}
+
+/* seção das publicaçoes do usuario */
+.posts {
+    margin: 4rem 0;
+    gap: 1.87rem;
+    grid-template-columns: auto auto auto;
+}
+
+.posts > img {
+    width: 23rem;
+    height: 16.44rem;
+    object-fit: cover;
+    border: 0.5px solid var(--gray);
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+}
+
+/* responsividade */
+@media screen and (max-width: 1161px) {
+    .posts {
+        grid-template-columns: auto auto;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .profile {
+        gap: 0;
+    }
+
+    .posts {
+        grid-template-columns: auto;
+    }
+}
+
+@media screen and (max-width: 635px) {
+    .profile {
+        margin-top: 3rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-img {
+        width: 9rem;
+        height: 9rem;
+    }
+
+    .profile-container {
+        gap: 0.75rem;
+    }
+
+    h3 {
+        font-size: 1.35rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+    .btns {
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .profile-img {
+        width: 6rem;
+        height: 6rem;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    p,
+    span,
+    .btns {
+        font-size: 12px;
+    }
+
+    .btns {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    h3 {
+        font-size: 1.15rem;
+    }
+
+    h4 {
+        font-size: 0.75rem;
+    }
+
+    .posts {
+        margin-top: 2rem;
+    }
+
+    .posts > img {
+        width: 18rem;
+    }
+}
+
+@media screen and (min-width: 1570px) {
+    .posts {
+        grid-template-columns: auto auto auto auto;
+    }
+}

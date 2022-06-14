@@ -8,11 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="/assets/css/style.css" rel="stylesheet">
     <link href="/assets/css/quiz.css" rel="stylesheet">
+    <link href="/assets/css/user.css" rel="stylesheet">
     <link href="/assets/icon/style.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('ijaboCropTool/ijaboCropTool.min.css') }}">
 </head>
 
 <body>
@@ -71,7 +73,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
                         <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
                     </a>
                 </li>
@@ -94,25 +96,48 @@
         </nav>
     </div>
 
-    <main class="">
-        <section>
-            <img src="" alt="">
-            <div>
-                <h3>JOÃO CARNEIRO</h3>
-                <p>@xão_carneiro</p>
-                <p>Minhas cores favoritas são rosa e azul</p>
-                <p>Gastronomia</p>
-                <p>São Paulo</p>
-                <div>
-                    <span>tipo de perfil</span>
-                    <span>aventureiro</span>
+    <main class="profile-page">
+        <section class="profile d-flex justify-content-center mt-5">
+            @auth
+            <div class="profile-container d-flex">
+                <div class="rounded-circle position-relative">
+                    <img src="{{ auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle">
+                    <label for="profile-pic" class="position-absolute w-100 h-100 bg-gray top-0 p-3 text-center rounded-circle d-flex justify-content-center align-items-center change-profile-img">
+                        Trocar foto de perfil
+                    </label>
                 </div>
-                <div>
-                    <span>Minhas publicações</span>
-                    <span>256</span>
+                <input type="file" name="profile-pic" id="profile-pic" class="d-none">
+
+                <div class="bio">
+                    <h3>{{auth::user()->nome}}</h3>
+                    <h4>&#64;{{auth::user()->nome_usuario}}</h4>
+                    <p>
+                        Minhas cores favoritas são rosa e azul<br>
+                        Gastronomia<br>
+                        São Paulo
+                    </p>
+                    <div class="bio-footer d-grid">
+                        <span>Tipo de perfil</span>
+                        <strong><span>Aventureiro</span></strong>
+                        <span>Minhas publicações</span>
+                        <strong><span>256</span></strong>
+                    </div>
                 </div>
             </div>
-            <input type="button" value="Editar Perfil">
+            @endauth
+            <div class="btns d-flex">
+                <input type="button" value="Editar Perfil" class="btn-edit">
+                <input type="button" value="Nova Publicação" class="btn-pub">
+                <a href="{{ route('logout', app()->getLocale()) }}">Sair</a>
+            </div>
+        </section>
+        <section class="posts d-grid justify-content-center">
+            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
+            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
+            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
+            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
+            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
+            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
         </section>
     </main>
 
@@ -120,12 +145,30 @@
     <script src="/assets/js/jquery.slim.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('ijaboCropTool/ijaboCropTool.min.js') }}"></script>
 
     <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+    </script>
+
+    <script>
+        $('#profile-pic').ijaboCropTool({
+            preview: '.profile-img',
+            setRatio: 1,
+            processUrl: '{{ route("user.crop", app()->getLocale()) }}',
+            withCSRF: ['_token', '{{ csrf_token() }}'],
+            buttonsText: ['Salvar', 'Cancelar'],
+            onSuccess: function(message, element, status) {
+                alert(message);
+            },
+            onError: function(message, element, status) {
+                alert(message);
+            }
+        });
     </script>
 
 </body>

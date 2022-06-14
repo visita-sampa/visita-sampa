@@ -78,7 +78,7 @@ form {
     align-items: center;
 }
 
-.quiz>button>p {
+.quiz > button > p {
     color: var(--blue);
     justify-content: center;
     align-items: center;
@@ -151,7 +151,7 @@ form {
         height: 4rem;
     }
 
-    .question-index-container>div {
+    .question-index-container > div {
         margin-bottom: 6rem !important;
     }
 
@@ -161,7 +161,7 @@ form {
 }
 
 @media (min-width: 769px) and (max-width: 992px) {
-    .question-index-container>div {
+    .question-index-container > div {
         margin-bottom: 10rem !important;
     }
 
@@ -171,7 +171,7 @@ form {
 }
 
 @media (min-width: 426px) and (max-width: 768px) {
-    .question-index-container>div {
+    .question-index-container > div {
         margin-bottom: 8rem !important;
     }
 

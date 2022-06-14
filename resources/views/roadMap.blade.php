@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
                         <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
                     </a>
                 </li>
@@ -110,7 +110,7 @@
                         </p>
                     </div>
                     <div class="btn-information">
-                        <button class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</button>
+                        <a href="{{ route('touristSpot.show', ['language'=>app()->getLocale(), 'id'=>$ponto->id_ponto_turistico]) }}" class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</a>
                     </div>
                 </div>
                 @endforeach

@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
                         <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
                     </a>
                 </li>
@@ -95,9 +95,109 @@
     </div>
 
     <main class="">
-
+        <div class="container">
+            <h1 class="title">{{ __('Eventos') }}</h1>
+            <div class="grid-container">
+                @foreach ($events as $event)
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="/img/events/{{$event->imagem}}" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{$event->nome}}</h5>
+                        <div class="card-text">
+                            <p class="localization"><i class="icon-map-pin two"></i> {{$event->informacoes}}</p>
+                            <p class="time"><i class="icon-clock"></i> {{$event->informacoes}}</p>
+                        </div>
+                    </div>
+                    <div class="btn-information">
+                        <a href="{{$event->link}}" class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</a>
+                    </div>
+                </div>
+                @endforeach
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="https://assets.bileto.sympla.com.br/eventmanager/production/uoqskk7bc0e83anlltt0b5gssf0ro413olhcv2htbohgc97tms09v1od6rmuov27eshnfqm6ph5qgbt392oamoom69egtkr7n586h8.webp" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Chase Atlantic</h5>
+                        <div class="card-text">
+                            <p class="localization"><i class="icon-map-pin two"></i> Audio, São Paulo - São Paulo</p>
+                            <p class="time"><i class="icon-clock"></i> 22 de Agosto de 2022, 19h</p>
+                        </div>
+                    </div>
+                    <div class="btn-information">
+                        <button class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</button>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="https://assets.bileto.sympla.com.br/eventmanager/production/uoqskk7bc0e83anlltt0b5gssf0ro413olhcv2htbohgc97tms09v1od6rmuov27eshnfqm6ph5qgbt392oamoom69egtkr7n586h8.webp" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Chase Atlantic</h5>
+                        <div class="card-text">
+                            <p class="localization"><i class="icon-map-pin two"></i> Audio, São Paulo - São Paulo</p>
+                            <p class="time"><i class="icon-clock"></i> 22 de Agosto de 2022, 19h</p>
+                        </div>
+                    </div>
+                    <div class="btn-information">
+                        <button class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</button>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="https://assets.bileto.sympla.com.br/eventmanager/production/uoqskk7bc0e83anlltt0b5gssf0ro413olhcv2htbohgc97tms09v1od6rmuov27eshnfqm6ph5qgbt392oamoom69egtkr7n586h8.webp" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Chase Atlantic</h5>
+                        <div class="card-text">
+                            <p class="localization"><i class="icon-map-pin two"></i> Audio, São Paulo - São Paulo</p>
+                            <p class="time"><i class="icon-clock"></i> 22 de Agosto de 2022, 19h</p>
+                        </div>
+                    </div>
+                    <div class="btn-information">
+                        <button class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</button>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="local-image">
+                        <img src="https://assets.bileto.sympla.com.br/eventmanager/production/uoqskk7bc0e83anlltt0b5gssf0ro413olhcv2htbohgc97tms09v1od6rmuov27eshnfqm6ph5qgbt392oamoom69egtkr7n586h8.webp" class="card-img-top">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Chase Atlantic</h5>
+                        <div class="card-text">
+                            <p class="localization"><i class="icon-map-pin two"></i> Audio, São Paulo - São Paulo</p>
+                            <p class="time"><i class="icon-clock"></i> 22 de Agosto de 2022, 19h</p>
+                        </div>
+                    </div>
+                    <div class="btn-information">
+                        <button class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <form action="{{ route('event.store', app()->getLocale()) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="image">Imagem do Evento:</label>
+                    <input type="file" id="image" name="image" class="from-control-file">
+                </div>
+                <div class="form-group">
+                    <label for="title">Evento:</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Nome do evento">
+                </div>
+                <div class="form-group">
+                    <label for="link">Link:</label>
+                    <input type="text" class="form-control" id="link" name="link" placeholder="Local do evento">
+                </div>
+                <div class="form-group">
+                    <label for="description">Descrição:</label>
+                    <textarea name="description" id="description" class="form-control" placeholder="O que vai acontecer no evento?"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Criar Evento">
+            </form> -->
+        </div>
     </main>
-
 
     <script src="/assets/js/jquery.slim.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>

@@ -9,6 +9,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\RoadMapController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TouristSpotController;
+use App\Http\Controllers\PublicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +25,13 @@ use App\Http\Controllers\UserController;
 */
 
 Route::redirect('/', '/pt/quiz');
+// Route::redirect('/', '/pt');
 
 
 Route::group(['prefix' => '{language}'], function () {
     Route::get('/', function () {
         return view('welcome');
     });
-
-    // Auth::routes();
 
     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz');
     Route::get('/event', [EventController::class, 'index'])->name('event');
@@ -38,21 +40,34 @@ Route::group(['prefix' => '{language}'], function () {
     Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
     Route::get('/roadMap', [RoadMapController::class, 'index'])->name('roadMap');
     Route::get('/user', [UserController::class, 'index'])->name('user');
-    Route::get('/login', [UserController::class, 'login'])->name('login');
+    // Route::get('/touristSpot', [TouristSpotController::class, 'index'])->name('touristSpot');
 
-    // Route::get('/quiz/send', [QuizController::class, 'create'])->name('quiz.send');
+    Route::get('/touristSpot/{id?}', [TouristSpotController::class, 'show'])->name('touristSpot.show');
+
+    Route::post('/addPost', [PublicationController::class, 'store'])->name('publication.store');
+
     Route::post('/send', [QuizController::class, 'store'])->name('quiz.store');
 
-    // Route::get('listar', function(){
-    //     try{
-    //       // vamos tentar obter o PDO da conexão
-    //       $pdo = DB::connection()->getPdo();
+    // user registration routes
+    Route::get('/register', [UserController::class, 'register'])->name('register');
+    Route::post('/register', [UserController::class, 'store'])->name('user.store');
 
-    //       return "Conectado com sucesso à base de dados: " .
-    //         DB::connection()->getDatabaseName();    
-    //     }
-    //     catch(\Exception $exc){
-    //       return "Erro ao conectar: " . $exc;
-    //     }  
-    //   }); 
+    // user authentication routes
+    Route::get('/login', [LoginController::class, 'login'])->name('login');
+    Route::post('/login', [LoginController::class, 'validateLogin'])->name('validate.login');
+
+    Route::post('/addEvent', [EventController::class, 'store'])->name('event.store');
+    Route::post('/addTouristSpot', [TouristSpotController::class, 'store'])->name('touristSpot.store');
+    
+    Route::group(['middleware' => ['auth']], function () {
+
+        Route::post('/crop', [UserController::class, 'crop'])->name('user.crop');
+
+        Route::get('/logout', function () {
+            Auth::logout();
+            return redirect()->route('login', app()->getLocale());
+        })->name('logout');
+
+        
+    });
 });

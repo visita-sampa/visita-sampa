@@ -1,0 +1,261 @@
+:root {
+    --medium-gray: #767676;
+}
+
+/* seção de informações do ponto turístico */
+.tourist-spot-container {
+    gap: 1.87rem;
+    grid-template-columns: auto auto;
+    justify-items: center;
+}
+
+.tourist-spot-container > img {
+    width: 29rem;
+    border: 0.5px solid var(--gray);
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+}
+
+.address {
+    color: var(--medium-gray);
+    font-size: 1.5rem;
+}
+
+.icon-plus {
+    font-size: 2rem;
+    color: var(--blue);
+}
+
+.icon-plus:hover {
+    transition: 0.3s;
+    color: var(--pink);
+}
+
+/* seção das publicaçoes do usuario */
+.posts {
+    /* margin: 4rem 0; */
+    gap: 1.87rem;
+    grid-template-columns: auto auto auto;
+}
+
+.posts > img {
+    width: 23rem;
+    height: 16.44rem;
+    object-fit: cover;
+    border: 0.5px solid var(--gray);
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+}
+
+/* modal nova publicação */
+.modal {
+    overflow-y: hidden;
+}
+
+.modal-body {
+    padding: 0;
+    display: grid;
+    grid-template-areas:
+        "img modal-header"
+        "img description-publication";
+}
+
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 60rem;
+    margin: auto;
+    height: calc(100vh - 52.5px);
+}
+
+.modal-content {
+    border: none;
+    border-radius: 5px;
+}
+
+.modal-header {
+    justify-content: space-between;
+    padding: 0;
+    align-items: center;
+    height: 4.87rem;
+    border-bottom: 1px solid #efefef;
+    width: 100%;
+    grid-area: modal-header;
+}
+
+.comment-publication {
+    grid-area: comment-publication;
+}
+
+/* .close {
+    border: none;
+    background: transparent;
+    padding-right: 1rem;
+}
+
+.close-publication {
+    display: flex;
+    justify-content: flex-end;
+} */
+
+.btn-close {
+    font-size: 0.8rem;
+}
+
+.img-publication-area {
+    width: 35.8rem;
+    height: 26.8rem;
+    grid-area: img;
+}
+
+.img-publication-area .icon-image {
+    font-size: 5rem !important;
+    top: 7.5rem;
+}
+
+.img-publication {
+    width: 100%;
+    border-radius: 5px 0 0 5px;
+    grid-area: img;
+}
+
+.comment {
+    width: 22rem;
+    margin-right: 1rem;
+    display: flex;
+    margin-top: -11rem;
+}
+
+.user {
+    display: flex;
+    /* margin: 0.87rem; */
+    /* margin-left: 1rem; */
+}
+
+.user-image {
+    border-radius: 50%;
+    width: 2.7rem;
+    height: 2.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.user-image img {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+p.user-name {
+    margin-bottom: 0;
+    margin-left: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.user-localization {
+    margin-left: 1.1rem;
+    color: #8e8e8e;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.user-comment {
+    margin-top: 1rem;
+}
+
+.name-comment {
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 0.3rem;
+}
+
+.post-date {
+    font-size: 12px;
+    color: #8e8e8e;
+    margin-left: 4.56rem;
+    text-transform: uppercase;
+}
+
+.report {
+    border: none;
+    background: transparent;
+    margin-right: 1rem;
+}
+
+.icon-alert-triangle {
+    font-size: 18px;
+    color: var(--pink);
+}
+
+.select-img-fixed {
+    font-size: 1.3rem;
+    color: var(--dark-gray);
+}
+
+.select-img {
+    transition: 0.3s;
+    opacity: 0;
+    font-size: 1.3rem;
+    color: var(--light-gray);
+}
+
+.select-img:hover {
+    transition: 0.3s;
+    opacity: 1;
+    cursor: pointer;
+    background-color: rgba(39, 36, 36, 0.4);
+}
+
+/* responsividade */
+@media screen and (max-width: 1161px) {
+    .posts {
+        grid-template-columns: auto auto;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .tourist-spot-container {
+        grid-template-columns: auto;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .profile {
+        gap: 0;
+    }
+
+    .posts {
+        grid-template-columns: auto;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .tourist-spot-container > img {
+        width: 22rem;
+    }
+
+    .tourist-spot-info {
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .posts {
+        margin-top: 2rem;
+    }
+
+    .posts > img {
+        width: 18rem;
+    }
+}
+
+@media screen and (min-width: 1570px) {
+    .posts {
+        grid-template-columns: auto auto auto auto;
+    }
+}

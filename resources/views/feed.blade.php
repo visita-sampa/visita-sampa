@@ -71,7 +71,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
             <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
           </a>
         </li>
@@ -96,14 +96,6 @@
 
   <main class="">
     <div class="container">
-      <form class="search">
-        <div class="search-icon">
-          <div class="icon">
-            <i class="icon-search"></i>
-          </div>
-          <input class="form-control" type="text" placeholder="{{ __('Pesquisar') }}" aria-label="Search">
-        </div>
-      </form>
 
       @if(!empty($posts))
       @foreach ($posts as $post)
@@ -118,14 +110,14 @@
             <p class="user-name">
               {{$user->nome_usuario}}
             </p>
-            <button class="report" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button class="report" type="button" data-bs-toggle="modal" data-bs-target="#report-post-modal-1">
               <i class="icon-alert-triangle"></i>
             </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="report-post-modal-1" tabindex="-1" aria-labelledby="report-post-modal-label-1" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ __('DENÚNCIA') }}</h5>
+                    <h5 class="modal-title" id="report-post-modal-title-1">{{ __('DENÚNCIA') }}</h5>
                   </div>
                   <div class="modal-body">
                     <p>{{ __('Deseja mesmo denunciar essa publicação') }}?</p>
@@ -133,19 +125,19 @@
                   <div class="modal-footer">
                     <button type="button" class="btn cancel" data-bs-dismiss="modal">{{ __('Cancelar') }}</button>
 
-                    <button type="button" class="btn denounce" data-bs-toggle="modal" data-bs-target="#modalTwo">
+                    <button type="button" class="btn denounce" data-bs-toggle="modal" data-bs-target="#report-post-modal-two-1">
                       {{ __('Denunciar') }}
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="modal fade" id="modalTwo" tabindex="-1" aria-labelledby="modalTwoLabel" aria-hidden="true">
+            <div class="modal fade" id="report-post-modal-two-1" tabindex="-1" aria-labelledby="report-post-modal-two-label-1" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content two">
                   <div class="modal-header">
                     <div class="text">
-                      <h5 class="modal-title" id="modalTwoLabel">{{ __('Denunciar') }}</h5>
+                      <h5 class="modal-title" id="report-post-modal-two-title-1">{{ __('Denunciar') }}</h5>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>

@@ -1,4 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Fresca&display=swap");
+
+html {
+    min-height: 100vh;
+    height: 100%;
+}
+
+h2 {
+    font-family: "Fresca", sans-serif;
+    color: var(--blue);
+    font-size: 2.6rem;
+    text-align: center;
+}
+
+p,
+a {
+    color: var(--blue);
+}
+
 /* background */
 .web-background {
-    background: blueviolet;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(255, 255, 255, 1) 50%,
+            rgba(255, 255, 255, 1) 100%
+        ),
+        url("../img/fundo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container.login {
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 76.53px) !important;
+    justify-content: space-between;
+}
+
+.title-login {
+    border-bottom: 1px solid var(--blue);
+    margin-bottom: 2.25rem !important;
+    width: 37.5rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.signup {
+    height: 400px !important;
+}
+
+.btn-signup {
+    font-weight: 500;
+    padding: 0.625rem 1.56rem;
+    color: var(--blue);
+    width: fit-content;
+    border: none;
+    background-color: var(--yellow);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.btn-signup:hover {
+    background-color: var(--pink);
+    color: var(--white);
+    transform: scale(1.06);
+}
+
+.img-logo {
+    width: 28.75rem;
+}
+
+#login.input-signup,
+#passwordLogin.input-signup {
+    margin-bottom: 1.5rem;
+}
+
+.form-signup {
+    align-items: center;
+}
+
+.input-signup {
+    padding: 0.7rem 1.43rem;
+    width: 28.75rem;
+    border: 0.5px solid var(--blue);
+    border-radius: 5px;
+}
+
+.input-signup:focus {
+    border: 2px solid var(--blue) !important;
+    outline: 0;
+}
+
+.input-signup::placeholder {
+    color: var(--blue);
+}
+
+.showPass {
+    position: absolute;
+    margin-left: 25rem;
+    margin-top: 10.5rem;
+}
+
+.msg-pass {
+    display: none;
+}
+
+.link-signup {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* responsividade */
+@media screen and (max-width: 1366px) {
+    .img-logo {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 1183px) {
+    .img-logo {
+        width: 40%;
+        margin-bottom: 1rem;
+    }
+
+    .container.login {
+        height: auto !important;
+        flex-direction: column !important;
+    }
+}
+
+@media screen and (max-width: 643px) {
+    .title-login {
+        width: 90%;
+    }
+
+    form {
+        width: 90vw;
+    }
+
+    #login {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-signup {
+        width: 100%;
+    }
+
+    .showPass {
+        position: relative;
+        margin-top: unset;
+        margin-left: unset;
+    }
+
+    .msg-pass {
+        display: inline;
+    }
 }

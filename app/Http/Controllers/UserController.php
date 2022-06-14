@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\user;
 use Illuminate\Http\Request;
+use Auth;
+use Hash;
+use App\Models\user;
 
 class UserController extends Controller
 {
@@ -14,7 +16,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user');
+        if (Auth::user()) {
+            return view('user');
+        } else {
+            return view('login');
+        }
     }
 
     /**
@@ -35,7 +41,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User;
+
+        $user->nome = $request->nameSignup;
+        $user->nome_usuario = $request->usernameSignup;
+        $user->email = $request->emailSignup;
+        $user->senha = bcrypt($request->passwordSignup);
+        // $validatePassword = $this->validatePassword($request->passwordSignup);
+        $validateCredencials = $this->validateCredentials($user);
+
+        // if ($validateCredencials && $validatePassword) {
+        if ($validateCredencials) {
+            $user->save();
+
+            $findUser = $user->where('email', $request->emailSignup)->first();
+
+            if (!empty($findUser) && Hash::check($request->passwordSignup, $findUser->senha)) {
+                Auth::loginUsingId($findUser->id_usuario);
+            }
+        }
+        return redirect()->route('login', app()->getLocale());
     }
 
     /**
@@ -86,5 +111,44 @@ class UserController extends Controller
     public function login()
     {
         return view('login');
+    }
+
+    public function register()
+    {
+        return view('login');
+    }
+
+    public function validateCredentials($user)
+    {
+        $findUserByEmail = $user->where('email', $user->email)->first();
+        $findUserByUsername = $user->where('nome_usuario', $user->nome_usuario)->first();
+
+        if (!empty($findUserByEmail) || !empty($findUserByUsername))
+            return false;
+        else
+            return true;
+    }
+
+    public function validatePassword($password)
+    {
+        // if((strlen($password) >= 8) && (filter_var($password, FILTER_SANITIZE_NUMBER_INT) == true))
+        $pattern = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d].\S{8,36}$/';
+
+        return preg_match($pattern, $password) ? true : false;
+    }
+
+    public function registerLogin()
+    {
+    }
+
+    public function crop(Request $request)
+    {
+        $response = cloudinary()->upload($request->file('profile-pic')->getRealPath())->getSecurePath();
+
+        $user = Auth::user();
+
+        User::where('id_usuario', $user->id_usuario)->update(['foto_perfil' => $response]);
+
+        return response()->json(['status' => 1, 'msg' => 'Sua foto de perfil foi atualizada com sucesso.', 'name' => $response]);
     }
 }

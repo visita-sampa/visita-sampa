@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -14,7 +15,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('event');
+        $events = DB::table('eventos')->get();
+
+        return view('event', ['events' => $events]);
     }
 
     /**
@@ -35,7 +38,31 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $event = new Event;
+
+        $event->nome                                    = $request->title;
+        $event->link                                    = $request->link;
+        $event->informacoes                             = $request->description;
+        $event->fk_administrador_id_administrador       = 1;
+        $event->fk_administrador_fk_usuario_id_usuario  = 1;
+
+        // Image Upload
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            $requestImage = $request->image;
+
+            $extension = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+            $requestImage->move(public_path('img/events'), $imageName);
+
+            $event->imagem = $imageName;
+        }
+
+        $event->save();
+
+        return redirect()->route('event', app()->getLocale());
     }
 
     /**
