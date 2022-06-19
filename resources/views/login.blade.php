@@ -68,7 +68,8 @@
     <div class="web-background w-100 vh-100">
       <div class="background-blur w-100 h-100">
         <div class="container login p-4 d-flex flex-row w-100 align-items-center">
-          <h2><img src="/assets/img/logoVisitaSampa.png" alt="" class="img-logo"></h2>
+          <!-- <h2><img src="/assets/img/logoVisitaSampa.png" alt="" class="img-logo"></h2> -->
+          <img src="/assets/img/logoVisitaSampa.png" alt="" class="img-logo">
 
           <div id="signup" class="signup text-center h-100">
             <h2 class="title-login">{{ __('CADASTRE-SE') }}</h2>
