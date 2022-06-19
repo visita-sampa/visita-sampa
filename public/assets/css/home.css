@@ -1,8 +1,14 @@
+body {
+    background-color: #fcfcfc;
+}
+
 .meet {
-    background: linear-gradient(180deg,
+    background: linear-gradient(
+            180deg,
             rgba(252, 252, 252, 0) 0%,
             rgba(252, 252, 252, 0.588785) 30.21%,
-            #FCFCFC 60.94%),
+            #fcfcfc 60.94%
+        ),
         url("../img/fundo.png");
     height: calc(100vh - 76.53px);
     background-repeat: no-repeat;
@@ -28,18 +34,21 @@
 }
 
 .profile {
-    background: linear-gradient(0deg,
+    background: linear-gradient(
+            0deg,
             rgba(252, 252, 252, 0) 20%,
             rgba(252, 252, 252, 0.588785) 43.23%,
-            #FCFCFC 78.12%),
-        linear-gradient(180deg,
+            #fcfcfc 78.12%
+        ),
+        linear-gradient(
+            180deg,
             rgba(252, 252, 252, 0) 20%,
             rgba(252, 252, 252, 0.588785) 43.23%,
-            #FCFCFC 78.12%),
+            #fcfcfc 78.12%
+        ),
         url("../img/fundo.png");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 55vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,7 +63,7 @@
 }
 
 h3 {
-    font-family: 'Fresca', sans-serif;
+    font-family: "Fresca", sans-serif;
     color: var(--blue);
     font-size: 50px;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -92,7 +101,6 @@ h3 {
 
 .sing-up {
     background-color: var(--light-gray);
-    height: 55vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -132,19 +140,22 @@ h3 {
 }
 
 .contact {
-    background: linear-gradient(0deg,
+    background: linear-gradient(
+            0deg,
             rgba(252, 252, 252, 0) 20%,
             rgba(252, 252, 252, 0.588785) 43.23%,
-            #FCFCFC 78.12%),
-        linear-gradient(180deg,
+            #fcfcfc 78.12%
+        ),
+        linear-gradient(
+            180deg,
             rgba(252, 252, 252, 0) 20%,
             rgba(252, 252, 252, 0.588785) 43.23%,
-            #FCFCFC 78.12%),
+            #fcfcfc 78.12%
+        ),
         url("../img/fundo.png");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
-    height: 70vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -161,7 +172,7 @@ h3 {
 
 i.icon-mail,
 i.icon-comment-o {
-    color: #8A8A8A;
+    color: #8a8a8a;
     font-size: 40px;
     font-weight: 100;
 }
@@ -201,13 +212,12 @@ h6,
     .profile {
         gap: 0;
         flex-direction: column;
-        padding-top: 15rem;
-        height: 80vh;
+        padding-top: 5rem;
     }
 
     .sing-up {
         flex-direction: column;
-        padding-top: 38rem;
+        padding-top: 5rem;
         gap: 5rem;
     }
 
@@ -219,7 +229,7 @@ h6,
     .contact {
         flex-direction: column;
         height: auto;
-        padding-top: 30rem;
+        padding-top: 8rem !important;
     }
 
     .contact-us {
@@ -232,7 +242,6 @@ h6,
 }
 
 @media screen and (max-width: 840px) {
-
     .img-infos,
     .img-quiz {
         width: 34.38rem;
@@ -275,6 +284,10 @@ h6,
     .img-infos,
     .img-quiz {
         width: 22.38rem;
+    }
+
+    .contact-us {
+        margin-top: 6rem;
     }
 }
 

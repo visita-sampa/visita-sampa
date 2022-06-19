@@ -17,6 +17,9 @@ class QuizController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()) {
+            return redirect()->route('login', app()->getLocale());
+        }
         $answer = DB::table('usuario_questionario_resposta')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)->whereNotNull('fk_respostas_id_resposta')->get();
         $questions = DB::table('questao')->get();
         $alternatives = DB::table('alternativa')->get();

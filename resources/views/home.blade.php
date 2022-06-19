@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -71,7 +72,7 @@
     <div class="infos">
       <div class="description-box">
         <h3>{{ __('Explore eventos, locais e experiências') }}</h3>
-      </div>      
+      </div>
       <img class="img-infos" src="/assets/img/pagVisitaSampa.png">
     </div>
     <div class="profile">
@@ -88,7 +89,7 @@
       </div>
       <img class="img-sing-up" src="/assets/img/roadMapVisitaSampa.png">
     </div>
-    <div class="contact">
+    <div class="contact pt-5">
       <h3>{{ __('Como você prefere falar com a gente') }}?</h3>
       <div class="contact-us">
         <div class="email">
@@ -123,7 +124,7 @@
             &copy; 2021 Copyright:
           </p>
           <p class="text-dark">
-          {{ __('Todos os direitos reservados') }}
+            {{ __('Todos os direitos reservados') }}
           </p>
         </div>
         <!-- Grid column -->
@@ -168,7 +169,7 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-3 text-dark">
-          {{ __('Sobre') }}
+            {{ __('Sobre') }}
           </h6>
           <p>
             <a href="#!" class="text-decoration-none text-dark">{{ __('Política de Privacidade') }}</a>
