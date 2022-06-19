@@ -24,7 +24,7 @@ use App\Http\Controllers\PublicationController;
 |
 */
 
-Route::redirect('/', '/pt/quiz');
+Route::redirect('/', '/pt/home');
 // Route::redirect('/', '/pt');
 
 
@@ -40,34 +40,34 @@ Route::group(['prefix' => '{language}'], function () {
     Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
     Route::get('/roadMap', [RoadMapController::class, 'index'])->name('roadMap');
     Route::get('/user', [UserController::class, 'index'])->name('user');
-    // Route::get('/touristSpot', [TouristSpotController::class, 'index'])->name('touristSpot');
 
     Route::get('/touristSpot/{id?}', [TouristSpotController::class, 'show'])->name('touristSpot.show');
 
-    Route::post('/addPost', [PublicationController::class, 'store'])->name('publication.store');
-
     Route::post('/send', [QuizController::class, 'store'])->name('quiz.store');
-
+    
     // user registration routes
     Route::get('/register', [UserController::class, 'register'])->name('register');
     Route::post('/register', [UserController::class, 'store'])->name('user.store');
-
+    
     // user authentication routes
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'validateLogin'])->name('validate.login');
-
-    Route::post('/addEvent', [EventController::class, 'store'])->name('event.store');
-    Route::post('/addTouristSpot', [TouristSpotController::class, 'store'])->name('touristSpot.store');
     
-    Route::group(['middleware' => ['auth']], function () {
+    // Route::post('/addEvent', [EventController::class, 'store'])->name('event.store');
+    // Route::post('/addTouristSpot', [TouristSpotController::class, 'store'])->name('touristSpot.store');
 
+    Route::group(['middleware' => ['auth']], function () {
+        // upload publications routes
+        Route::post('/addPost', [PublicationController::class, 'store'])->name('publication.store');
+        Route::post('/cropPost', [PublicationController::class, 'crop'])->name('publication.crop');
+
+        // upload profile pic route
         Route::post('/crop', [UserController::class, 'crop'])->name('user.crop');
 
+        // logout route
         Route::get('/logout', function () {
             Auth::logout();
             return redirect()->route('login', app()->getLocale());
         })->name('logout');
-
-        
     });
 });

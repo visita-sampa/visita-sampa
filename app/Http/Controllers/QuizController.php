@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\quiz;
+use App\Models\answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class QuizController extends Controller
 {
@@ -15,9 +17,10 @@ class QuizController extends Controller
      */
     public function index()
     {
+        $answer = DB::table('usuario_questionario_resposta')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)->whereNotNull('fk_respostas_id_resposta')->get();
         $questions = DB::table('questao')->get();
         $alternatives = DB::table('alternativa')->get();
-        return view('quiz', compact('questions'), compact('alternatives'));
+        return view('quiz', ['questions' => $questions, 'alternatives' => $alternatives, 'answer' => $answer]);
         // $data = quiz::query()->questions();
         // $data = quiz::where('id_estado', 1);
         // $data = quiz::all();
@@ -45,10 +48,31 @@ class QuizController extends Controller
 
         $answers = array_slice($answers, 1, 15);
 
-        $insert = DB::insert("insert into respostas (questao_1, questao_2, questao_3, questao_4, questao_5, questao_6, questao_7, questao_8, questao_9, questao_10, questao_11, questao_12, questao_13, questao_14, questao_15) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [$answers['question-1'], $answers['question-2'], $answers['question-3'], $answers['question-4'], $answers['question-5'], $answers['question-6'], $answers['question-7'], $answers['question-8'], $answers['question-9'], $answers['question-10'], $answers['question-11'], $answers['question-12'], $answers['question-13'], $answers['question-14'], $answers['question-15']]);
+        $answer = new Answer;
+
+        $answer->questao_1 = $answers['question-1'];
+        $answer->questao_2 = $answers['question-2'];
+        $answer->questao_3 = $answers['question-3'];
+        $answer->questao_4 = $answers['question-4'];
+        $answer->questao_5 = $answers['question-5'];
+        $answer->questao_6 = $answers['question-6'];
+        $answer->questao_7 = $answers['question-7'];
+        $answer->questao_8 = $answers['question-8'];
+        $answer->questao_9 = $answers['question-9'];
+        $answer->questao_10 = $answers['question-10'];
+        $answer->questao_11 = $answers['question-11'];
+        $answer->questao_12 = $answers['question-12'];
+        $answer->questao_13 = $answers['question-13'];
+        $answer->questao_14 = $answers['question-14'];
+        $answer->questao_15 = $answers['question-15'];
+
+        $answer->save();
+
+        DB::table('usuario_questionario_resposta')
+            ->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+            ->update(['fk_respostas_id_resposta' => $answer->id_resposta]);
 
         return redirect()->route('roadMap', app()->getLocale());
-        // return $answers;
     }
 
     /**

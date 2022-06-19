@@ -88,24 +88,13 @@
     grid-area: comment-publication;
 }
 
-/* .close {
-    border: none;
-    background: transparent;
-    padding-right: 1rem;
-}
-
-.close-publication {
-    display: flex;
-    justify-content: flex-end;
-} */
-
 .btn-close {
     font-size: 0.8rem;
 }
 
 .img-publication-area {
-    width: 35.8rem;
-    height: 26.8rem;
+    min-width: 35.8rem;
+    min-height: 26.8rem;
     grid-area: img;
 }
 
@@ -114,17 +103,8 @@
     top: 7.5rem;
 }
 
-.img-publication {
-    width: 100%;
-    border-radius: 5px 0 0 5px;
-    grid-area: img;
-}
-
-.comment {
-    width: 22rem;
-    margin-right: 1rem;
-    display: flex;
-    margin-top: -11rem;
+.post-img {
+    z-index: 1;
 }
 
 .user {
@@ -164,32 +144,36 @@ p.user-name {
     font-size: 14px;
 }
 
-.user-comment {
-    margin-top: 1rem;
-}
-
-.name-comment {
-    font-weight: 600;
-    font-size: 16px;
-    margin-right: 0.3rem;
-}
-
-.post-date {
-    font-size: 12px;
-    color: #8e8e8e;
-    margin-left: 4.56rem;
-    text-transform: uppercase;
-}
-
-.report {
+.btn-new-post {
     border: none;
     background: transparent;
     margin-right: 1rem;
 }
 
-.icon-alert-triangle {
-    font-size: 18px;
-    color: var(--pink);
+.btn-information {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1.63rem 1.06rem 1.63rem;
+}
+
+.btn-submit {
+    width: 6.88rem;
+    height: 2.56rem;
+    border-radius: 5px;
+    border: 1px var(--blue) solid;
+    color: var(--blue);
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    transition: 0.3s;
+    color: var(--blue);
+    transform: scale(1.05);
 }
 
 .select-img-fixed {
@@ -201,6 +185,7 @@ p.user-name {
     transition: 0.3s;
     opacity: 0;
     font-size: 1.3rem;
+    z-index: 2;
     color: var(--light-gray);
 }
 
@@ -222,6 +207,20 @@ p.user-name {
     .tourist-spot-container {
         grid-template-columns: auto;
     }
+
+    .modal {
+        overflow: auto;
+    }
+
+    .modal-dialog {
+        max-width: fit-content;
+        height: calc(100vh + 300px);
+    }
+
+    .modal-body {
+        display: flex;
+        flex-direction: column-reverse;
+    }
 }
 
 @media screen and (max-width: 840px) {
@@ -231,6 +230,20 @@ p.user-name {
 
     .posts {
         grid-template-columns: auto;
+    }
+
+    .modal-content {
+        max-width: 30rem;
+    }
+
+    .img-publication-area {
+        min-width: fit-content;
+        min-height: 18rem;
+    }
+
+    .img-publication-area .icon-image {
+        font-size: 4rem !important;
+        top: 3.5rem;
     }
 }
 
@@ -245,12 +258,40 @@ p.user-name {
 }
 
 @media screen and (max-width: 440px) {
+    .tourist-spot-container > img {
+        width: 18rem;
+    }
+
     .posts {
         margin-top: 2rem;
     }
 
     .posts > img {
         width: 18rem;
+    }
+
+    .modal-dialog {
+        max-width: fit-content;
+        height: calc(100vh + 100px);
+    }
+
+    .modal-content {
+        max-width: 18rem;
+    }
+
+    .img-publication-area {
+        min-height: 15rem;
+    }
+
+    .img-publication-area .icon-image {
+        font-size: 3rem !important;
+        top: 3rem;
+    }
+
+    .btn-submit {
+        width: 4.88rem;
+        height: 2.1rem;
+        font-size: 0.95rem;
     }
 }
 

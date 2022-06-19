@@ -28,6 +28,14 @@ form {
     align-items: center;
 }
 
+.alternative-label {
+    height: 100%;
+}
+
+input[type="radio"]:checked + label {
+    border: 2px dotted var(--pink);
+}
+
 .card-body.question-index {
     display: grid;
     grid-template-columns: repeat(5, 4fr);
@@ -70,12 +78,17 @@ form {
     margin-bottom: 0;
     height: 100%;
     width: 100%;
-    background-color: #34648d96;
-    border: 1px var(--blue) solid;
+    background-color: #34648d96 !important;
+    border: 1px var(--blue) solid !important;
     border-radius: 0.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.check {
+    background-color: rgba(6, 214, 160, 0.3);
+    border: 1px var(--green) solid;
 }
 
 .quiz > button > p {
@@ -101,6 +114,39 @@ form {
 
 .card-body.question-index {
     grid-template-columns: repeat(4, 4fr);
+}
+
+/* modal */
+.modal {
+    overflow: hidden;
+}
+
+.modal-dialog {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.modal-content {
+    width: 21.88rem;
+    height: 15.63rem;
+}
+
+.modal-header {
+    justify-content: center;
+}
+
+.modal-body {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.modal-footer a {
+    color: var(--pink);
 }
 
 /* Media Screen */
@@ -220,5 +266,9 @@ form {
         font-size: 0.85rem;
         width: 128px;
         height: 37px;
+    }
+
+    .modal-dialog {
+        width: auto;
     }
 }

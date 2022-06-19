@@ -83,6 +83,7 @@ body > div.container {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
     transition: 0.3s;
 }
 

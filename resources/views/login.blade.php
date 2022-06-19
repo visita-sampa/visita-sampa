@@ -77,7 +77,7 @@
               <input type="email" name="emailSignup" id="emailSignup" placeholder="E-mail" autocomplete="off" class="input-signup" required>
               <input type="password" name="passwordSignup" id="passwordSignup" placeholder="{{ __('Senha') }}" autocomplete="off" class="input-signup" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#_])[0-9a-zA-Z$*&@#_]{6,12}$" title="A senha deve conter entre 6 e 12 caracteres, ter pelo menos uma letra maiúscula e uma letra minúscula, um número e um símbolo (#, @, _, $, &, *)" required>
               <input type="checkbox" name="showPass" id="showPass" class="d-none">
-              <label for="showPass" id="eye" class="showPass icon-eye-off"><span class="msg-pass">Mostrar senha</span></label>
+              <label for="showPass" id="eye" class="showPass icon-eye-off"><span class="msg-pass">{{ __('Mostrar senha') }}</span></label>
               <button type="submit" class="btn-signup">{{ __('Cadastrar') }}</button>
             </form>
             <p>{{ __('Já tem cadastro?') }} <a href="#" class="text-decoration-underline" onclick="login()">{{ __('Entre em sua conta') }}</a></p>
@@ -89,6 +89,8 @@
               @csrf
               <input type="text" name="login" id="login" placeholder="{{ __('E-mail ou Nome de usuário') }}" autocomplete="off" class="input-signup" required>
               <input type="password" name="passwordLogin" id="passwordLogin" placeholder="{{ __('Senha') }}" autocomplete="off" class="input-signup" required>
+              <input type="checkbox" name="showPass" id="showPassLogin" class="d-none">
+              <label for="showPassLogin" id="eyeLogin" class="showPass login icon-eye-off"><span class="msg-pass">{{ __('Mostrar senha') }}</span></label>
               <button type="submit" class="btn-signup">{{ __('Entrar') }}</button>
             </form>
             <p class="link-signup">{{ __('Não tem cadastro?') }}&nbsp;<a href="#" class="text-decoration-underline" onclick="login(1)">{{ __('Cadastre-se') }}</a></p>
@@ -114,7 +116,7 @@
             &copy; 2021 Copyright:
           </p>
           <p class="text-dark">
-            Todos os direitos reservados
+          {{ __('Todos os direitos reservados') }}
           </p>
         </div>
         <!-- Grid column -->
@@ -126,13 +128,13 @@
             Home
           </h6>
           <p>
-            <a href="#!" class="text-decoration-none text-dark">Perfil</a>
+            <a href="#!" class="text-decoration-none text-dark">{{ __('Perfil') }}</a>
           </p>
           <p>
-            <a href="#!" class="text-decoration-none text-dark">Teste</a>
+            <a href="#!" class="text-decoration-none text-dark">{{ __('Teste') }}</a>
           </p>
           <p>
-            <a href="#!" class="text-decoration-none text-dark">Roteiro</a>
+            <a href="#!" class="text-decoration-none text-dark">{{ __('Roteiro') }}</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -159,13 +161,13 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            Sobre
+          {{ __('Sobre') }}
           </h6>
           <p>
-            <a href="#!" class="text-decoration-none text-dark">Política de Privacidade</a>
+            <a href="#!" class="text-decoration-none text-dark">{{ __('Política de Privacidade') }}</a>
           </p>
           <p>
-            <a href="#!" class="text-decoration-none text-dark">Nossa Equipe</a>
+            <a href="#!" class="text-decoration-none text-dark">{{ __('Nossa Equipe') }}</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -173,11 +175,12 @@
       <!-- Grid row -->
     </div>
   </footer>
-  <!-- Footer -->
+
   <script src="/assets/js/jquery.slim.min.js"></script>
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="/assets/js/login.js"></script>
+  
 </body>
 
 </html>

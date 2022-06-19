@@ -76,11 +76,19 @@ body > div.container {
     height: 2.56rem;
     border-radius: 5px;
     border: 1px var(--blue) solid;
+    color: var(--blue);
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: transparent;
+    transition: 0.3s;
 }
 
 .btn-see-more:hover {
-    border: 2px var(--blue) solid;
+    transition: 0.3s;
+    color: var(--blue);
+    transform: scale(1.05);
 }
 
 /* Media Screen */

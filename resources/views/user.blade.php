@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
+                    <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
                         <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
                     </a>
                 </li>
@@ -97,13 +97,13 @@
     </div>
 
     <main class="profile-page">
-        <section class="profile d-flex justify-content-center mt-5">
+        <section class="profile d-flex justify-content-center m-5">
             @auth
             <div class="profile-container d-flex">
                 <div class="rounded-circle position-relative">
                     <img src="{{ auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle">
                     <label for="profile-pic" class="position-absolute w-100 h-100 bg-gray top-0 p-3 text-center rounded-circle d-flex justify-content-center align-items-center change-profile-img">
-                        Trocar foto de perfil
+                    {{ __('Trocar foto de perfil') }}
                     </label>
                 </div>
                 <input type="file" name="profile-pic" id="profile-pic" class="d-none">
@@ -111,33 +111,37 @@
                 <div class="bio">
                     <h3>{{auth::user()->nome}}</h3>
                     <h4>&#64;{{auth::user()->nome_usuario}}</h4>
-                    <p>
-                        Minhas cores favoritas são rosa e azul<br>
-                        Gastronomia<br>
-                        São Paulo
-                    </p>
+                    <p>{{auth::user()->descricao}}</p>
                     <div class="bio-footer d-grid">
-                        <span>Tipo de perfil</span>
-                        <strong><span>Aventureiro</span></strong>
-                        <span>Minhas publicações</span>
-                        <strong><span>256</span></strong>
+                        <span>{{ __('Tipo de perfil') }}</span>
+                        @csrf
+                        @if(!$profile->isEmpty())
+                        @foreach ($profile as $prof)
+                        <strong><span>{{$prof->nome_classificacao}}</span></strong>
+                        @endforeach
+                        @else
+                        <strong><span>-</span></strong>
+                        @endif
+                        <span>{{ __('Minhas publicações') }}</span>
+                        @if($publications)
+                        <strong><span>{{$publications->count()}}</span></strong>
+                        @else
+                        <strong><span>-</span></strong>
+                        @endif
                     </div>
                 </div>
             </div>
             @endauth
             <div class="btns d-flex">
-                <input type="button" value="Editar Perfil" class="btn-edit">
-                <input type="button" value="Nova Publicação" class="btn-pub">
-                <a href="{{ route('logout', app()->getLocale()) }}">Sair</a>
+                <!-- <input type="button" value="Editar Perfil" class="btn-edit">
+                <input type="button" value="Nova Publicação" class="btn-pub"> -->
+                <a href="{{ route('logout', app()->getLocale()) }}" class="btn-logout">{{ __('Sair') }}</a>
             </div>
         </section>
         <section class="posts d-grid justify-content-center">
-            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-            <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
+            @foreach($publications as $post)
+            <img src="{{$post->midia}}" alt="">
+            @endforeach
         </section>
     </main>
 

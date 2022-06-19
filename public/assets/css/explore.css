@@ -59,12 +59,6 @@ textarea:hover {
     position: relative;
 }
 
-.local-image:hover {
-    transition: 0.3s;
-    opacity: 0.5;
-    border-radius: 8px;
-}
-
 .grid-container {
     margin-bottom: 1.8rem;
     display: grid;
@@ -91,11 +85,11 @@ textarea:hover {
     display: flex;
     width: 22.69rem;
     height: 17rem;
-    z-index: 1;
     position: absolute;
     top: 0;
-    visibility: hidden;
     opacity: 0;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
 }
 
 .open-image:hover {
@@ -110,9 +104,10 @@ textarea:hover {
     border: 1px var(--white) solid;
     background-color: transparent;
     color: var(--white);
-    z-index: 2;
     visibility: visible;
     opacity: 1;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Abrir publicação */
@@ -152,6 +147,13 @@ textarea:hover {
     grid-area: modal-header;
 }
 
+.modal-image {
+    object-fit: cover;
+    width: 100%;
+    height: 29rem;
+    border-radius: 5px;
+}
+
 .comment-publication {
     grid-area: comment-publication;
 }
@@ -173,7 +175,9 @@ textarea:hover {
 }
 
 .img-publication {
+    object-fit: cover;
     width: 100%;
+    height: 29rem;
     border-radius: 5px 0 0 5px;
     grid-area: img;
 }
@@ -182,7 +186,7 @@ textarea:hover {
     width: 22rem;
     margin-right: 1rem;
     display: flex;
-    margin-top: -11rem;
+    margin-top: -24.75rem;
 }
 
 .user {
@@ -270,6 +274,14 @@ p.user-name {
 }
 
 @media screen and (max-width: 990px) {
+    .modal {
+        overflow: auto;
+    }
+
+    .modal-dialog {
+        height: calc(100vh + 200px);
+    }
+
     .modal-body {
         display: flex;
         flex-wrap: wrap;
@@ -358,7 +370,7 @@ p.user-name {
 
 @media screen and (max-width: 470px) {
     .modal-content {
-        width: 100%;
+        width: 95%;
     }
 }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\touristSpot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class TouristSpotController extends Controller
@@ -55,9 +56,34 @@ class TouristSpotController extends Controller
     {
         Auth::user();
         
-        $touristSpot = TouristSpot::where('id_ponto_turistico', $id)->get();
+        // $touristSpot = TouristSpot::where('id_ponto_turistico', $id)->get();
+        $touristSpot = DB::table('ponto_turistico')
+        ->join('endereco', function ($join) {
+            $join->on('ponto_turistico.fk_endereco_id_endereco', '=', 'endereco.id_endereco');
+        })
+        ->join('bairro', function ($join) {
+            $join->on('endereco.fk_bairro_id_bairro', '=', 'bairro.id_bairro');
+        })
+        ->join('cidade', function ($join) {
+            $join->on('bairro.fk_cidade_id_cidade', '=', 'cidade.id_cidade');
+        })
+        ->join('estado', function ($join) {
+            $join->on('cidade.fk_estado_id_estado', '=', 'estado.id_estado');
+        })
+        ->where('ponto_turistico.id_ponto_turistico', '=', $id)
+        ->select('ponto_turistico.id_ponto_turistico', 'ponto_turistico.nome_ponto_turistico', 'ponto_turistico.informacoes', 'ponto_turistico.imagem', 'endereco.logradouro', 'endereco.cep', 'endereco.numero', 'endereco.complemento', 'bairro.nome_bairro', 'cidade.nome_cidade', 'estado.nome_estado')
+        ->get();
 
-        return view('touristSpot', ['touristSpot' => $touristSpot]);
+        $publications = DB::table('publicacao')
+            ->join('usuario', function ($join) {
+                $join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');
+            })
+            ->where('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', $id)
+            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'publicacao.data', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
+            ->orderBy('id_publicacao', 'desc')
+            ->get();
+
+        return view('touristSpot', ['touristSpot' => $touristSpot, 'publications' => $publications]);
     }
 
     /**

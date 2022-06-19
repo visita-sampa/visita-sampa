@@ -17,6 +17,15 @@ class EventController extends Controller
     {
         $events = DB::table('eventos')->get();
 
+        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        date_default_timezone_set('America/Sao_Paulo');
+
+        $now = time(); 
+        
+        foreach($events as $event) {
+            $event->data_evento = strftime('%A, %d de %B de %Y', strtotime($event->data_evento));
+        }
+
         return view('event', ['events' => $events]);
     }
 

@@ -9,13 +9,4 @@ use Illuminate\Support\Facades\DB;
 class quiz extends Model
 {
     use HasFactory;
-
-    // protected $table = 'estado';
-
-    // public function questions() {
-    //     $questions = DB::table('questao')->get();
-    //     return $questions;
-    //     // return $this->query->get('*')->all();
-    //     // return view('quiz',compact('questions'));
-    // }
 }

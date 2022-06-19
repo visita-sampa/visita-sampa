@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
+                    <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
                         <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
                     </a>
                 </li>
@@ -112,9 +112,9 @@
                                     @foreach ($alternatives as $alternative)
                                     @if($alternative->fk_questao_id_questao == $question->id_questao)
                                     <div class="card my-3">
-                                        <div class="card-body">
-                                            <input class="input-alternative" value="{{$alternative->id_alternativa}}" type="radio" name="question-{{$question->id_questao}}" id="alternative-{{$alternative->id_alternativa}}">
-                                            <label id="" class="alternativa" for="alternative-{{$alternative->id_alternativa}}">
+                                        <div class="card-body p-0">
+                                            <input class="input-alternative d-none" value="{{$alternative->id_alternativa}}" type="radio" name="question-{{$question->id_questao}}" id="alternative-{{$alternative->id_alternativa}}">
+                                            <label id="" class="alternative-label w-100 p-3" for="alternative-{{$alternative->id_alternativa}}">
                                                 {{$alternative->enunciado}}.
                                             </label>
                                         </div>
@@ -216,20 +216,46 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
-    </main>
 
+        @csrf
+        @if(!$answer->isEmpty())
+        <div class="modal fade" id="quiz-or-roadmap" tabindex="-1" aria-labelledby="quiz-or-roadmap-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <h5 class="modal-title" id="quiz-or-roadmap-modal-title">{{ __('DENÚNCIA') }}</h5>
+                    </div> -->
+                    <div class="modal-body">
+                        <p>{{ __('Você deseja visualizar seu roteiro ou responder o questionário novamente') }}?</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <a href="{{ route('roadMap', app()->getLocale()) }}" class="btn cancel">
+                            {{ __('Roteiro') }}
+                        </a>
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            {{ __('Responder novamente') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+    </main>
 
     <script src="/assets/js/jquery.slim.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="/assets/js/quiz.js"></script>
-
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script>
+        $(window).load(function() {
+            $('#quiz-or-roadmap').modal('show');
+        });
+
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)

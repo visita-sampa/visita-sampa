@@ -71,7 +71,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
+          <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
             <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
           </a>
         </li>
@@ -97,18 +97,16 @@
   <main class="">
     <div class="container">
 
-      @if(!empty($posts))
-      @foreach ($posts as $post)
-      @foreach ($users as $user)
-      @if($post->fk_usuario_id_usuario == $user->id_usuario)
+      @if(!empty($publications))
+      @foreach ($publications as $post)
       <div class="card">
         <div class="user">
           <div class="user-image">
-            <img src="{{$user->foto_perfil}}">
+            <img src="{{$post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}">
           </div>
           <div class="post-header">
             <p class="user-name">
-              {{$user->nome_usuario}}
+              {{$post->nome_usuario}}
             </p>
             <button class="report" type="button" data-bs-toggle="modal" data-bs-target="#report-post-modal-1">
               <i class="icon-alert-triangle"></i>
@@ -153,8 +151,6 @@
             </div>
           </div>
         </div>
-        @endif
-        @endforeach
         <img src="{{$post->midia}}" class="card-img-top">
         <div class="card-body">
           <p class="card-text">

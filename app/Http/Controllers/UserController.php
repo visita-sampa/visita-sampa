@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Auth;
 use Hash;
 use App\Models\User;
@@ -16,11 +17,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Auth::user()) {
-            return view('user');
-        } else {
-            return view('login');
+        if (!Auth::user()) {
+            return redirect()->route('login', app()->getLocale());
         }
+        
+        $profile = DB::table('classificacao_perfil_roteiro')
+            ->where('id_classificacao', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao)
+            ->get();
+
+        $publications = DB::table('publicacao')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+            ->orderBy('id_publicacao', 'desc')
+            ->get();
+        
+        return view('user',  ['profile' => $profile, 'publications' => $publications]);
     }
 
     /**

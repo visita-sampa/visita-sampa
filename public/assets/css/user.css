@@ -4,7 +4,7 @@
 
 /* seção de perfil (infos, foto, editar perfil) */
 .profile {
-    gap: 13rem;
+    gap: 8rem;
     font-size: 14px;
 }
 
@@ -37,6 +37,7 @@
 
 /* infos do perfil */
 .bio {
+    max-width: 25rem;
     font-weight: 300;
 }
 
@@ -57,6 +58,7 @@ h4 {
 
 /* tipo de perfil e minhas publicações */
 .bio-footer {
+    min-width: 15rem;
     margin-top: 1.4rem;
     grid-template-columns: auto auto;
 }
@@ -80,6 +82,17 @@ h4 {
 .btn-pub:hover {
     color: var(--white);
     background-color: var(--blue);
+}
+
+.btn-logout {
+    text-decoration: none;
+    color: var(--pink);
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    transition: 0.3s;
+    transform: scale(1.05);
 }
 
 /* seção das publicaçoes do usuario */

@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
+                    <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
                         <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
                     </a>
                 </li>
@@ -102,8 +102,8 @@
                 <div class="tourist-spot-container d-grid justify-content-center">
                     <img src="{{ $point->imagem }}" alt="">
                     <div class="tourist-spot-info">
-                        <h2>{{ $point->nome }}</h2>
-                        <p class="address">Av. Paulista, 1578 - Bela Vista, São Paulo - SP, 01310-200</p>
+                        <h2>{{ $point->nome_ponto_turistico }}</h2>
+                        <p class="address">{{ $point->logradouro }}, {{ $point->numero }} - {{ $point->nome_bairro }}, {{ $point->nome_cidade }} - {{ $point->nome_estado }}, {{ $point->cep }}{{ $point->complemento != '' ?  '. '.$point->complemento : ''}}</p>
                         <p class="description">{{ $point->informacoes }}</p>
                     </div>
                 </div>
@@ -111,74 +111,73 @@
             <section class="mt-5">
                 <div class="d-flex justify-content-between">
                     <h1 class="title">{{ __('Veja quem já visitou') }}</h1>
-                    <button class="report" type="button" data-bs-toggle="modal" data-bs-target="#new-post-modal">
+                    @auth
+                    <button class="btn-new-post" type="button" data-bs-toggle="modal" data-bs-target="#new-post-modal">
                         <i class="icon-plus"></i>
                     </button>
 
-                    <div class="modal fade" id="new-post-modal" tabindex="-1" aria-labelledby="new-post-modal" aria-hidden="true">
+                    <div class="modal fade p-0" id="new-post-modal" tabindex="-1" aria-labelledby="new-post-modal" aria-hidden="true">
                         <form action="{{ route('publication.store', app()->getLocale()) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                        <div class="position-relative img-publication-area d-flex justify-content-center">
-                                            <img src="" alt="" class="post-img">
-                                            <i class="icon-image position-absolute"></i>
+                                        <div class="position-relative img-publication-area d-flex justify-content-center align-items-center">
+                                            <img src="" alt="" id="img-preview" class="post-img position-absolute w-100">
                                             <label for="newPost" class="position-absolute w-100 h-100 top-0 p-3 text-center d-flex justify-content-center align-items-center select-img-fixed">
-                                                Selecionar arquivo
+                                                <i class="icon-image position-absolute"></i>
+                                                {{ __('Selecionar arquivo') }}
                                             </label>
                                             <label for="newPost" class="position-absolute w-100 h-100 top-0 p-3 text-center d-flex justify-content-center align-items-center select-img">
-                                                Selecionar arquivo
+                                                <i class="icon-image text-light position-absolute"></i>
+                                                {{ __('Selecionar arquivo') }}
                                             </label>
-                                            <input type="file" name="newPost" id="newPost" class="">
+                                            <input type="file" name="newPost" id="newPost" class="d-none">
+                                            <input type="hidden" name="fileAux" id="fileAux" class="">
                                         </div>
                                         <!-- <img src="https://veja.abril.com.br/wp-content/uploads/2016/05/alx_sao-paulo-cultura-museu-masp-avenida-paulista-20140222-001_original2.jpeg" class="img-publication"> -->
                                         <!-- Informações Usuário -->
                                         <div>
                                             <div class="modal-header p-3">
-                                                @auth
                                                 <div class="user">
                                                     <div class="user-image">
-                                                        <img src="{{auth::user()->foto_perfil}}">
+                                                        <img src="{{ auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : auth::user()->foto_perfil}}">
                                                     </div>
                                                     <div class="user-information">
                                                         <p class="user-name">
                                                             {{auth::user()->nome}}
                                                         </p>
                                                         <p class="user-localization">
-                                                            {{ $point->nome }}
+                                                            {{ $point->nome_ponto_turistico }}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                @endauth
                                                 <!-- Denuncia -->
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <!-- Comentário Publicação -->
-                                            <div class="description-publication">
+                                            <!-- Descrição Publicação -->
+                                            <div class="description-publication d-grid">
                                                 <input type="hidden" name="touristSpotId" id="touristSpotId" value="{{ $point->id_ponto_turistico }}">
                                                 <textarea name="postDescription" id="postDescription" class="m-4 p-2" placeholder="{{ __('Escreva sua experiência com o local') }}" cols="35" rows="5"></textarea>
                                             </div>
-                                            <input type="submit" value="Enviar">
+                                            <input type="submit" value="Publicar" class="mx-4 float-end btn-submit">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>          
+                        </form>
                     </div>
+                    @endauth
                 </div>
-                <div class="mt-5 posts d-grid justify-content-center">
-                    <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-                    <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-                    <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-                    <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-                    <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
-                    <img src="https://itforum.com.br/wp-content/uploads/2020/02/Sao-Paulo-e-a-terceira-cidade-do-mundo-que-mais-sera-impactada-pela-mobilidade.jpg" alt="">
+                <div class="my-5 posts d-grid justify-content-center">
+                    @foreach($publications as $post)
+                    <img src="{{$post->midia}}" alt="">
+                    @endforeach
                 </div>
             </section>
         </div>
         @endforeach
-        <!-- <form action="{{ route('touristSpot.store', app()->getLocale()) }}" method="POST" enctype="multipart/form-data">
+        <!-- <form action="" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="image">Imagem do Evento:</label>
@@ -203,19 +202,31 @@
     </script>
 
     <script>
-        // $('#newPost').ijaboCropTool({
-        //     preview: '.post-img',
-        //     setRatio: 7 / 5,
-        //     processUrl:'{{ route("publication.store", app()->getLocale()) }}',
-        //     withCSRF:['_token','{{ csrf_token() }}'],
-        //     buttonsText: ['Salvar', 'Cancelar'],
-        //     onSuccess: function(message, element, status) {
-        //         alert(message);
-        //     },
-        //     onError: function(message, element, status) {
-        //         alert(message);
-        //     }
+        // var inputFile = document.getElementById('img-preview');
+
+        // inputFile.addEventListener('loadeddata', function() {
+        //     alert('chegou');
         // });
+    </script>
+
+    <script>
+        $('#newPost').ijaboCropTool({
+            preview: '.post-img',
+            setRatio: 7 / 5,
+            processUrl: '{{ route("publication.crop", app()->getLocale()) }}',
+            withCSRF: ['_token', '{{ csrf_token() }}'],
+            buttonsText: ['Salvar', 'Cancelar'],
+            onSuccess: function(message, element, status) {
+                var image = document.getElementById('img-preview').src;
+                var inputFile = document.getElementById('fileAux');
+                inputFile.value = image;
+                console.log(inputFile);
+                alert(message);
+            },
+            onError: function(message, element, status) {
+                alert(message);
+            }
+        });
     </script>
 
 </body>

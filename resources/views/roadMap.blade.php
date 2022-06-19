@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">
+                    <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
                         <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
                     </a>
                 </li>
@@ -104,7 +104,7 @@
                         <img src="{{$ponto->imagem}}" class="card-img-top">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{$ponto->nome}}</h5>
+                        <h5 class="card-title">{{$ponto->nome_ponto_turistico}}</h5>
                         <p class="card-text">
                             {{$ponto->informacoes}}
                         </p>

@@ -46,7 +46,6 @@ btn_submit_form.addEventListener("click", (event) => {
 });
 
 // QUIZ PAGINATION
-
 // hide all questions
 var questions = document.querySelectorAll(".question-container");
 
@@ -67,6 +66,26 @@ function disabledQuizButton() {
     }
 }
 
+var last_question = 1;
+
+function markAnswered(index) {
+    var alternative = document.getElementsByName("question-" + index);
+    var btn_question = document.getElementById("btn-question-" + index);
+    var check = false;
+
+    for (let i = 0; i < alternative.length; i++) {
+        if (alternative[i].checked) {
+            check = true;
+        }
+    }
+
+    if (check) {
+        btn_question.classList.add("check");
+    } else {
+        btn_question.classList.remove("check");
+    }
+}
+
 // show selected question and updated index
 function switchQuestion(index) {
     var question = document.getElementById("question-" + index);
@@ -74,6 +93,10 @@ function switchQuestion(index) {
 
     hideQuestions();
     disabledQuizButton();
+
+    markAnswered(last_question);
+
+    last_question = index;
 
     question.classList.remove("question-disabled");
     btn_question.classList.add("quiz-button-active");

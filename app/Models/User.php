@@ -34,6 +34,8 @@ class User extends Authenticatable
         'nome_usuario',
         'email',
         'senha',
+        'descricao',
+        'fk_classificacao_perfil_roteiro_id_classificacao'
     ];
 
     /**

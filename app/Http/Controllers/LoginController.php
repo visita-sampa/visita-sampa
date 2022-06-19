@@ -17,8 +17,6 @@ class LoginController extends Controller
             return redirect()->route('user', app()->getLocale());
         else
             return view('login');
-
-        // return view('user');
     }
 
     public function validateLogin(Request $request)

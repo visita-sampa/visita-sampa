@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\feed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
+use Hash;
+use App\Models\User;
 
 class FeedController extends Controller
 {
@@ -15,44 +18,23 @@ class FeedController extends Controller
      */
     public function index()
     {
-        $alternatives = DB::select('SELECT * FROM alternativa');
-        $answers = DB::select('SELECT * FROM respostas ORDER BY id_resposta DESC LIMIT 1');
-        $count = [];
-        $id_user = [];
-        $msg = "";
-        $msg_user = "";
-        foreach ($answers as $answer) {
-            foreach ($alternatives as $alternative) {
-                for ($i = 1; $i <= 15; $i++) {
-                    $resp = "questao_" . $i;
-                    if ($answer->$resp == $alternative->id_alternativa) {
-                        array_push($count, $alternative->fk_classificacao_perfil_roteiro_id_classificacao);
-                    }
-                }
-            }
+        if (!Auth::user()) {
+            return redirect()->route('login', app()->getLocale());
         }
-        $count = array_count_values($count);
-        $count = array_keys($count, max($count));
-        $personalidade = $count[0];
 
-        $pontos = DB::select("SELECT * FROM ponto_turistico WHERE fk_roteiro_id_roteiro = $personalidade");
-        foreach ($pontos as $ponto) {
-            $msg .= "fk_ponto_turistico_id_ponto_turistico = " . $ponto->id_ponto_turistico . " OR ";
-        }
-        $msg = substr_replace($msg, '', -4);
-        $posts = DB::select("SELECT * FROM publicacao WHERE $msg");
-        if (!empty($posts)) {
-            foreach ($posts as $post) {
-                if (!in_array($post->fk_usuario_id_usuario, $id_user)) {
-                    $msg_user .= "id_usuario = " . $post->fk_usuario_id_usuario . " OR ";
-                    array_push($id_user, $post->fk_usuario_id_usuario);
-                }
-            }
-            $msg_user = substr_replace($msg_user, '', -4);
-            $user = DB::select("SELECT * FROM usuario WHERE $msg_user");
-            return view('feed', ['posts' => $posts, 'users' => $user]);
-        }
-        return view('feed', ['posts' => $posts]);
+        $publications = DB::table('publicacao')
+            ->join('usuario', function ($join) {
+                $join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');
+            })
+            ->join('ponto_turistico', function ($join) {
+                $join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico')
+                    ->where('ponto_turistico.fk_roteiro_id_roteiro', '=', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao);
+            })
+            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'publicacao.data', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
+            ->orderBy('id_publicacao', 'desc')
+            ->get();
+
+        return view('feed', ['publications' => $publications]);
     }
 
     /**
