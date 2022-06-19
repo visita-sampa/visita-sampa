@@ -103,7 +103,7 @@
                 @foreach ($events as $event)
                 <div class="grid-item">
                     <div class="local-image">
-                        <img src="{{$event->imagem}}" class="card-img-top">
+                        <img src="{{$event->imagem}}" class="card-img-top" alt="{{$event->nome}}">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{$event->nome}}</h5>
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div class="btn-information">
-                        <a href="{{$event->link}}" class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</a>
+                        <a href="{{$event->link}}" class="btn-see-more">{{ __('Ver Mais') }}</a>
                     </div>
                 </div>
                 @endforeach
