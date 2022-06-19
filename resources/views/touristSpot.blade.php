@@ -20,7 +20,9 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
             <div class="container">
-                <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa">
+                <a href="home">
+                    <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>

@@ -19,7 +19,9 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
       <div class="container">
-        <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa">
+        <a href="home">
+          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -116,7 +118,7 @@
             &copy; 2021 Copyright:
           </p>
           <p class="text-dark">
-          {{ __('Todos os direitos reservados') }}
+            {{ __('Todos os direitos reservados') }}
           </p>
         </div>
         <!-- Grid column -->
@@ -161,7 +163,7 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-3 text-dark">
-          {{ __('Sobre') }}
+            {{ __('Sobre') }}
           </h6>
           <p>
             <a href="#!" class="text-decoration-none text-dark">{{ __('Política de Privacidade') }}</a>
@@ -180,7 +182,7 @@
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="/assets/js/login.js"></script>
-  
+
 </body>
 
 </html>

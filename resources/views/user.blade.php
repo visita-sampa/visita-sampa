@@ -21,7 +21,9 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
             <div class="container">
-                <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa">
+                <a href="home">
+                    <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -103,7 +105,7 @@
                 <div class="rounded-circle position-relative">
                     <img src="{{ auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle">
                     <label for="profile-pic" class="position-absolute w-100 h-100 bg-gray top-0 p-3 text-center rounded-circle d-flex justify-content-center align-items-center change-profile-img">
-                    {{ __('Trocar foto de perfil') }}
+                        {{ __('Trocar foto de perfil') }}
                     </label>
                 </div>
                 <input type="file" name="profile-pic" id="profile-pic" class="d-none">
