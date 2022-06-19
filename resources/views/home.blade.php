@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
       <div class="container">
         <a href="home">
-          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa">
+          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="{{ __('Logo Visita Sampa') }}">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
           <span class="navbar-toggler-icon"></span>
@@ -75,7 +75,7 @@
       <div class="description-box">
         <h3>{{ __('Explore eventos, locais e experiências') }}</h3>
       </div>
-      <img class="img-infos" src="/assets/img/pagVisitaSampa.png">
+      <img class="img-infos" src="/assets/img/pagVisitaSampa.png" alt="{{ __('Páginas do Visita Sampa') }}">
     </div>
     <div class="profile">
       <img class="img-quiz" src="/assets/img/quizVisitaSampa.png" alt="{{ __('Faça o quiz Visita Sampa!') }}">
@@ -89,7 +89,7 @@
         <h3>{{ __('Conecte-se e descubra essa grande cidade') }}</h3>
         <button class="btn-sing-up"><a href="login">{{ __('CADASTRE-SE') }}</a></button>
       </div>
-      <img class="img-sing-up" src="/assets/img/roadMapVisitaSampa.png">
+      <img class="img-sing-up" src="/assets/img/roadMapVisitaSampa.png" alt="{{ __('Pontos Turísticos') }}">
     </div>
     <div class="contact pt-5">
       <h3>{{ __('Como você prefere falar com a gente') }}?</h3>
@@ -119,9 +119,7 @@
         <!-- Grid column -->
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
           <!-- Content -->
-          <h6 class="text-uppercase fw-bold">
-            <img src="/assets/img/logoVisitaSampa.png" class="logo me-3"></img>
-          </h6>
+          <img src="/assets/img/logoVisitaSampa.png" class="logo me-3" alt="{{ __('Logo Visita Sampa') }}">
           <p class="m-0 text-dark">
             &copy; 2021 Copyright:
           </p>
