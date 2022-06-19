@@ -7,10 +7,10 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 
 function login(tipo) {
     if (tipo == 1) {
-        document.getElementById("login").classList.add("d-none");
+        document.getElementById("logon").classList.add("d-none");
         document.getElementById("signup").classList.remove("d-none");
     } else {
-        document.getElementById("login").classList.remove("d-none");
+        document.getElementById("logon").classList.remove("d-none");
         document.getElementById("signup").classList.add("d-none");
     }
 }

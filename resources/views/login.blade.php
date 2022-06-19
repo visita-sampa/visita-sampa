@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
       <div class="container">
         <a href="home">
-          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa">
+          <img src="/assets/img/logoVisitaSampa.png" class="logo" alt="{{ __('Logo Visita Sampa') }}">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
           <span class="navbar-toggler-icon"></span>
@@ -85,7 +85,7 @@
             <p>{{ __('Já tem cadastro?') }} <a href="#" class="text-decoration-underline" onclick="login()">{{ __('Entre em sua conta') }}</a></p>
           </div>
 
-          <div id="login" class="signup d-none">
+          <div id="logon" class="signup d-none">
             <h2 class="title-login">{{ __('ENTRAR') }}</h2>
             <form method="POST" action="{{ route('validate.login', app()->getLocale()) }}" class="form-signup d-flex flex-column align-items-center">
               @csrf
@@ -111,9 +111,7 @@
         <!-- Grid column -->
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
           <!-- Content -->
-          <h6 class="text-uppercase fw-bold">
-            <img src="/assets/img/logoVisitaSampa.png" class="logo me-3"></img>
-          </h6>
+          <img src="/assets/img/logoVisitaSampa.png" class="logo me-3" alt="{{ __('Logo Visita Sampa') }}">
           <p class="m-0 text-dark">
             &copy; 2021 Copyright:
           </p>

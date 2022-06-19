@@ -37,6 +37,8 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
+        date_default_timezone_set('America/Sao_Paulo');
+
         $post = new Publication;
 
         $post->midia                                    = cloudinary()->upload($request->fileAux)->getSecurePath();
