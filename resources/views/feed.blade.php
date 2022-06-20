@@ -153,7 +153,7 @@
             </div>
           </div>
         </div>
-        <img src="{{$post->midia}}" class="card-img-top">
+        <img src="{{$post->midia}}" class="card-img-top" alt="{{$post->nome_ponto_turistico}}">
         <div class="card-body">
           <p class="card-text">
             {{$post->legenda}}
