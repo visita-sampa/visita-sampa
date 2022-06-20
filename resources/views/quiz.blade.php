@@ -133,80 +133,50 @@
                                         {{ __('Perguntas') }}
                                     </div>
                                     <div class="card-body question-index pt-0">
-                                        <div questao=1 class="quiz question-1" onclick="switchQuestion(1)">
-                                            <button type="button" class="quiz-button quiz-button-active" id="btn-question-1">
-                                                <p>1</p>
-                                            </button>
+                                        <div class="quiz question-1" onclick="switchQuestion(1)">
+                                            <button type="button" class="quiz-button p quiz-button-active" id="btn-question-1">1</button>
                                         </div>
-                                        <div questao=2 class="quiz question-2" onclick="switchQuestion(2)">
-                                            <button type="button" class="quiz-button" id="btn-question-2">
-                                                <p>2</p>
-                                            </button>
+                                        <div class="quiz question-2" onclick="switchQuestion(2)">
+                                            <button type="button" class="quiz-button p" id="btn-question-2">2</button>
                                         </div>
-                                        <div questao=3 class="quiz question-3" onclick="switchQuestion(3)">
-                                            <button type="button" class="quiz-button" id="btn-question-3">
-                                                <p>3</p>
-                                            </button>
+                                        <div class="quiz question-3" onclick="switchQuestion(3)">
+                                            <button type="button" class="quiz-button p" id="btn-question-3">3</button>
                                         </div>
-                                        <div questao=4 class="quiz question-4" onclick="switchQuestion(4)">
-                                            <button type="button" class="quiz-button" id="btn-question-4">
-                                                <p>4</p>
-                                            </button>
+                                        <div class="quiz question-4" onclick="switchQuestion(4)">
+                                            <button type="button" class="quiz-button p" id="btn-question-4">4</button>
                                         </div>
-                                        <div questao=5 class="quiz question-5" onclick="switchQuestion(5)">
-                                            <button type="button" class="quiz-button" id="btn-question-5">
-                                                <p>5</p>
-                                            </button>
+                                        <div class="quiz question-5" onclick="switchQuestion(5)">
+                                            <button type="button" class="quiz-button p" id="btn-question-5">5</button>
                                         </div>
-                                        <div questao=6 class="quiz question-6" onclick="switchQuestion(6)">
-                                            <button type="button" class="quiz-button" id="btn-question-6">
-                                                <p>6</p>
-                                            </button>
+                                        <div class="quiz question-6" onclick="switchQuestion(6)">
+                                            <button type="button" class="quiz-button p" id="btn-question-6">6</button>
                                         </div>
-                                        <div questao=7 class="quiz question-7" onclick="switchQuestion(7)">
-                                            <button type="button" class="quiz-button" id="btn-question-7">
-                                                <p>7</p>
-                                            </button>
+                                        <div class="quiz question-7" onclick="switchQuestion(7)">
+                                            <button type="button" class="quiz-button p" id="btn-question-7">7</button>
                                         </div>
-                                        <div questao=8 class="quiz question-8" onclick="switchQuestion(8)">
-                                            <button type="button" class="quiz-button" id="btn-question-8">
-                                                <p>8</p>
-                                            </button>
+                                        <div class="quiz question-8" onclick="switchQuestion(8)">
+                                            <button type="button" class="quiz-button p" id="btn-question-8">8</button>
                                         </div>
-                                        <div questao=9 class="quiz question-9" onclick="switchQuestion(9)">
-                                            <button type="button" class="quiz-button" id="btn-question-9">
-                                                <p>9</p>
-                                            </button>
+                                        <div class="quiz question-9" onclick="switchQuestion(9)">
+                                            <button type="button" class="quiz-button p" id="btn-question-9">9</button>
                                         </div>
-                                        <div questao=10 class="quiz question-10" onclick="switchQuestion(10)">
-                                            <button type="button" class="quiz-button" id="btn-question-10">
-                                                <p>10</p>
-                                            </button>
+                                        <div class="quiz question-10" onclick="switchQuestion(10)">
+                                            <button type="button" class="quiz-button p" id="btn-question-10">10</button>
                                         </div>
-                                        <div questao=11 class="quiz question-11" onclick="switchQuestion(11)">
-                                            <button type="button" class="quiz-button" id="btn-question-11">
-                                                <p>11</p>
-                                            </button>
+                                        <div class="quiz question-11" onclick="switchQuestion(11)">
+                                            <button type="button" class="quiz-button p" id="btn-question-11">11</button>
                                         </div>
-                                        <div questao=12 class="quiz question-12" onclick="switchQuestion(12)">
-                                            <button type="button" class="quiz-button" id="btn-question-12">
-                                                <p>12</p>
-                                            </button>
+                                        <div class="quiz question-12" onclick="switchQuestion(12)">
+                                            <button type="button" class="quiz-button p" id="btn-question-12">12</button>
                                         </div>
-                                        <div questao=13 class="quiz question-13" onclick="switchQuestion(13)">
-                                            <button type="button" class="quiz-button" id="btn-question-13">
-                                                <p>13</p>
-                                            </button>
+                                        <div class="quiz question-13" onclick="switchQuestion(13)">
+                                            <button type="button" class="quiz-button p" id="btn-question-13">13</button>
                                         </div>
-                                        <div questao=14 class="quiz question-14" onclick="switchQuestion(14)">
-                                            <button type="button" class="quiz-button" id="btn-question-14">
-                                                <p>14</p>
-                                            </button>
+                                        <div class="quiz question-14" onclick="switchQuestion(14)">
+                                            <button type="button" class="quiz-button p" id="btn-question-14">14</button>
                                         </div>
-                                        <div questao=15 class="quiz question-15" onclick="switchQuestion(15)">
-                                            <button type="button" class="quiz-button" id="btn-question-15">
-                                                <p>15</p>
-                                            </button>
+                                        <div class="quiz question-15" onclick="switchQuestion(15)">
+                                            <button type="button" class="quiz-button p" id="btn-question-15">15</button>
                                         </div>
                                     </div>
                                     <div class="card-footer border-top-0 bg-transparent text-start">

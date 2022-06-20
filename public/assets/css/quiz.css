@@ -91,7 +91,8 @@ input[type="radio"]:checked + label {
     border: 1px var(--green) solid;
 }
 
-.quiz > button > p {
+.quiz > button > p,
+.quiz > .p {
     color: var(--blue);
     justify-content: center;
     align-items: center;

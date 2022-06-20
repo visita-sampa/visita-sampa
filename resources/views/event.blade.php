@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div class="btn-information">
-                        <a href="{{$event->link}}" class="btn-see-more">{{ __('Ver Mais') }}</a>
+                        <a href="{{$event->link}}" target="_blank" class="btn-see-more">{{ __('Ver Mais') }}</a>
                     </div>
                 </div>
                 @endforeach
