@@ -99,6 +99,7 @@
 
     <main class="profile-page">
         <section class="profile d-flex justify-content-center m-5">
+            <h3>oi tudo bem</h3>
             @auth
             <div class="profile-container d-flex">
                 <div class="rounded-circle position-relative">
@@ -111,7 +112,6 @@
 
                 <div class="bio">
                     <h3>{{auth::user()->nome}}</h3>
-                    <h3>oi tudo bem</h3>
                     <h4>&#64;{{auth::user()->nome_usuario}}</h4>
                     <p>{{auth::user()->descricao}}</p>
                     <div class="bio-footer d-grid">
