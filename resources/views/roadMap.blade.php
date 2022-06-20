@@ -112,7 +112,7 @@
                         </p>
                     </div>
                     <div class="btn-information">
-                        <a href="{{ route('touristSpot.show', ['language'=>app()->getLocale(), 'id'=>$ponto->id_ponto_turistico]) }}" class="btn-see-more" name="btn">{{ __('Ver Mais') }}</a>
+                        <a href="{{ route('touristSpot.show', ['language'=>app()->getLocale(), 'id'=>$ponto->id_ponto_turistico]) }}" class="btn-see-more">{{ __('Ver Mais') }}</a>
                     </div>
                 </div>
                 @endforeach
