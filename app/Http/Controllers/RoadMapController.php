@@ -16,20 +16,21 @@ class RoadMapController extends Controller
      */
     public function index()
     {
-        if (!Auth::user()) {
-            return redirect()->route('login', app()->getLocale());
-        }
+        // if (!Auth::user()) {
+        //     return redirect()->route('login', app()->getLocale());
+        // }
 
         $alternatives = DB::select('SELECT * FROM alternativa');
 
         $answers = DB::table('respostas')
             ->join('usuario_questionario_resposta', function ($join) {
                 $join->on('respostas.id_resposta', '=', 'usuario_questionario_resposta.fk_respostas_id_resposta')
-                    ->where('usuario_questionario_resposta.fk_usuario_id_usuario', '=', Auth::user()->id_usuario);
+                    ->where('usuario_questionario_resposta.fk_usuario_id_usuario', '=', 29);
+                // ->where('usuario_questionario_resposta.fk_usuario_id_usuario', '=', Auth::user()->id_usuario);
             })
             ->get();
 
-        if(!$answers->isEmpty()) {
+        if (!$answers->isEmpty()) {
             $count = [];
             foreach ($answers as $answer) {
                 foreach ($alternatives as $alternative) {
