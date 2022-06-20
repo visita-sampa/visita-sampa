@@ -111,6 +111,7 @@
 
                 <div class="bio">
                     <h3>{{auth::user()->nome}}</h3>
+                    <h3>oi tudo bem</h3>
                     <h4>&#64;{{auth::user()->nome_usuario}}</h4>
                     <p>{{auth::user()->descricao}}</p>
                     <div class="bio-footer d-grid">
