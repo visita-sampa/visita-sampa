@@ -18,26 +18,26 @@ class ExploreController extends Controller
      */
     public function index()
     {
-        if (!Auth::user()) {
-            return redirect()->route('login', app()->getLocale());
-        }
+        // if (!Auth::user()) {
+        //     return redirect()->route('login', app()->getLocale());
+        // }
 
         $publications = DB::table('publicacao')
-        ->join('usuario', function ($join) {
-            $join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');
-        })
-        ->join('ponto_turistico', function ($join) {
-            $join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico');
-        })
-        ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'ponto_turistico.nome_ponto_turistico', 'publicacao.data', 'usuario.nome', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
-        ->orderBy('id_publicacao', 'desc')
-        ->get();
+            ->join('usuario', function ($join) {
+                $join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');
+            })
+            ->join('ponto_turistico', function ($join) {
+                $join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico');
+            })
+            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'ponto_turistico.nome_ponto_turistico', 'publicacao.data', 'usuario.nome', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
+            ->orderBy('id_publicacao', 'desc')
+            ->get();
 
         date_default_timezone_set('America/Sao_Paulo');
 
-        $now = time(); 
-        
-        foreach($publications as $post) {
+        $now = time();
+
+        foreach ($publications as $post) {
             $post->data = round(($now - strtotime($post->data)) / (60 * 60 * 24));
         }
 
