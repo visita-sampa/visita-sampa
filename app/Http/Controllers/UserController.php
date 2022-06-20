@@ -22,7 +22,7 @@ class UserController extends Controller
         // }
 
         $profile = DB::table('classificacao_perfil_roteiro')
-            ->where('id_classificacao', 1)
+            ->where('id_classificacao', 3)
             // ->where('id_classificacao', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao)
             ->get();
 
