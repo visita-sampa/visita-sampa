@@ -31,7 +31,7 @@ class FeedController extends Controller
                     ->where('ponto_turistico.fk_roteiro_id_roteiro', '=', 1);
                 // ->where('ponto_turistico.fk_roteiro_id_roteiro', '=', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao);
             })
-            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'publicacao.data', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
+            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'publicacao.data', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil', 'ponto_turistico.nome_ponto_turistico')
             ->orderBy('id_publicacao', 'desc')
             ->get();
 

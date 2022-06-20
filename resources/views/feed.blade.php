@@ -104,7 +104,7 @@
       <div class="card">
         <div class="user">
           <div class="user-image">
-            <img src="{{$post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}">
+            <img src="{{$post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="{{ __('Foto de Perfil do Usuário') }}">
           </div>
           <div class="post-header">
             <p class="user-name">
