@@ -103,7 +103,7 @@
                 @foreach ($pontos as $ponto)
                 <div class="grid-item">
                     <div class="local-image">
-                        <img src="{{$ponto->imagem}}" class="card-img-top">
+                        <img src="{{$ponto->imagem}}" class="card-img-top" alt="{{$ponto->nome_ponto_turistico}}">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{$ponto->nome_ponto_turistico}}</h5>
@@ -112,7 +112,7 @@
                         </p>
                     </div>
                     <div class="btn-information">
-                        <a href="{{ route('touristSpot.show', ['language'=>app()->getLocale(), 'id'=>$ponto->id_ponto_turistico]) }}" class="btn-see-more" name="btn" value="Ver mais">{{ __('Ver Mais') }}</a>
+                        <a href="{{ route('touristSpot.show', ['language'=>app()->getLocale(), 'id'=>$ponto->id_ponto_turistico]) }}" class="btn-see-more" name="btn">{{ __('Ver Mais') }}</a>
                     </div>
                 </div>
                 @endforeach
