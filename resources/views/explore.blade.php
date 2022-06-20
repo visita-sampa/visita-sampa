@@ -133,7 +133,7 @@
                                     <div class="modal-header">
                                         <div class="user">
                                             <div class="user-image">
-                                                <img src="{{ $post->foto_perfil }}" alt="Foto de Perfil do Usuário">
+                                                <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="Foto de Perfil do Usuário">
                                             </div>
                                             <div class="user-information">
                                                 <p class="user-name">
@@ -200,7 +200,7 @@
                                 </div>
                                 <div class="modal-body two">
                                     <p>{{ __('Por que deseja denunciar essa publicação') }}?</p>
-                                    <textarea name="motive-denounces" placeholder="{{ __('Explique seu motivo') }}" id="motive-denounces" cols="50" rows="10"></textarea>
+                                    <textarea name="motive-denounces" placeholder="{{ __('Explique seu motivo') }}" id="motive-denounces-{{ $post->id_publicacao }}" cols="50" rows="10"></textarea>
                                 </div>
                                 <div class="modal-footer two">
                                     <button type="button" class="btn denounce">{{ __('Enviar') }}</button>
