@@ -111,7 +111,7 @@
                 @foreach($publications as $post)
                 <div class="grid-item">
                     <div class="local-image">
-                        <img src="{{ $post->midia }}" class="card-img-top">
+                        <img src="{{ $post->midia }}" class="card-img-top" alt="{{ $post->nome_ponto_turistico }}">
                         <div class="open-image">
                             <button type="button" name="btn" class="btn-see-more" data-toggle="modal" data-target="#post-modal-{{ $post->id_publicacao }}" value="Abrir Publicação">{{ __('Abrir Publicação') }}</button>
                         </div>
@@ -127,7 +127,7 @@
                             <div class="modal-content">
                                 <div class="modal-body">
                                     <div class="modal-image">
-                                        <img src="{{ $post->midia }}" class="img-publication">
+                                        <img src="{{ $post->midia }}" class="img-publication" alt="{{ $post->nome_ponto_turistico }}">
                                     </div>
                                     <!-- Informações Usuário -->
                                     <div class="modal-header">
