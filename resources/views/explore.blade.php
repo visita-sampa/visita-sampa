@@ -133,7 +133,7 @@
                                     <div class="modal-header">
                                         <div class="user">
                                             <div class="user-image">
-                                                <img src="{{ $post->foto_perfil }}">
+                                                <img src="{{ $post->foto_perfil }}" alt="Foto de Perfil do Usuário">
                                             </div>
                                             <div class="user-information">
                                                 <p class="user-name">
@@ -154,7 +154,7 @@
                                         <div class="comment">
                                             <div class="user">
                                                 <div class="user-image">
-                                                    <img src="{{ $post->foto_perfil }}">
+                                                    <img src="{{ $post->foto_perfil }}" alt="Foto de Perfil do Usuário">
                                                 </div>
                                             </div>
                                             <p class="user-comment">
