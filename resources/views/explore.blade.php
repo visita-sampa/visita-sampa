@@ -145,7 +145,7 @@
                                             </div>
                                         </div>
                                         <!-- Denuncia -->
-                                        <button class="report" type="button" data-toggle="modal" data-target="#report-post-modal-1">
+                                        <button class="report" type="button" data-toggle="modal" data-target="#report-post-modal-{{ $post->id_publicacao }}">
                                             <i class="icon-alert-triangle"></i>
                                         </button>
                                     </div>
@@ -170,11 +170,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="report-post-modal-1" tabindex="-1" aria-labelledby="report-post-modal-label-1" aria-hidden="true">
+                    <div class="modal fade" id="report-post-modal-{{ $post->id_publicacao }}" tabindex="-1" aria-labelledby="report-post-modal-label-{{ $post->id_publicacao }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="report-post-modal-title-1">{{ __('DENÚNCIA') }}</h5>
+                                    <h5 class="modal-title" id="report-post-modal-title-{{ $post->id_publicacao }}">{{ __('DENÚNCIA') }}</h5>
                                 </div>
                                 <div class="modal-body">
                                     <p>{{ __('Deseja mesmo denunciar essa publicação') }}?</p>
@@ -182,19 +182,19 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn cancel" data-bs-dismiss="modal">{{ __('Cancelar') }}</button>
 
-                                    <button type="button" class="btn denounce" data-bs-toggle="modal" data-bs-target="#report-post-modal-two">
+                                    <button type="button" class="btn denounce" data-bs-toggle="modal" data-bs-target="#report-post-modal-two-{{ $post->id_publicacao }}">
                                         {{ __('Denunciar') }}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="report-post-modal-two-1" tabindex="-1" aria-labelledby="report-post-modal-two-label-1" aria-hidden="true">
+                    <div class="modal fade" id="report-post-modal-two-{{ $post->id_publicacao }}" tabindex="-1" aria-labelledby="report-post-modal-two-label-{{ $post->id_publicacao }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content two">
                                 <div class="modal-header">
                                     <div class="text">
-                                        <h5 class="modal-title" id="report-post-modal-two-title-1">{{ __('Denunciar') }}</h5>
+                                        <h5 class="modal-title" id="report-post-modal-two-title-{{ $post->id_publicacao }}">{{ __('Denunciar') }}</h5>
                                     </div>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
