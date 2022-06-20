@@ -17,17 +17,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        // if (!Auth::user()) {
-        //     return redirect()->route('login', app()->getLocale());
-        // }
+        if (!Auth::user()) {
+            return redirect()->route('login', app()->getLocale());
+        }
 
         $profile = DB::table('classificacao_perfil_roteiro')
-            ->where('id_classificacao', 3)
-            // ->where('id_classificacao', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao)
+            ->where('id_classificacao', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao)
             ->get();
 
-        $publications = DB::table('publicacao')->where('fk_usuario_id_usuario', 29)
-            // $publications = DB::table('publicacao')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+        $publications = DB::table('publicacao')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
             ->orderBy('id_publicacao', 'desc')
             ->get();
 

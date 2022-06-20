@@ -99,7 +99,6 @@
 
     <main class="profile-page">
         <section class="profile d-flex justify-content-center m-5">
-            <h3>oi tudo bem</h3>
             @auth
             <div class="profile-container d-flex">
                 <div class="rounded-circle position-relative">
@@ -141,7 +140,6 @@
             </div>
         </section>
         <section class="posts d-grid justify-content-center">
-            <h3>oi tudo bem</h3>
             @foreach($publications as $post)
             <img src="{{$post->midia}}" alt="">
             @endforeach
