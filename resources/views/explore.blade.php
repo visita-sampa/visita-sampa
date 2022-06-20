@@ -154,7 +154,7 @@
                                         <div class="comment">
                                             <div class="user">
                                                 <div class="user-image">
-                                                    <img src="{{ $post->foto_perfil }}" alt="Foto de Perfil do Usuário">
+                                                    <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="Foto de Perfil do Usuário">
                                                 </div>
                                             </div>
                                             <p class="user-comment">
