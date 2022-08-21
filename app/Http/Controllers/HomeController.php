@@ -21,10 +21,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -32,10 +32,10 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    // public function store(Request $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
@@ -43,10 +43,10 @@ class HomeController extends Controller
      * @param  \App\Models\home  $home
      * @return \Illuminate\Http\Response
      */
-    public function show(home $home)
-    {
-        //
-    }
+    // public function show(home $home)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -54,10 +54,10 @@ class HomeController extends Controller
      * @param  \App\Models\home  $home
      * @return \Illuminate\Http\Response
      */
-    public function edit(home $home)
-    {
-        //
-    }
+    // public function edit(home $home)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -66,10 +66,10 @@ class HomeController extends Controller
      * @param  \App\Models\home  $home
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, home $home)
-    {
-        //
-    }
+    // public function update(Request $request, home $home)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -77,8 +77,8 @@ class HomeController extends Controller
      * @param  \App\Models\home  $home
      * @return \Illuminate\Http\Response
      */
-    public function destroy(home $home)
-    {
-        //
-    }
+    // public function destroy(home $home)
+    // {
+    //     //
+    // }
 }

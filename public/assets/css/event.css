@@ -23,7 +23,7 @@ body > div.container {
 }
 
 .grid-container {
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
     display: grid;
     grid-template-columns: auto auto auto auto;
     padding: 10px;
@@ -114,7 +114,7 @@ body > div.container {
 
 @media screen and (min-width: 769px) {
     .grid-container {
-        margin-bottom: 9rem;
+        /* margin-bottom: 9rem; */
     }
 }
 

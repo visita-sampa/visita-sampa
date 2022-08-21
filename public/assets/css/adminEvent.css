@@ -1,0 +1,292 @@
+/* container */
+body>div.container {
+  padding-top: 2.38rem;
+}
+
+input:focus {
+  box-shadow: 0 0 0 0;
+  outline: 0;
+}
+
+/* Nav */
+.nav-link i.icon-alert-triangle,
+.nav-link i.icon-edit-2 {
+  font-size: 2rem !important;
+  color: var(--blue);
+}
+
+.add-event {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+i.icon-plus {
+  margin-right: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.add-event h5 {
+  margin-bottom: 0;
+}
+
+.more-event {
+  text-decoration: none;
+  display: flex;
+  color: var(--bs-body-color);
+  align-items: center;
+}
+
+.more-event:hover {
+  color: var(--blue);
+  transition: 0.3s;
+  transform: scale(1.02);
+}
+
+.teste {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Título da página */
+.title {
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  font-size: 36px;
+}
+
+/* card */
+.grid-item {
+  width: 22.69rem;
+  height: auto !important;
+  background-color: var(--white-gray);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-container {
+  margin-bottom: 5rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+  gap: 2rem;
+}
+
+.card-body {
+  padding: 0 0 1rem 0;
+}
+
+.card-title {
+  padding: 1.06rem 1.63rem 0.94rem 1.63rem;
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card-img-top {
+  object-fit: cover;
+}
+
+.card-text {
+  justify-content: center;
+  display: flex;
+  padding: 0 1.63rem;
+  font-weight: 300;
+  font-size: 18px;
+  flex-direction: column;
+}
+
+.icon-map-pin.two,
+.icon-clock {
+  color: #000000 !important;
+  font-size: 1.5rem !important;
+  margin-right: 0.75rem;
+}
+
+.localization,
+.time {
+  display: flex;
+  align-items: center;
+}
+
+.btn-delete-event {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1.63rem 1.06rem 1.63rem;
+}
+
+.btn-delete {
+  width: 6.88rem;
+  height: 2.56rem;
+  border-radius: 5px;
+  border: 1px var(--pink) solid;
+  color: var(--pink);
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.btn-delete:hover {
+  transition: 0.3s;
+  color: var(--pink);
+  transform: scale(1.05);
+}
+
+/* Modal */
+.infos {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.event-name,
+.cep,
+.road,
+.district,
+.number,
+.complement,
+.date,
+.link {
+  margin-top: 1rem;
+  padding: 0.7rem 1.43rem;
+  width: 28.75rem;
+  border: 0.5px solid var(--blue);
+  border-radius: 5px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+#picture__input {
+  display: none;
+}
+
+.picture {
+  width: 28.75rem;
+  aspect-ratio: 16/9;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  border: 0.5px dashed var(--blue);
+  cursor: pointer;
+  transition: color 300ms ease-in-out, background 300ms ease-in-out;
+  outline: none;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.picture:hover {
+  color: #777;
+  background: #f5f5f5;
+}
+
+.picture:active {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: #eee;
+}
+
+.picture__img {
+  max-width: 100%;
+}
+
+.btn-primary {
+  background-color: var(--blue) !important;
+  border-color: var(--blue) !important;
+  width: 6.88rem;
+  height: 2.56rem;
+}
+
+.btn-secondary {
+  width: 6.88rem;
+  height: 2.56rem;
+  background-color: transparent;
+  border-color: var(--pink) !important;
+  color: var(--pink) !important;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  transition: 0.3s;
+  transform: scale(1.05);
+}
+
+.btn-secondary:hover {
+  background-color: transparent;
+}
+
+.modal-content.delete {
+  height: 15.62rem;
+}
+
+.modal-body.delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-primary.delete {
+  background-color: var(--pink) !important;
+  border-color: var(--pink) !important;
+}
+
+/* Media Screen */
+@media screen and (max-width: 1700px) {
+  .grid-container {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .grid-container {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .grid-container {
+    margin-bottom: 9rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: auto;
+  }
+
+  .grid-item {
+    width: 100%;
+    height: 100% !important;
+  }
+
+  .card-img-top {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 341px) {
+  .title {
+    font-size: 33px;
+  }
+
+  .card-title {
+    font-size: 28px;
+    text-align: center;
+  }
+}

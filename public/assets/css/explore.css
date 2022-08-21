@@ -115,15 +115,15 @@ textarea:hover {
     overflow-y: hidden;
 }
 
-.modal-body {
+.modal-body-explore {
     padding: 0;
     display: grid;
     grid-template-areas:
-        "img modal-header"
+        "img modal-header-explore"
         "img comment-publication";
 }
 
-.modal-dialog {
+.modal-dialog-explore {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,14 +137,14 @@ textarea:hover {
     border-radius: 5px;
 }
 
-.modal-header {
+.modal-header-explore {
     justify-content: space-between;
     padding: 0;
     align-items: center;
     height: 4.87rem;
     border-bottom: 1px solid #efefef;
     width: 100%;
-    grid-area: modal-header;
+    grid-area: modal-header-explore;
 }
 
 .modal-image {
@@ -278,16 +278,16 @@ p.user-name {
         overflow: auto;
     }
 
-    .modal-dialog {
+    .modal-dialog-explore {
         height: calc(100vh + 200px);
     }
 
-    .modal-body {
+    .modal-body-explore {
         display: flex;
         flex-wrap: wrap;
     }
 
-    .modal-header {
+    .modal-header-explore {
         order: -1;
         border: none;
     }

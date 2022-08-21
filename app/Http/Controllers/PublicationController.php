@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\publication;
+use App\Models\complaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Auth;
@@ -14,20 +15,20 @@ class PublicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    // public function index()
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -59,10 +60,10 @@ class PublicationController extends Controller
      * @param  \App\Models\publication  $publication
      * @return \Illuminate\Http\Response
      */
-    public function show(publication $publication)
-    {
-        //
-    }
+    // public function show(publication $publication)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -70,10 +71,10 @@ class PublicationController extends Controller
      * @param  \App\Models\publication  $publication
      * @return \Illuminate\Http\Response
      */
-    public function edit(publication $publication)
-    {
-        //
-    }
+    // public function edit(publication $publication)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -82,10 +83,10 @@ class PublicationController extends Controller
      * @param  \App\Models\publication  $publication
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, publication $publication)
-    {
-        //
-    }
+    // public function update(Request $request, publication $publication)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -93,15 +94,36 @@ class PublicationController extends Controller
      * @param  \App\Models\publication  $publication
      * @return \Illuminate\Http\Response
      */
-    public function destroy(publication $publication)
-    {
-        //
-    }
+    // public function destroy(publication $publication)
+    // {
+    //     //
+    // }
 
     public function crop(Request $request)
     {
         $response = $request->file('newPost');
 
         return response()->json(['status' => 1, 'msg' => 'A imagem foi cortada com sucesso.', 'name' => $response]);
+    }
+
+    public function report(Request $request)
+    {
+        $complaint = new Complaint;
+
+        $complaint->motivo                      = $request->motiveDenounces;
+        $complaint->fk_usuario_id_usuario       = Auth::user()->id_usuario;
+        $complaint->fk_publicacao_id_publicacao = $request->idPostDenouce;
+
+        if($complaint->save()) {
+            $report['success']  = true;
+            $report['message']  = 'A publicação foi reportada com sucesso. Enviaremos sua denúncia para análise dos administradores. Agradecemos sua colaboração!';
+        }
+        else {
+            $report['success']  = false;
+            $report['message']  = 'A publicação não foi reportada. Algo inesperado aconteceu, tente novamente.';
+        }
+
+        echo json_encode($report);
+        return;
     }
 }

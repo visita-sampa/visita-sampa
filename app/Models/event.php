@@ -18,6 +18,6 @@ class event extends Model
         'informacoes',
         'imagem',
         'fk_administrador_id_administrador',
-        'fk_administrador_fk_usuario_id_usuario',
+        'fk_administrador_fk_usuario_id_usuario'
     ];
 }

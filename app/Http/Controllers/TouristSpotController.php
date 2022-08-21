@@ -24,10 +24,10 @@ class TouristSpotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -52,7 +52,7 @@ class TouristSpotController extends Controller
      * @param  \App\Models\touristSpot  $touristSpot
      * @return \Illuminate\Http\Response
      */
-    public function show($language, $id = 1)
+    public function show(Request $request, $language, $id = 1)
     {
         Auth::user();
         
@@ -81,7 +81,12 @@ class TouristSpotController extends Controller
             ->where('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', $id)
             ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'publicacao.data', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
             ->orderBy('id_publicacao', 'desc')
-            ->get();
+            ->paginate(12);
+
+						if($request->ajax()) {
+							$view = view('touristSpotPublication', ['publications' => $publications])->render();
+							return response()->json(['html'=>$view]);
+						}
 
         return view('touristSpot', ['touristSpot' => $touristSpot, 'publications' => $publications]);
     }
@@ -92,10 +97,10 @@ class TouristSpotController extends Controller
      * @param  \App\Models\touristSpot  $touristSpot
      * @return \Illuminate\Http\Response
      */
-    public function edit(touristSpot $touristSpot)
-    {
-        //
-    }
+    // public function edit(touristSpot $touristSpot)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -104,10 +109,10 @@ class TouristSpotController extends Controller
      * @param  \App\Models\touristSpot  $touristSpot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, touristSpot $touristSpot)
-    {
-        //
-    }
+    // public function update(Request $request, touristSpot $touristSpot)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -115,8 +120,8 @@ class TouristSpotController extends Controller
      * @param  \App\Models\touristSpot  $touristSpot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(touristSpot $touristSpot)
-    {
-        //
-    }
+    // public function destroy(touristSpot $touristSpot)
+    // {
+    //     //
+    // }
 }

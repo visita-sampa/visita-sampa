@@ -134,6 +134,12 @@ h3 {
     color: var(--blue);
 }
 
+.btn-top {
+    width: 8rem;
+    height: 2.5rem;
+    font-size: 14px;
+}
+
 .img-sing-up {
     width: 25.31rem;
     height: 25.31rem;
@@ -171,7 +177,7 @@ h3 {
 }
 
 i.icon-mail,
-i.icon-comment-o {
+i.icon-message-circle {
     color: #8a8a8a;
     font-size: 40px;
     font-weight: 100;

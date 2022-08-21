@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\quiz;
 use App\Models\answer;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use Session;
+use Illuminate\Support\Pluralizer;
 
 class QuizController extends Controller
 {
@@ -17,10 +20,16 @@ class QuizController extends Controller
      */
     public function index()
     {
-        if (!Auth::user()) {
-            return redirect()->route('login', app()->getLocale());
+        // if (!Auth::user()) {
+        //     return redirect()->route('login', app()->getLocale());
+        // }
+
+        if (Auth::user()) {
+            $answer = DB::table('usuario_questionario_resposta')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)->whereNotNull('fk_respostas_id_resposta')->get();
+        } else {
+            $answer = collect([]);
         }
-        $answer = DB::table('usuario_questionario_resposta')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)->whereNotNull('fk_respostas_id_resposta')->get();
+
         $questions = DB::table('questao')->get();
         $alternatives = DB::table('alternativa')->get();
         return view('quiz', ['questions' => $questions, 'alternatives' => $alternatives, 'answer' => $answer]);
@@ -34,10 +43,10 @@ class QuizController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        echo 'enviou';
-    }
+    // public function create()
+    // {
+    //     echo 'enviou';
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -69,13 +78,19 @@ class QuizController extends Controller
         $answer->questao_14 = $answers['question-14'];
         $answer->questao_15 = $answers['question-15'];
 
-        $answer->save();
 
-        DB::table('usuario_questionario_resposta')
-            ->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
-            ->update(['fk_respostas_id_resposta' => $answer->id_resposta]);
+        if (Auth::user()) {
+            $findUserById = DB::table('usuario_questionario_resposta')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)->first();
+            if ($findUserById) {
+                DB::table('usuario_questionario_resposta')
+                    ->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+                    ->update(['fk_respostas_id_resposta' => $answer->id_resposta]);
+            } else {
+                $answer->save();
+            }
+        }
 
-        return redirect()->route('roadMap', app()->getLocale());
+        return redirect()->route('byCookie', app()->getLocale())->with('answers', $answers);
     }
 
     /**
@@ -84,10 +99,10 @@ class QuizController extends Controller
      * @param  \App\Models\quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function show(quiz $quiz)
-    {
-        //
-    }
+    // public function show(quiz $quiz)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -95,10 +110,10 @@ class QuizController extends Controller
      * @param  \App\Models\quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function edit(quiz $quiz)
-    {
-        //
-    }
+    // public function edit(quiz $quiz)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -107,10 +122,10 @@ class QuizController extends Controller
      * @param  \App\Models\quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, quiz $quiz)
-    {
-        //
-    }
+    // public function update(Request $request, quiz $quiz)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -118,8 +133,15 @@ class QuizController extends Controller
      * @param  \App\Models\quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function destroy(quiz $quiz)
-    {
-        //
-    }
+    // public function destroy(quiz $quiz)
+    // {
+    //     //
+    // }
+
+    // public function boot()
+    // {
+	// 		Pluralizer::useLanguage('english');
+			
+	// 		// ...
+    // }
 }

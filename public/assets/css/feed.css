@@ -69,7 +69,7 @@ i.icon-alert-triangle {
     display: flex;
 }
 
-.modal-content {
+.modal-content-feed {
     width: 21.88rem;
     height: 15.63rem;
 }
@@ -78,18 +78,18 @@ i.icon-alert-triangle {
     justify-content: center;
 }
 
-.modal-body {
+.modal-body-feed {
     text-align: center;
     justify-content: center;
     align-items: center;
     display: flex;
 }
 
-.modal-body.two {
+.modal-body-feed.two {
     flex-direction: column;
 }
 
-.modal-footer {
+.modal-footer-feed {
     justify-content: space-between;
 }
 
@@ -125,7 +125,7 @@ i.icon-alert-triangle {
     position: absolute;
 }
 
-.modal-content.two {
+.modal-content-feed.two {
     width: 50rem;
     height: auto;
 }
@@ -135,7 +135,7 @@ i.icon-alert-triangle {
     resize: none;
 }
 
-.modal-footer.two {
+.modal-footer-feed.two {
     justify-content: flex-end;
 }
 

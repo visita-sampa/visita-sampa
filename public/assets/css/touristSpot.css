@@ -52,15 +52,15 @@
     overflow-y: hidden;
 }
 
-.modal-body {
+.modal-body-tourist {
     padding: 0;
     display: grid;
     grid-template-areas:
-        "img modal-header"
+        "img modal-header-tourist"
         "img description-publication";
 }
 
-.modal-dialog {
+.modal-dialog-tourist {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,14 +74,14 @@
     border-radius: 5px;
 }
 
-.modal-header {
+.modal-header-tourist {
     justify-content: space-between;
     padding: 0;
     align-items: center;
     height: 4.87rem;
     border-bottom: 1px solid #efefef;
     width: 100%;
-    grid-area: modal-header;
+    grid-area: modal-header-tourist;
 }
 
 .comment-publication {
@@ -212,12 +212,12 @@ p.user-name {
         overflow: auto;
     }
 
-    .modal-dialog {
+    .modal-dialog-tourist {
         max-width: fit-content;
         height: calc(100vh + 300px);
     }
 
-    .modal-body {
+    .modal-body-tourist {
         display: flex;
         flex-direction: column-reverse;
     }
@@ -270,7 +270,7 @@ p.user-name {
         width: 18rem;
     }
 
-    .modal-dialog {
+    .modal-dialog-tourist {
         max-width: fit-content;
         height: calc(100vh + 100px);
     }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -13,9 +15,14 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $events = DB::table('eventos')->get();
+        if (!Auth::user()) {
+            return redirect()->route('login', app()->getLocale());
+        }
+
+        $events = DB::table('eventos')
+            ->paginate(12);
 
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
@@ -26,6 +33,11 @@ class EventController extends Controller
             $event->data_evento = strftime('%A, %d de %B de %Y', strtotime($event->data_evento));
         }
 
+        if($request->ajax()) {
+            $view = view('eventDivulgation', ['events' => $events])->render();
+            return response()->json(['html'=>$view]);
+        }
+
         return view('event', ['events' => $events]);
     }
 
@@ -34,10 +46,10 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -80,10 +92,10 @@ class EventController extends Controller
      * @param  \App\Models\event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(event $event)
-    {
-        //
-    }
+    // public function show(event $event)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -91,10 +103,10 @@ class EventController extends Controller
      * @param  \App\Models\event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(event $event)
-    {
-        //
-    }
+    // public function edit(event $event)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -103,10 +115,10 @@ class EventController extends Controller
      * @param  \App\Models\event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, event $event)
-    {
-        //
-    }
+    // public function update(Request $request, event $event)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -114,8 +126,26 @@ class EventController extends Controller
      * @param  \App\Models\event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(event $event)
-    {
-        //
-    }
+    // public function destroy(event $event)
+    // {
+    //     //
+    // }
+
+    // public function deleteEventByExpirationDate()
+    // {
+	// 		$events = DB::table('eventos')->get();
+			
+	// 		setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+	// 		date_default_timezone_set('America/Sao_Paulo');
+		
+	// 		$now = now();
+			
+	// 		$date2 = Carbon::createFromFormat('Y-m-d', '2022-06-26');
+	// 		foreach ($events as $event) {
+	// 			$date1 = Carbon::createFromFormat('Y-m-d', $event->data_evento);
+	// 			$result = $date1->eq($date2);
+	// 		}
+	// 		dd($result);
+
+    // }
 }

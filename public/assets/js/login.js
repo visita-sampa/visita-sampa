@@ -6,7 +6,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 });
 
 function login(tipo) {
-    if (tipo == 1) {
+    if (tipo === 1) {
         document.getElementById("logon").classList.add("d-none");
         document.getElementById("signup").classList.remove("d-none");
     } else {
@@ -15,12 +15,12 @@ function login(tipo) {
     }
 }
 
-let btn = document.querySelector("#showPass");
-btn.addEventListener("click", function () {
-    let input = document.querySelector("#passwordSignup");
-    let eye = document.querySelector("#eye");
+const btn = document.querySelector("#showPass");
+btn.addEventListener("click", () => {
+    const input = document.querySelector("#passwordSignup");
+    const eye = document.querySelector("#eye");
 
-    if (input.getAttribute("type") == "password") {
+    if (input.getAttribute("type") === "password") {
         input.setAttribute("type", "text");
         eye.classList.add("icon-eye");
         eye.classList.remove("icon-eye-off");
@@ -31,12 +31,12 @@ btn.addEventListener("click", function () {
     }
 });
 
-let btnlogin = document.querySelector("#showPassLogin");
-btnlogin.addEventListener("click", function () {
-    let inputlogin = document.querySelector("#passwordLogin");
-    let eyelogin = document.querySelector("#eyeLogin");
-    console.log("teste");
-    if (inputlogin.getAttribute("type") == "password") {
+const btnlogin = document.querySelector("#showPassLogin");
+btnlogin.addEventListener("click", () => {
+    const inputlogin = document.querySelector("#passwordLogin");
+    const eyelogin = document.querySelector("#eyeLogin");
+
+    if (inputlogin.getAttribute("type") === "password") {
         inputlogin.setAttribute("type", "text");
         eyelogin.classList.add("icon-eye");
         eyelogin.classList.remove("icon-eye-off");

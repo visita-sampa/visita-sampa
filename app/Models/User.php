@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,12 +12,13 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
+    use MustVerifyEmail;
     use TwoFactorAuthenticatable;
 
     protected $table = 'usuario';
@@ -35,7 +38,11 @@ class User extends Authenticatable
         'email',
         'senha',
         'descricao',
-        'fk_classificacao_perfil_roteiro_id_classificacao'
+        'fk_classificacao_perfil_roteiro_id_classificacao',
+        'email_verified_at',
+        'chave_confirmacao',
+        'situacao_cadastro',
+        'recuperar_senha'
     ];
 
     /**
