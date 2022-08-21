@@ -34,7 +34,6 @@
           </div>
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 align-items-center">
-              <!-- <button class="btn-sing-up btn-top"><a href="{{ route('login', app()->getLocale()) }}">{{ __('CADASTRE-SE') }}</a></button> -->
               <li class="btn-sing-up btn-top d-flex align-items-center justify-content-center"><a href="{{ route('login', app()->getLocale()) }}">{{ __('CADASTRE-SE') }}</a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,7 +80,6 @@
       <img class="img-quiz" src="/assets/img/quizVisitaSampa.png" alt="{{ __('Faça o quiz Visita Sampa!') }}" />
       <div class="description-box">
         <h3>{{ __('Com direcionamento especializado para o seu perfil') }}</h3>
-        <!-- <button class="btn-road-map"><a href="{{ route('quiz', app()->getLocale()) }}">{{ __('Descubra seu roteiro') }}</a></button> -->
         <a href="{{ route('quiz', app()->getLocale()) }}">
           <button class="btn-road-map">{{ __('Descubra seu roteiro') }}</button>
         </a>
@@ -90,7 +88,6 @@
     <div class="sing-up">
       <div class="description-box">
         <h3>{{ __('Conecte-se e descubra essa grande cidade') }}</h3>
-        <!-- <button class="btn-sing-up"><a href="{{ route('login', app()->getLocale()) }}">{{ __('CADASTRE-SE') }}</a></button> -->
         <a href="{{ route('login', app()->getLocale()) }}">
           <button class="btn-sing-up">{{ __('CADASTRE-SE') }}</button>
         </a>
