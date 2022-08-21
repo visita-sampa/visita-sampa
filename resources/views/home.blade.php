@@ -80,16 +80,16 @@
       <img class="img-quiz" src="/assets/img/quizVisitaSampa.png" alt="{{ __('Faça o quiz Visita Sampa!') }}" />
       <div class="description-box">
         <h3>{{ __('Com direcionamento especializado para o seu perfil') }}</h3>
-        <a href="{{ route('quiz', app()->getLocale()) }}">
-          <span class="btn-road-map">{{ __('Descubra seu roteiro') }}</span>
+        <a class="d-flex align-items-center justify-content-center text-decoration-none text-center" href="{{ route('quiz', app()->getLocale()) }}">
+          <p class="btn-road-map link-a-home">{{ __('Descubra seu roteiro') }}</p>
         </a>
       </div>
     </div>
     <div class="sing-up">
       <div class="description-box">
         <h3>{{ __('Conecte-se e descubra essa grande cidade') }}</h3>
-        <a href="{{ route('login', app()->getLocale()) }}">
-          <span class="btn-sing-up">{{ __('CADASTRE-SE') }}</span>
+        <a class="d-flex align-items-center justify-content-center text-decoration-none text-center" href="{{ route('login', app()->getLocale()) }}">
+          <p class="btn-sing-up link-a-home">{{ __('CADASTRE-SE') }}</p>
         </a>
       </div>
       <img class="img-sing-up" src="/assets/img/roadMapVisitaSampa.png" alt="{{ __('Pontos Turísticos') }}" />
