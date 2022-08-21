@@ -54,25 +54,27 @@ class TouristSpotController extends Controller
      */
     public function show(Request $request, $language, $id = 1)
     {
-        Auth::user();
-        
+        if (!Auth::user()) {
+            return redirect()->route('login', app()->getLocale());
+        }
+
         // $touristSpot = TouristSpot::where('id_ponto_turistico', $id)->get();
         $touristSpot = DB::table('ponto_turistico')
-        ->join('endereco', function ($join) {
-            $join->on('ponto_turistico.fk_endereco_id_endereco', '=', 'endereco.id_endereco');
-        })
-        ->join('bairro', function ($join) {
-            $join->on('endereco.fk_bairro_id_bairro', '=', 'bairro.id_bairro');
-        })
-        ->join('cidade', function ($join) {
-            $join->on('bairro.fk_cidade_id_cidade', '=', 'cidade.id_cidade');
-        })
-        ->join('estado', function ($join) {
-            $join->on('cidade.fk_estado_id_estado', '=', 'estado.id_estado');
-        })
-        ->where('ponto_turistico.id_ponto_turistico', '=', $id)
-        ->select('ponto_turistico.id_ponto_turistico', 'ponto_turistico.nome_ponto_turistico', 'ponto_turistico.informacoes', 'ponto_turistico.imagem', 'endereco.logradouro', 'endereco.cep', 'endereco.numero', 'endereco.complemento', 'bairro.nome_bairro', 'cidade.nome_cidade', 'estado.nome_estado')
-        ->get();
+            ->join('endereco', function ($join) {
+                $join->on('ponto_turistico.fk_endereco_id_endereco', '=', 'endereco.id_endereco');
+            })
+            ->join('bairro', function ($join) {
+                $join->on('endereco.fk_bairro_id_bairro', '=', 'bairro.id_bairro');
+            })
+            ->join('cidade', function ($join) {
+                $join->on('bairro.fk_cidade_id_cidade', '=', 'cidade.id_cidade');
+            })
+            ->join('estado', function ($join) {
+                $join->on('cidade.fk_estado_id_estado', '=', 'estado.id_estado');
+            })
+            ->where('ponto_turistico.id_ponto_turistico', '=', $id)
+            ->select('ponto_turistico.id_ponto_turistico', 'ponto_turistico.nome_ponto_turistico', 'ponto_turistico.informacoes', 'ponto_turistico.imagem', 'endereco.logradouro', 'endereco.cep', 'endereco.numero', 'endereco.complemento', 'bairro.nome_bairro', 'cidade.nome_cidade', 'estado.nome_estado')
+            ->get();
 
         $publications = DB::table('publicacao')
             ->join('usuario', function ($join) {
@@ -83,10 +85,10 @@ class TouristSpotController extends Controller
             ->orderBy('id_publicacao', 'desc')
             ->paginate(12);
 
-						if($request->ajax()) {
-							$view = view('touristSpotPublication', ['publications' => $publications])->render();
-							return response()->json(['html'=>$view]);
-						}
+        if ($request->ajax()) {
+            $view = view('touristSpotPublication', ['publications' => $publications])->render();
+            return response()->json(['html' => $view]);
+        }
 
         return view('touristSpot', ['touristSpot' => $touristSpot, 'publications' => $publications]);
     }
