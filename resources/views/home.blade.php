@@ -81,7 +81,7 @@
       <div class="description-box">
         <h3>{{ __('Com direcionamento especializado para o seu perfil') }}</h3>
         <a href="{{ route('quiz', app()->getLocale()) }}">
-          <button class="btn-road-map">{{ __('Descubra seu roteiro') }}</button>
+          <span class="btn-road-map">{{ __('Descubra seu roteiro') }}</span>
         </a>
       </div>
     </div>
@@ -89,7 +89,7 @@
       <div class="description-box">
         <h3>{{ __('Conecte-se e descubra essa grande cidade') }}</h3>
         <a href="{{ route('login', app()->getLocale()) }}">
-          <button class="btn-sing-up">{{ __('CADASTRE-SE') }}</button>
+          <span class="btn-sing-up">{{ __('CADASTRE-SE') }}</span>
         </a>
       </div>
       <img class="img-sing-up" src="/assets/img/roadMapVisitaSampa.png" alt="{{ __('Pontos Turísticos') }}" />
