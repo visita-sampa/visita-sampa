@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
                     ->delete();
                 }
             }
-        })->dailyAt('01:00')->timezone('America/Sao_Paulo');
+        })->dailyAt('03:25')->timezone('America/Sao_Paulo');
     }
 
     /**
