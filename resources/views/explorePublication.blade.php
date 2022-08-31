@@ -53,7 +53,11 @@
               </p>
             </div>
             <p class="post-date">
+              @if($post->data == 0)
+              Há menos de um dia
+              @else
               Há {{ $post->data }} dias
+              @endif
             </p>
           </div>
         </div>

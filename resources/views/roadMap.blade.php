@@ -96,7 +96,13 @@
 
   <main class="">
     <div class="container">
-      <h1 class="title">{{ __('Lugares para você') }}</h1>
+      @foreach($roadMapTitle as $titles)
+      <h1 class="title">{{$titles->nome_roteiro}}</h1>
+      @endforeach
+      @foreach($roadMapType as $type)
+      <p>{{$type->descricao}}</p>
+      @endforeach
+      <h3>{{ __('Lugares para você') }}</h3>
       {{csrf_field()}}
       <div class="grid-container">
         @foreach ($pontos as $ponto)

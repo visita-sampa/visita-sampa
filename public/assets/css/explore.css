@@ -46,6 +46,50 @@ textarea:hover {
     outline: 0;
 }
 
+.search-result-container {
+    z-index: 2;
+    top: 3.5rem;
+    max-height: 15rem;
+    overflow: auto;
+    display: none;
+}
+
+.search-result-container a {
+    text-decoration: none;
+}
+
+.search-result-container a:hover {
+    text-decoration: none;
+}
+
+.search-result-container a li {
+    transition: 0.2s;
+    color: var(--blue);
+}
+
+.search-result-container a li:hover {
+    transition: 0.2s;
+    background-color: var(--white-gray);
+}
+
+.nav-link {
+    color: var(--pink);
+}
+
+.nav-link:hover {
+    color: #1e4363;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: transparent !important;
+    font-weight: 500;
+    color: var(--blue);
+}
+
+.tab-pane.active {
+    background-color: transparent !important;
+}
+
 /* card */
 .grid-item {
     width: 22.69rem;

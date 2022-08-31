@@ -120,6 +120,15 @@ h3 {
     transition: all 0.2s;
 }
 
+.btn-sing-up.header {
+    width: 100%;
+    font-size: 16px;
+    height: auto;
+    padding: 4px 16px;
+    box-shadow: none;
+    border: 1px solid var(--dark-gray);
+}
+
 .btn-sing-up a {
     text-decoration: none;
     color: var(--white);
@@ -208,10 +217,15 @@ h6,
     font-size: 18px;
     color: #343434;
     text-decoration: none;
+    transition: 0.2s;
 }
 
 .go-form:hover {
     color: var(--pink);
+}
+
+#terms, #about:hover {
+    background-color: transparent !important;
 }
 
 @media screen and (max-width: 1280px) {

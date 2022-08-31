@@ -97,6 +97,27 @@
       </div>
     </main>
 
+    <button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
+    
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          @if(session('msgUpdatePasswordFail'))
+          <strong class="me-auto text-danger">
+            <i class="icon-x"></i>
+            Falha
+          </strong>
+          @endif
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          @if(session('msgUpdatePasswordFail'))
+          {{ session('msgUpdatePasswordFail') }}
+          @endif
+        </div>
+      </div>
+    </div>
+
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted pt-4">
       <!-- Section: Links  -->
@@ -175,5 +196,22 @@
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="/assets/js/login.js"></script>
+    <script>
+    @if(session('msgUpdatePasswordFail'))
+      $(document).ready(function () {
+        $("#liveToastBtn").click();
+      });
+    @endif
+
+    var toastTrigger = document.getElementById('liveToastBtn')
+    var toastLiveExample = document.getElementById('liveToast')
+    if (toastTrigger) {
+      toastTrigger.addEventListener('click', function () {
+        var toast = new bootstrap.Toast(toastLiveExample)
+        
+        toast.show()
+      })
+    }
+  </script>
   </body>
 </html>

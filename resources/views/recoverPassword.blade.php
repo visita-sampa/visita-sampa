@@ -69,20 +69,65 @@
 
             <div id="signup" class="signup text-center h-100">
               <h2 class="title-login">{{ __('Recuperar senha') }}</h2>
-              <form method="POST" action="{{ route('password.request', app()->getLocale()) }}" class="form-signup d-flex flex-column h-100 justify-content-around">
+              <form method="POST" action="{{ route('password.request', app()->getLocale()) }}" class="form-signup d-flex flex-column h-50 justify-content-around">
                 @csrf
-                @if(session('msgError'))
-                {{ session('msgError') }}
-                @endif
+                <!-- @if(session('msgEmailSuccess'))
+                <div class="callout warning-box bd-callout bd-callout-success">
+                  {{ session('msgEmailSuccess') }}
+                </div>
+                @elseif(session('msgEmailFail'))
+                <div class="callout warning-box bd-callout bd-callout-danger">
+                  {{ session('msgEmailFail') }}
+                </div>
+                @endif -->
                 <p>Informe seu e-mail cadastrado</p>
                 <input type="email" name="email" id="email" placeholder="E-mail" autocomplete="off" class="input-signup" required />
-                <button type="submit" class="btn-signup">{{ __('Recuperar') }}</button>
+                <button type="submit" class="btn-signup mt-3">{{ __('Recuperar') }}</button>
               </form>
             </div>            
           </div>
         </div>
       </div>
     </main>
+
+    <button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
+    
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          @if(session('msgSendUpdatePasswordEmailSuccess'))
+          <strong class="me-auto text-success">
+            <i class="icon-check"></i>
+            Sucesso
+          </strong>
+          @elseif(session('msgSendUpdatePasswordEmailFail') || session('msgUpdatePasswordRequestFail') || session('msgFindUserFail') || session('msgInvalidLink'))
+          <strong class="me-auto text-danger">
+            <i class="icon-x"></i>
+            Falha
+          </strong>
+          @endif
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          @if(session('msgSendUpdatePasswordEmailSuccess'))
+          {{ session('msgSendUpdatePasswordEmailSuccess') }}
+
+          @elseif(session('msgSendUpdatePasswordEmailFail'))
+          {{ session('msgSendUpdatePasswordEmailFail') }}
+
+          @elseif(session('msgUpdatePasswordRequestFail'))
+          {{ session('msgUpdatePasswordRequestFail') }}
+          
+          @elseif(session('msgFindUserFail'))
+          {{ session('msgFindUserFail') }}
+
+          @elseif(session('msgInvalidLink'))
+          {{ session('msgInvalidLink') }}
+
+          @endif
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted pt-4">
@@ -162,5 +207,22 @@
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="/assets/js/login.js"></script>
+    <script>
+      @if(session('msgSendUpdatePasswordEmailSuccess') || session('msgSendUpdatePasswordEmailFail') || session('msgUpdatePasswordRequestFail') || session('msgFindUserFail') || session('msgInvalidLink'))
+        $(document).ready(function () {
+          $("#liveToastBtn").click();
+        });
+      @endif
+
+      var toastTrigger = document.getElementById('liveToastBtn')
+      var toastLiveExample = document.getElementById('liveToast')
+      if (toastTrigger) {
+        toastTrigger.addEventListener('click', function () {
+          var toast = new bootstrap.Toast(toastLiveExample)
+          
+          toast.show()
+        })
+      }
+    </script>
   </body>
 </html>

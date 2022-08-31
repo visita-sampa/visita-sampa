@@ -27,7 +27,7 @@
           <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
           <label class="for-dropdown" for="dropdown">
             <i class="icon-arrow_drop_down"></i>
-            <img src="{{ auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : auth::user()->foto_perfil}}" alt="" class="profile-img-menu rounded-circle" alt="Foto Perfil Usuário" />
+            <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" alt="" class="profile-img-menu rounded-circle" alt="Foto Perfil Usuário" />
             <!-- <i class="icon-user"></i> -->
           </label>
           <div class="section-dropdown">
@@ -99,7 +99,7 @@
                   </button>
                 </div>
                 <div class="modal-body modal-body-user">
-                  <img src="{{ auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle" />
+                  <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle" />
                   <label for="profile-pic" class="change-picture">
                     {{ __('Alterar foto de perfil') }}
                   </label>
@@ -107,15 +107,15 @@
                   <div class="bio">
                     <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floating-name" placeholder="{{ __('Nome') }}" value="{{auth::user()->nome}}">
+                      <input type="text" class="form-control" id="floating-name" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
                       <label for="floating-name">{{ __('Nome') }}</label>
                     </div>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floating-user-name" placeholder="{{ __('Nome de usuário') }}" value="{{auth::user()->nome_usuario}}">
+                      <input type="text" class="form-control" id="floating-user-name" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
                       <label for="floating-user-name">{{ __('Nome de usuário') }}</label>
                     </div>
                     <div class="form-floating textarea">
-                      <textarea class="form-control" id="floating-bio" maxlength="128" placeholder="Bio">{{auth::user()->descricao}}</textarea>
+                      <textarea class="form-control" id="floating-bio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
                       <label for="floating-bio">Bio</label>
                     </div>
                   </div>
@@ -145,7 +145,7 @@
 
           <!-- Modal -->
           <div class="modal fade" id="modalTerms" tabindex="-1" aria-labelledby="modalTerms" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="modalTermsTitle">{{ __('Termo de Uso') }}</h5>
@@ -176,7 +176,7 @@
           </div>
 
           <div class="modal fade" id="modalAbout" tabindex="-1" aria-labelledby="modalAbout" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="modalAboutTitle">{{ __('Sobre') }} Visita Sampa</h5>
@@ -194,15 +194,15 @@
                   </p>
                   <div class="d-flex justify-content-evenly mb-3">
                     <div class="email">
-                      <a href="" class="text-decoration-none text-dark">
-                        <i class="icon-mail"></i>
-                        <h6>sigma5.equipe@gmail.com</h6>
+                      <a href="mailto:sigma5.equipe@gmail.com" class="text-decoration-none text-dark fs-6">
+                        <i class="icon-mail fs-6"></i>
+                        <h6 class="fs-6" title="sigma5.equipe@gmail.com">E-mail</h6>
                       </a>
                     </div>
                     <div class="form">
-                      <a href="" class="text-decoration-none text-dark">
-                        <i class="icon-message-circle"></i>
-                        <h6>{{ __('Formulário') }}</h6>
+                      <a href="{{ route('contact', app()->getLocale()) }}" class="text-decoration-none text-dark fs-6">
+                        <i class="icon-message-circle fs-6"></i>
+                        <h6 class="fs-6">{{ __('Formulário') }}</h6>
                       </a>
                     </div>
                   </div>
@@ -217,7 +217,7 @@
                       <i class="icon-github fs-5"></i>
                     </a>
                     <a href="https://www.youtube.com/channel/UCQ9lG55gNSXKlr6X9af336w/featured" class="text-decoration-none text-dark" target="_blank">
-                      <i class="icon-arrow_drop_down fs-5"></i>
+                      <i class="icon-youtube-play fs-5"></i>
                     </a>
                   </div>
                 </div>
@@ -298,7 +298,7 @@
         })
         .done(function(eventDivulgation) {
           if (eventDivulgation.html == "") {
-            $('.ajax-load').html('Nenhuma outra publicação encontrada');
+            $('.ajax-load').html('Nenhum outro evento encontrado');
             return;
           }
           $('.ajax-load').hide();

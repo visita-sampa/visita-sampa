@@ -112,7 +112,7 @@
                       <div class="card-body p-0">
                         <input class="input-alternative d-none" value="{{$alternative->id_alternativa}}" type="radio" name="question-{{$question->id_questao}}" id="alternative-{{$alternative->id_alternativa}}" />
                         <label id="alternative-label-{{$alternative->id_alternativa}}" class="alternative-label w-100 p-3" for="alternative-{{$alternative->id_alternativa}}">
-                          {{$alternative->enunciado}}.
+                          {{ __($alternative->enunciado) }}.
                         </label>
                       </div>
                     </div>

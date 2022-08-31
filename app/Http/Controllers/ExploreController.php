@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\explore;
+use App\Models\publication;
+use App\Models\touristSpot;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Auth;
-use Hash;
-use App\Models\User;
-use App\Models\publication;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ExploreController extends Controller
 {
@@ -42,12 +44,56 @@ class ExploreController extends Controller
             $post->data = round(($now - strtotime($post->data)) / (60 * 60 * 24));
         }
 
-        if($request->ajax()) {
-            $view = view('explorePublication', ['publications' => $publications])->render();
-            return response()->json(['html'=>$view]);
+        // dd($request->all());
+        // search profiles or tourist spots
+        $search = $request->search;
+        $typeSearch = "";
+
+        $touristSpot = DB::table('ponto_turistico')
+            ->select('ponto_turistico.id_ponto_turistico', 'ponto_turistico.nome_ponto_turistico')
+            ->orderBy('nome_ponto_turistico', 'asc')
+            ->paginate(12, ['*'], 'touristSpotSearchPage');
+
+        $profiles = DB::table('usuario')
+            ->select('usuario.id_usuario', 'usuario.nome', 'usuario.nome_usuario')
+            ->orderBy('nome', 'asc')
+            ->paginate(12, ['*'], 'profileSearchPage');
+
+        $publications->appends(['page' => $publications->currentPage()])->links();
+        
+        $touristSpot->appends(['touristSpotSearchPage' => $touristSpot->currentPage()])->links();
+
+        $profiles->appends(['profileSearchPage' => $profiles->currentPage()])->links();
+
+        if($search) {
+            if($request->typeSearch == 1) {
+                $touristSpot = DB::table('ponto_turistico')
+                    ->select('ponto_turistico.id_ponto_turistico', 'ponto_turistico.nome_ponto_turistico')
+                    ->where('nome_ponto_turistico', 'ilike', '%' . $search . '%')
+                    ->orderBy('nome_ponto_turistico', 'asc')
+                    ->get();
+                $typeSearch = "pontos turísticos";
+            }
+            elseif($request->typeSearch == 2) {
+                $profiles = DB::table('usuario')
+                    ->select('usuario.id_usuario', 'usuario.nome', 'usuario.nome_usuario')
+                    ->where('nome', 'ilike', '%' . $search . '%')
+                    ->orWhere('nome_usuario', 'ilike', '%' . $search . '%')
+                    ->orderBy('nome', 'asc')
+                    ->get();
+                $typeSearch = "perfis";
+            }
         }
 
-        return view('explore', ['publications' => $publications]);
+        if ($request->ajax()) {
+            $view = view('explorePublication', ['publications' => $publications])->render();
+            $touristSpotContent = view('searchTouristSpot', ['touristSpot' => $touristSpot])->render();
+            $profileContent = view('searchProfile', ['profiles' => $profiles])->render();
+
+            return response()->json(['html' => $view, 'htmlSearchTouristSpot' => $touristSpotContent, 'htmlSearchProfile' => $profileContent]);
+        }
+
+        return view('explore', ['publications' => $publications, 'touristSpot' => $touristSpot, 'profiles' => $profiles, 'search' => $search, 'typeSearch' =>$typeSearch]);
     }
 
     /**

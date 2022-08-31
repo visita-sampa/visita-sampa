@@ -8,13 +8,6 @@ input:focus {
   outline: 0;
 }
 
-/* Nav */
-.nav-link i.icon-alert-triangle,
-.nav-link i.icon-edit-2 {
-  font-size: 2rem !important;
-  color: var(--blue);
-}
-
 .add-event {
   display: flex;
   align-items: center;
@@ -43,7 +36,7 @@ i.icon-plus {
   transform: scale(1.02);
 }
 
-.teste {
+.new-event {
   display: flex;
   justify-content: space-between;
 }
@@ -276,6 +269,10 @@ i.icon-plus {
   }
 
   .card-img-top {
+    width: 100%;
+  }
+
+  .input-event {
     width: 100%;
   }
 }

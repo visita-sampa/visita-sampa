@@ -58,7 +58,9 @@ i.icon-image,
 i.icon-user,
 i.icon-globe,
 i.icon-map-pin,
-i.icon-edit-3 {
+i.icon-edit-3,
+i.icon-alert-triangle,
+i.icon-edit-2 {
     font-size: 2rem !important;
     color: var(--blue);
 }
@@ -177,6 +179,10 @@ i.icon-edit-3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .for-dropdown-log-out span {
@@ -334,7 +340,6 @@ li {
 }
 
 /* Configurações */
-/* igor da um jeito */
 .modal-body::-webkit-scrollbar {
     width: 12px;
 }
@@ -483,7 +488,7 @@ i.icon-lock {
 
 /* cookie consent */
 .cookie-consent {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     background-color: rgb(var(--bs-light-rgb));
     width: 100%;
@@ -525,6 +530,37 @@ i.icon-lock {
     filter: drop-shadow(0px 1.5px 6px rgba(0, 0, 0, 0.25));
 }
 
+/* email */
+.email p {
+    color: var(--blue);
+}
+
+/* warnings */
+.warning-box {
+    width: 28.75rem;
+}
+
+.bd-callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #e9ecef;
+    border-left-width: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.bd-callout-success {
+    border-left-color: #32a871;
+}
+
+.bd-callout-danger {
+    border-left-color: #d9534f;
+}
+
+.text-blue {
+    color: var(--blue);
+}
+
 /* Media Screen */
 /* extra extra extra large devices: 1700 < */
 @media screen and (min-width: 1700px) {
@@ -546,7 +582,9 @@ i.icon-lock {
     i.icon-user,
     i.icon-globe,
     i.icon-map-pin,
-    i.icon-edit-3 {
+    i.icon-edit-3,
+    i.icon-alert-triangle,
+    i.icon-edit-2 {
         font-size: 1.75rem !important;
     }
 
@@ -558,6 +596,7 @@ i.icon-lock {
         bottom: 1rem;
     }
 }
+
 @media screen and (max-width: 635px) {
     .profile-img {
         width: 9rem;
@@ -579,6 +618,7 @@ i.icon-lock {
     .translate {
         font-size: 12px;
     }
+
     .profile-img {
         width: 6rem;
         height: 6rem;
@@ -592,7 +632,9 @@ i.icon-lock {
     i.icon-user,
     i.icon-globe,
     i.icon-map-pin,
-    i.icon-edit-3 {
+    i.icon-edit-3,
+    i.icon-alert-triangle,
+    i.icon-edit-2 {
         font-size: 1.5rem !important;
     }
 

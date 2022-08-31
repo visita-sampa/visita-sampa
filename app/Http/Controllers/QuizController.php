@@ -6,10 +6,10 @@ use App\Models\quiz;
 use App\Models\answer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Auth;
-use Session;
 use Illuminate\Support\Pluralizer;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class QuizController extends Controller
 {
@@ -59,9 +59,21 @@ class QuizController extends Controller
         $answers = $request->all();
 
         $answers = array_slice($answers, 1, 15);
-
         $answer = new Answer;
 
+        if (Auth::user()) {
+            $answerId = DB::table('usuario_questionario_resposta')
+                ->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+                ->get();
+
+            foreach ($answerId as $id) {
+                $answerId = $id->fk_respostas_id_resposta;
+            }
+
+            if ($answerId) {
+                $answer = Answer::find($answerId);
+            }
+        }
         $answer->questao_1 = $answers['question-1'];
         $answer->questao_2 = $answers['question-2'];
         $answer->questao_3 = $answers['question-3'];
@@ -78,16 +90,12 @@ class QuizController extends Controller
         $answer->questao_14 = $answers['question-14'];
         $answer->questao_15 = $answers['question-15'];
 
-
         if (Auth::user()) {
-            $findUserById = DB::table('usuario_questionario_resposta')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)->first();
-            if ($findUserById) {
-                DB::table('usuario_questionario_resposta')
-                    ->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
-                    ->update(['fk_respostas_id_resposta' => $answer->id_resposta]);
-            } else {
-                $answer->save();
-            }
+            $answer->save();
+
+            DB::table('usuario_questionario_resposta')
+                ->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+                ->update(['fk_respostas_id_resposta' => $answer->id_resposta]);
         }
 
         return redirect()->route('byCookie', app()->getLocale())->with('answers', $answers);
@@ -140,8 +148,8 @@ class QuizController extends Controller
 
     // public function boot()
     // {
-	// 		Pluralizer::useLanguage('english');
-			
-	// 		// ...
+    // 		Pluralizer::useLanguage('english');
+
+    // 		// ...
     // }
 }

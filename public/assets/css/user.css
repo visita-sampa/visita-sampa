@@ -104,10 +104,6 @@ h4 {
     border-radius: 5px;
 }
 
-.text-blue {
-    color: var(--blue);
-}
-
 /* responsividade */
 @media screen and (max-width: 1161px) {
     .posts {

@@ -27,7 +27,7 @@
           <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
           <label class="for-dropdown" for="dropdown">
             <i class="icon-arrow_drop_down"></i>
-            <img src="{{ auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : auth::user()->foto_perfil}}" alt="" class="profile-img-menu rounded-circle" alt="Foto Perfil Usuário" />
+            <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" alt="" class="profile-img-menu rounded-circle" alt="Foto Perfil Usuário" />
             <!-- <i class="icon-user"></i> -->
           </label>
           <div class="section-dropdown">
@@ -99,7 +99,7 @@
                   </button>
                 </div>
                 <div class="modal-body modal-body-user">
-                  <img src="{{ auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle" />
+                  <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle" />
                   <label for="profile-pic" class="change-picture">
                     {{ __('Alterar foto de perfil') }}
                   </label>
@@ -107,15 +107,15 @@
                   <div class="bio">
                     <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floating-name" placeholder="{{ __('Nome') }}" value="{{auth::user()->nome}}">
+                      <input type="text" class="form-control" id="floating-name" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
                       <label for="floating-name">{{ __('Nome') }}</label>
                     </div>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floating-user-name" placeholder="{{ __('Nome de usuário') }}" value="{{auth::user()->nome_usuario}}">
+                      <input type="text" class="form-control" id="floating-user-name" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
                       <label for="floating-user-name">{{ __('Nome de usuário') }}</label>
                     </div>
                     <div class="form-floating textarea">
-                      <textarea class="form-control" id="floating-bio" maxlength="128" placeholder="Bio">{{auth::user()->descricao}}</textarea>
+                      <textarea class="form-control" id="floating-bio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
                       <label for="floating-bio">Bio</label>
                     </div>
                   </div>
@@ -145,7 +145,7 @@
 
           <!-- Modal -->
           <div class="modal fade" id="modalTerms" tabindex="-1" aria-labelledby="modalTerms" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="modalTermsTitle">{{ __('Termo de Uso') }}</h5>
@@ -176,7 +176,7 @@
           </div>
 
           <div class="modal fade" id="modalAbout" tabindex="-1" aria-labelledby="modalAbout" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="modalAboutTitle">{{ __('Sobre') }} Visita Sampa</h5>
@@ -194,15 +194,15 @@
                   </p>
                   <div class="d-flex justify-content-evenly mb-3">
                     <div class="email">
-                      <a href="" class="text-decoration-none text-dark">
-                        <i class="icon-mail"></i>
-                        <h6>sigma5.equipe@gmail.com</h6>
+                      <a href="mailto:sigma5.equipe@gmail.com" class="text-decoration-none text-dark fs-6">
+                        <i class="icon-mail fs-6"></i>
+                        <h6 class="fs-6" title="sigma5.equipe@gmail.com">E-mail</h6>
                       </a>
                     </div>
                     <div class="form">
-                      <a href="" class="text-decoration-none text-dark">
-                        <i class="icon-message-circle"></i>
-                        <h6>{{ __('Formulário') }}</h6>
+                      <a href="{{ route('contact', app()->getLocale()) }}" class="text-decoration-none text-dark fs-6">
+                        <i class="icon-message-circle fs-6"></i>
+                        <h6 class="fs-6">{{ __('Formulário') }}</h6>
                       </a>
                     </div>
                   </div>
@@ -217,7 +217,7 @@
                       <i class="icon-github fs-5"></i>
                     </a>
                     <a href="https://www.youtube.com/channel/UCQ9lG55gNSXKlr6X9af336w/featured" class="text-decoration-none text-dark" target="_blank">
-                      <i class="icon-arrow_drop_down fs-5"></i>
+                      <i class="icon-youtube-play fs-5"></i>
                     </a>
                   </div>
                 </div>
@@ -264,14 +264,65 @@
 
   <main class="">
     <div class="container">
-      <form class="search">
-        <div class="search-icon">
-          <div class="icon">
-            <i class="icon-search"></i>
+      <div class="d-flex flex-wrap position-relative justify-content-center">
+        <form class="search" method="GET" action="{{ route('explore', app()->getLocale()) }}" name="formSearch">
+          <!-- @csrf -->
+          <div class="search-icon">
+            <div class="icon">
+              <i class="icon-search"></i>
+            </div>
+            <!-- <div class="">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="typeSearch" id="touristSpotRadio" value="1" checked>
+                <label class="form-check-label" for="touristSpotRadio">
+                  Busca por ponto turístico
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="typeSearch" id="profileRadio" value="2">
+                <label class="form-check-label" for="profileRadio">
+                  Busca por perfil
+                </label>
+              </div>
+            </div> -->
+            <input type="hidden" name="typeSearch" id="typeSearch" value="1">
+            <input class="form-control dropdown-toggle" type="text" id="search" name="search" placeholder="@if($search) {{ __('Buscando por') }} &#34;{{ $search }}&#34; {{ __('em') }} {{ $typeSearch }} @else {{ __('Pesquisar') }} @endif" aria-label="Search" autocomplete="off" data-bs-toggle="dropdown" aria-expanded="false" />
+            <div class="card search p-3 h-auto position-absolute search-result-container dropdown-menu" id="search-result-container" aria-labelledby="search">
+              <ul class="nav nav-tabs nav-fill">
+                <li class="nav-item" onclick="event.stopPropagation();">
+                  <button class="nav-link active" aria-current="page" id="tourist-spot-search-tab" data-bs-toggle="tab" data-bs-target="#tourist-spot-search" type="button" role="tab" aria-controls="tourist-spot-search" aria-selected="true">Pontos turísticos</button>
+                </li>
+                <li class="nav-item" onclick="event.stopPropagation();">
+                  <button class="nav-link" aria-current="page" id="profile-search-tab" data-bs-toggle="tab" data-bs-target="#profile-search" type="button" role="tab" aria-controls="profile-search" aria-selected="false">Perfis</button>
+                </li>
+              </ul>
+            
+              <div class="tab-content" id="search-content">
+                <div class="tab-pane fade show active" id="tourist-spot-search" role="tabpanel" aria-labelledby="tourist-spot-search-tab">
+                  <ul class="list-group list-group-flush" id="tourist-spot-search-container">
+                    @include('searchTouristSpot')
+                  </ul>
+                  <div class="ajax-load-tourist-spot-search text-center mt-3">
+                    <div class="spinner-border text-danger" role="status">
+                      <span class="visually-hidden">Carregando...</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade show" id="profile-search" role="tabpanel" aria-labelledby="profile-search-tab">
+                  <ul class="list-group list-group-flush" id="profile-search-container">
+                    @include('searchProfile')
+                  </ul>
+                  <div class="ajax-load-profile-search text-center mt-3">
+                    <div class="spinner-border text-danger" role="status">
+                      <span class="visually-hidden">Carregando...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <input class="form-control" type="text" placeholder="{{ __('Pesquisar') }}" aria-label="Search" />
-        </div>
-      </form>
+        </form>
+      </div>
       <h1 class="title">{{ __('Explorar') }}</h1>
       <div class="grid-container" id="post-container">
         @include('explorePublication')
@@ -286,6 +337,7 @@
 
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/explore.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script>
@@ -294,9 +346,53 @@
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    function loadMoreData(page) {
+    function loadMoreTouristSpotSearchData(page, touristSpotSearchPage, profileSearchPage) {
       $.ajax({
-          url: '?page=' + page,
+        url: '?page=' + page + '&touristSpotSearchPage=' + touristSpotSearchPage + '&profileSearchPage=' + profileSearchPage,
+        type: "get",
+        beforeSend: function () {
+          $(".ajax-load-tourist-spot-search").show();
+        },
+      })
+      .done(function (searchTouristSpot) {
+        if (searchTouristSpot.htmlSearchTouristSpot == "") {
+          $(".ajax-load-tourist-spot-search").html(
+            "Nenhum outro ponto turístico encontrado"
+            );
+            return;
+          }
+          $(".ajax-load-tourist-spot-search").hide();
+          $("#tourist-spot-search-container").append(searchTouristSpot.htmlSearchTouristSpot);
+        })
+        .fail(function (jqXHR, ajaxOptions, thrownError) {
+          alert("Servidor não está respondendo à busca por ponto turístico...");
+        });
+      }
+      
+      function loadMoreProfileSearchData(page, touristSpotSearchPage, profileSearchPage) {
+        $.ajax({
+          url: '?page=' + page + '&touristSpotSearchPage=' + touristSpotSearchPage + '&profileSearchPage=' + profileSearchPage,
+          type: 'get',
+          beforeSend: function() {
+            $('.ajax-load-profile-search').show();
+          }
+        })
+        .done(function(searchProfile) {
+          if (searchProfile.html == "") {
+            $('.ajax-load-profile-search').html('Nenhum outro perfil encontrado');
+            return;
+          }
+          $('.ajax-load-profile-search').hide();
+          $('#profile-search-container').append(searchProfile.htmlSearchProfile);
+        })
+        .fail(function(jqXHR, ajaxOptions, thrownError) {
+          alert("Servidor não está respondendo à busca por perfil...");
+        });
+      }
+      
+      function loadMoreData(page, touristSpotSearchPage, profileSearchPage) {
+        $.ajax({
+          url: '?page=' + page + '&touristSpotSearchPage=' + touristSpotSearchPage + '&profileSearchPage=' + profileSearchPage,
           type: 'get',
           beforeSend: function() {
             $('.ajax-load').show();
@@ -313,16 +409,52 @@
         .fail(function(jqXHR, ajaxOptions, thrownError) {
           alert("Servidor não está respondendo...");
         });
-    }
-
-    var page = 1;
-    $(window).scroll(function() {
-      if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        page++;
-        loadMoreData(page);
       }
-    });
+
+      var page = 1;
+      var touristSpotSearchPage = 1;
+      var profileSearchPage = 1;
+
+      @if($search)
+        $(document).ready(function () {
+            $("#search").click();
+        });
+        @if($typeSearch == "pontos turísticos")
+          $(document).ready(function () {
+              $("#tourist-spot-search-tab").click();
+          });
+          $(".ajax-load-tourist-spot-search").hide();
+        @elseif($typeSearch == "perfis")
+          $(document).ready(function () {
+              $("#profile-search-tab").click();
+          });
+          $(".ajax-load-profile-search").hide();
+        @endif
+      @else
+        $('#search-result-container').scroll(function () {
+          if ($('#search-result-container').scrollTop() + $('#search-result-container').height() >= $('#search-result-container').height()) {
+            touristSpotSearchPage++;
+            loadMoreTouristSpotSearchData(page, touristSpotSearchPage, profileSearchPage);
+          }
+        });
+
+        $('#search-result-container').scroll(function () {
+          if ($('#search-result-container').scrollTop() + $('#search-result-container').height() >= $('#search-result-container').height()) {
+            profileSearchPage++;
+            loadMoreProfileSearchData(page, touristSpotSearchPage, profileSearchPage);
+          }
+        });
+      @endif
+      
+      $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+          page++;
+          loadMoreData(page, touristSpotSearchPage, profileSearchPage);
+        }
+      });
+
   </script>
+
 </body>
 
 </html>

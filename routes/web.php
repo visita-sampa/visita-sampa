@@ -12,8 +12,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TouristSpotController;
 use App\Http\Controllers\PublicationController;
-use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AdminEventsController;
+use App\Http\Controllers\AdminReportController;
+use App\Http\Controllers\Auth\VerificationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,24 +47,28 @@ Route::group(['prefix' => '{language?}'], function () {
     Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
     Route::get('/roadMap/{personality?}', [RoadMapController::class, 'index'])->name('roadMap');
     Route::get('/user', [UserController::class, 'index'])->name('user');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
     Route::get('/adminEvents', [AdminEventsController::class, 'index'])->name('adminEvents');
-
-
-    Route::get('/deleteEvent', [EventController::class, 'deleteEventByExpirationDate'])->name('delete.event');
-
+    Route::get('/adminReport', [AdminReportController::class, 'index'])->name('adminReport');
 
     Route::get('/touristSpot/{id?}', [TouristSpotController::class, 'show'])->name('touristSpot.show');
+    Route::get('/user/{id?}', [UserController::class, 'show'])->name('user.show');
 
     Route::post('/send', [QuizController::class, 'store'])->name('quiz.store');
 
     Route::get('/byCookie', [RoadMapController::class, 'calculatePersonalityByCookies'])->name('byCookie');
 
+    //admin registration events
+    Route::post('/addEvent', [AdminEventsController::class, 'store'])->name('adminEvents.store');
+
     // user registration routes
-    Route::get('/register', [UserController::class, 'register'])->name('register');
+    Route::get('/signup', [UserController::class, 'signup'])->name('signup');
     Route::post('/register', [UserController::class, 'store'])->name('user.store');
 
     Route::get('/emailConfirmation/{key?}', [UserController::class, 'emailConfirmation'])->name('email.confirmation');
-    // Route::get('/emailconfirmationfail', [UserController::class, 'emailConfirmationFail'])->name('email.confirmation.fail');
+    Route::get('/emailStyle', [LoginController::class, 'emailStyle'])->name('email.style');
+    Route::post('/sendEmail', [ContactController::class, 'sendEmail'])->name('contact.email');
 
     // user authentication routes
     Route::get('/login', [LoginController::class, 'login'])->name('login');

@@ -2,244 +2,261 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Auth;
-use Hash;
 use App\Models\User;
-use PHPMailer\PHPMailer\PHPMailer;
+use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        if (!Auth::user()) {
-            return redirect()->route('login', app()->getLocale());
-        }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index(Request $request)
+	{
+		if (!Auth::user()) {
+			return redirect()->route('login', app()->getLocale());
+		}
 
-        $profile = DB::table('classificacao_perfil_roteiro')
-            ->where('id_classificacao', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao)
-            ->get();
+		$user = DB::table('usuario')
+			->where('nome_usuario', Auth::user()->nome_usuario)
+			->first();
 
-        $publications = DB::table('publicacao')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
-            ->orderBy('id_publicacao', 'desc')
-            ->paginate(12);
+		$profile = DB::table('classificacao_perfil_roteiro')
+			->where('id_classificacao', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao)
+			->get();
 
-            if($request->ajax()) {
-                $view = view('userPublication', ['publications' => $publications])->render();
-                return response()->json(['html'=>$view]);
-            }
+		$publications = DB::table('publicacao')->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+			->orderBy('id_publicacao', 'desc')
+			->paginate(12);
 
-        return view('user',  ['profile' => $profile, 'publications' => $publications]);
-    }
+		if ($request->ajax()) {
+			$view = view('userPublication', ['publications' => $publications])->render();
+			return response()->json(['html' => $view]);
+		}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function create()
-    // {
-    //     //
-    // }
+		return view('user',  ['user' => $user, 'profile' => $profile, 'publications' => $publications]);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $user = new User;
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function create()
+	// {
+	//     //
+	// }
 
-        $user->nome = $request->nameSignup;
-        $user->nome_usuario = $request->usernameSignup;
-        $user->email = $request->emailSignup;
-        $user->senha = bcrypt($request->passwordSignup);
-        $user->chave_confirmacao = bcrypt($request->emailSignup . date("Y-m-d H:i:s"));
-        $user->chave_confirmacao = str_replace('/', '', $user->chave_confirmacao);
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request)
+	{
+		$user = new User;
 
-        $validateCredencials = $this->validateCredentials($user);
+		$user->nome = $request->nameSignup;
+		$user->nome_usuario = $request->usernameSignup;
+		$user->email = $request->emailSignup;
+		$user->senha = bcrypt($request->passwordSignup);
+		$user->chave_confirmacao = bcrypt($request->emailSignup . date("Y-m-d H:i:s"));
+		$user->chave_confirmacao = str_replace('/', '', $user->chave_confirmacao);
 
-        if ($validateCredencials) {
-            $user->save();
+		$validateCredencials = $this->validateCredentials($user);
 
-            $mail = new PHPMailer(true);
+		if ($validateCredencials) {
+			$user->save();
 
-            try {
-                //Server settings
-                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-                $mail->CharSet    = 'UTF-8';
-                $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'sigma5.equipe@gmail.com';
-                $mail->Password   = 'dpmezmrzuguxulwd';
-                $mail->SMTPSecure = 'tls';
-                $mail->Port       = 587;
+			$mail = new PHPMailer(true);
 
-                //Recipients
-                $mail->setFrom('sigma5.equipe@gmail.com', 'Visita Sampa');
-                $mail->addAddress($request->emailSignup, $request->nameSignup);     //Add a recipient
+			try {
+				//Server settings
+				// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+				$mail->CharSet    = 'UTF-8';
+				$mail->isSMTP();
+				$mail->Host       = env('MAIL_HOST');
+				$mail->SMTPAuth   = true;
+				$mail->Username   = env('MAIL_USERNAME');
+				$mail->Password   = env('MAIL_PASSWORD');
+				$mail->SMTPSecure = env('MAIL_ENCRYPTION');
+				$mail->Port       = env('MAIL_PORT');
 
-                //Content
-                $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'Visita Sampa - confirmação de e-mail';
-                $mail->Body    = 'Olá, ' . $request->nameSignup . '<br><br>Agradecemos a sua visita em nosso site! Para finalizar seu cadastro, confirme seu endereço de e-mail clicando no link abaixo: <br><br> <a href="http://localhost/pt/emailConfirmation/' . $user->chave_confirmacao . '">Clique aqui</a>';
-                $mail->AltBody = 'Olá, ' . $request->nameSignup . '\n\nAgradecemos a sua visita em nosso site! Para finalizar seu cadastro, confirme seu endereço de e-mail clicando no link abaixo: \n\nhttp://localhost/pt/emailConfirmation/'. $user->chave_confirmacao;
-            
-                $mail->send();
+				//Recipients
+				$mail->setFrom(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+				$mail->addAddress($request->emailSignup, $request->nameSignup);     //Add a recipient
 
-                echo 'Message has been sent';
-            }
-            catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }
+				//Content
+				$mail->isHTML(true);                                  //Set email format to HTML
+				$mail->Subject = 'Visita Sampa - confirmação de e-mail';
+				$mail->Body    = 'Olá, ' . $request->nameSignup . '<br><br>Agradecemos a sua visita em nosso site! Para finalizar seu cadastro, confirme seu endereço de e-mail clicando no link abaixo: <br><br> <a href="http://localhost/pt/emailConfirmation/' . $user->chave_confirmacao . '">Clique aqui</a>';
+				$mail->AltBody = 'Olá, ' . $request->nameSignup . '\n\nAgradecemos a sua visita em nosso site! Para finalizar seu cadastro, confirme seu endereço de e-mail clicando no link abaixo: \n\nhttp://localhost/pt/emailConfirmation/' . $user->chave_confirmacao;
 
-            $findUser = $user->where('email', $request->emailSignup)->first();
+				$mail->send();
 
-            // if (!empty($findUser) && Hash::check($request->passwordSignup, $findUser->senha)) {
-            //     Auth::loginUsingId($findUser->id_usuario);
-            // }
-        }
-        return redirect()->route('login', app()->getLocale());
-    }
+				$msg = "Seu cadastro está em andamenteo. Para finalizar, acesse seu e-mail para confirmar o endereço cadastrado";
+				return redirect()->route('signup', app()->getLocale())->with('msgSendEmailConfirmationSuccess', $msg);
+			} catch (Exception $e) {
+				$msg = "Não foi possível concluir o seu cadastro. Tente novamente.";
+				return redirect()->route('signup', app()->getLocale())->with('msgSendEmailConfirmationFail', $msg);
+			}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\user  $user
-     * @return \Illuminate\Http\Response
-     */
-    // public function show(user $user)
-    // {
-    //     //
-    // }
+			$findUser = $user->where('email', $request->emailSignup)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\user  $user
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit(user $user)
-    // {
-    //     //
-    // }
+			// if (!empty($findUser) && Hash::check($request->passwordSignup, $findUser->senha)) {
+			//     Auth::loginUsingId($findUser->id_usuario);
+			// }
+		}
+		return redirect()->route('login', app()->getLocale());
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\user  $user
-     * @return \Illuminate\Http\Response
-     */
-    // public function update(Request $request, user $user)
-    // {
-    //     //
-    // }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \App\Models\user  $user
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(Request $request, $language, $id = null)
+	{
+		if ($id == null) {
+			$id = Auth::user()->nome_usuario;
+		}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\user  $user
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy(user $user)
-    // {
-    //     //
-    // }
+		$user = DB::table('usuario')
+			->where('nome_usuario', $id)
+			->first();
 
-    public function login()
-    {
-        return view('login');
-    }
+		$profile = DB::table('classificacao_perfil_roteiro')
+			->where('id_classificacao', $user->fk_classificacao_perfil_roteiro_id_classificacao)
+			->get();
 
-    public function register()
-    {
-        return view('login');
-    }
+		$publications = DB::table('publicacao')->where('fk_usuario_id_usuario', $user->id_usuario)
+			->orderBy('id_publicacao', 'desc')
+			->paginate(12);
 
-    public function validateCredentials($user)
-    {
-        $findUserByEmail = $user->where('email', $user->email)->first();
-        $findUserByUsername = $user->where('nome_usuario', $user->nome_usuario)->first();
+		if ($request->ajax()) {
+			$view = view('userPublication', ['publications' => $publications])->render();
+			return response()->json(['html' => $view]);
+		}
 
-        if (!empty($findUserByEmail) || !empty($findUserByUsername))
-            return false;
-        else
-            return true;
-    }
+		return view('user',  ['user' => $user, 'profile' => $profile, 'publications' => $publications]);
+	}
 
-    // public function validatePassword($password)
-    // {
-    //     // if((strlen($password) >= 8) && (filter_var($password, FILTER_SANITIZE_NUMBER_INT) == true))
-    //     $pattern = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d].\S{8,36}$/';
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  \App\Models\user  $user
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function edit(user $user)
+	// {
+	//     //
+	// }
 
-    //     return preg_match($pattern, $password) ? true : false;
-    // }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\user  $user
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function update(Request $request, user $user)
+	// {
+	//     //
+	// }
 
-    public function emailConfirmation($language, $key = null)
-    {
-        if(!empty($key)) {
-            $findUser = DB::table('usuario')->where('chave_confirmacao', $key)->value('id_usuario');
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Models\user  $user
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function destroy(user $user)
+	// {
+	//     //
+	// }
 
-            if(!empty($findUser)) {
+	public function signup()
+	{
+		return view('signup');
+	}
 
-                $confirm = DB::table('usuario')
-                ->where('id_usuario', $findUser)
-                ->update(['situacao_cadastro' => 1]);
+	public function validateCredentials($user)
+	{
+		$findUserByEmail = $user->where('email', $user->email)->first();
+		$findUserByUsername = $user->where('nome_usuario', $user->nome_usuario)->first();
 
-                DB::table('usuario')
-                ->where('id_usuario', $findUser)
-                ->update(['email_verified_at' => now()]);
+		if (!empty($findUserByEmail) || !empty($findUserByUsername))
+			return false;
+		else
+			return true;
+	}
 
-                DB::table('usuario')
-                ->where('id_usuario', $findUser)
-                ->update(['chave_confirmacao' => null]);
+	// public function validatePassword($password)
+	// {
+	//     // if((strlen($password) >= 8) && (filter_var($password, FILTER_SANITIZE_NUMBER_INT) == true))
+	//     $pattern = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d].\S{8,36}$/';
 
-                if($confirm) {
-                    $msgSignup = "Sucesso: E-mail confirmado.";
-                    return redirect()->route('login', app()->getLocale())->with('msgSignup', $msgSignup);
-                }
-                else {
-                    $msgError = "Erro: E-mail não confirmado.";
-                    return view('emailConfirmation', ['msgError' => $msgError]);
-                }
+	//     return preg_match($pattern, $password) ? true : false;
+	// }
 
-            }
-            else {
-                $msgError = "Erro: Endereço inválido.";
-                return view('emailConfirmation', ['msgError' => $msgError]);
-            }
-        }
-        else {
-            $msgError = "Erro: Endereço inválido.";
-            return view('emailConfirmation', ['msgError' => $msgError]);
-        }
-    }
-    
-    public function emailConfirmationFail()
-    {
-        return view('emailConfirmation');
-    }
+	public function emailConfirmation($language, $key = null)
+	{
+		if (!empty($key)) {
+			$findUser = DB::table('usuario')->where('chave_confirmacao', $key)->value('id_usuario');
 
-    public function crop(Request $request)
-    {
-        $response = cloudinary()->upload($request->file('profile-pic')->getRealPath())->getSecurePath();
+			if (!empty($findUser)) {
 
-        $user = Auth::user();
+				$confirm = DB::table('usuario')
+					->where('id_usuario', $findUser)
+					->update(['situacao_cadastro' => 1]);
 
-        User::where('id_usuario', $user->id_usuario)->update(['foto_perfil' => $response]);
+				DB::table('usuario')
+					->where('id_usuario', $findUser)
+					->update(['email_verified_at' => now()]);
 
-        return response()->json(['status' => 1, 'msg' => 'Sua foto de perfil foi atualizada com sucesso.', 'name' => $response]);
-    }
+				DB::table('usuario')
+					->where('id_usuario', $findUser)
+					->update(['chave_confirmacao' => null]);
+
+				if ($confirm) {
+					$msg = "Sucesso: E-mail confirmado. Faça login com suas credenciais";
+					return redirect()->route('signup', app()->getLocale())->with('msgSignupCompleted', $msg);
+				} else {
+					$msg = "Erro: E-mail não confirmado.";
+					return redirect()->route('signup', app()->getLocale())->with('msgSignupNotCompleted', $msg);
+				}
+			} else {
+				$msg = "Endereço inválido.";
+				return redirect()->route('signup', app()->getLocale())->with('msgInvalidLink', $msg);
+			}
+		} else {
+			$msg = "Endereço inválido.";
+			return redirect()->route('signup', app()->getLocale())->with('msgInvalidLink', $msg);
+		}
+	}
+
+	// public function emailConfirmationFail()
+	// {
+	//     return view('emailConfirmation');
+	// }
+
+	public function crop(Request $request)
+	{
+		$response = cloudinary()->upload($request->file('profile-pic')->getRealPath())->getSecurePath();
+
+		$user = Auth::user();
+
+		User::where('id_usuario', $user->id_usuario)->update(['foto_perfil' => $response]);
+
+		return response()->json(['status' => 1, 'msg' => 'Sua foto de perfil foi atualizada com sucesso.', 'name' => $response]);
+	}
 }

@@ -1,3 +1,22 @@
+body {
+  background-color: #fcfcfc;
+}
+
+.meet {
+  background: linear-gradient(0deg,
+      rgba(252, 252, 252, 0) 0%,
+      rgba(252, 252, 252, 0.588785) 30.21%,
+      #fcfcfc 60.94%),
+    url("../img/fundo.png");
+  height: calc(100vh - 76.53px);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Fresca&display=swap");
 
 html {
@@ -12,11 +31,6 @@ h2 {
   text-align: center;
 }
 
-p,
-a {
-  color: var(--blue);
-}
-
 /* background */
 .web-background {
   background: rgb(0, 0, 0);
@@ -29,14 +43,18 @@ a {
   background-size: cover;
 }
 
-.container.login {
-  justify-content: center;
+.container.contact {
   align-items: center;
   height: calc(100vh - 76.53px) !important;
   justify-content: space-between;
+  flex-direction: row;
 }
 
-.title-login {
+.contact {
+  height: 400px !important;
+}
+
+.title-contact {
   border-bottom: 1px solid var(--blue);
   margin-bottom: 2.25rem !important;
   width: 37.5rem;
@@ -46,11 +64,7 @@ a {
   margin: auto;
 }
 
-.signup {
-  height: 400px !important;
-}
-
-.btn-signup {
+.btn-contact {
   font-weight: 500;
   padding: 0.625rem 1.56rem;
   color: var(--blue);
@@ -60,10 +74,9 @@ a {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   transition: all 0.2s;
-  margin-top: 1rem;
 }
 
-.btn-signup:hover {
+.btn-contact:hover {
   background-color: var(--pink);
   color: var(--white);
   transform: scale(1.06);
@@ -73,20 +86,8 @@ a {
   width: 28.75rem;
 }
 
-#login.input-signup,
-#login.input-confirmation,
-#passwordLogin.input-signup {
-  margin-bottom: 1.5rem;
-}
-
-.form-signup {
+.form-contact {
   align-items: center;
-}
-
-.inputContent {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 .messageAlert {
@@ -96,42 +97,30 @@ a {
   padding-left: 0.5rem;
 }
 
-.input-signup,
-.input-confirmation {
+.inputContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-contact {
   padding: 0.7rem 1.43rem;
   width: 28.75rem;
   border: 0.5px solid var(--blue);
   border-radius: 5px;
+  resize: none;
 }
 
-.input-signup:focus,
-.input-confirmation:focus {
+.input-contact:focus {
   border: 2px solid var(--blue) !important;
   outline: 0;
 }
 
-.input-signup::placeholder,
-.input-confirmation::placeholder {
-
+.input-contact::placeholder {
   color: var(--blue);
 }
 
-.showPass {
-  position: absolute;
-  margin-left: 25rem;
-  margin-top: 10.5rem;
-}
-
-.showPass.login {
-  position: absolute;
-  margin-top: 5.5rem;
-}
-
-.msg-pass {
-  display: none;
-}
-
-.link-signup {
+.link-contact {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -151,14 +140,21 @@ a {
     margin-bottom: 1rem;
   }
 
-  .container.login {
+  .container.contact {
     height: auto !important;
     flex-direction: column !important;
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .container {
+    flex-direction: column;
+    justify-content: center !important;
+  }
+}
+
 @media screen and (max-width: 643px) {
-  .title-login {
+  .title-contact {
     width: 90%;
   }
 
@@ -166,23 +162,16 @@ a {
     width: 90vw;
   }
 
-  #login {
+  #contact {
     display: flex;
     flex-direction: column;
   }
 
-  .input-signup,
-  .input-confirmation {
+  .input-contact {
     width: 100%;
   }
 
-  .showPass {
-    position: relative;
-    margin-top: unset;
-    margin-left: unset;
-  }
-
-  .msg-pass {
-    display: inline;
+  .img-logo {
+    display: none;
   }
 }

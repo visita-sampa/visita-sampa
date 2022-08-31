@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Auth;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -33,9 +33,9 @@ class EventController extends Controller
             $event->data_evento = strftime('%A, %d de %B de %Y', strtotime($event->data_evento));
         }
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             $view = view('eventDivulgation', ['events' => $events])->render();
-            return response()->json(['html'=>$view]);
+            return response()->json(['html' => $view]);
         }
 
         return view('event', ['events' => $events]);
@@ -129,23 +129,5 @@ class EventController extends Controller
     // public function destroy(event $event)
     // {
     //     //
-    // }
-
-    // public function deleteEventByExpirationDate()
-    // {
-	// 		$events = DB::table('eventos')->get();
-			
-	// 		setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-	// 		date_default_timezone_set('America/Sao_Paulo');
-		
-	// 		$now = now();
-			
-	// 		$date2 = Carbon::createFromFormat('Y-m-d', '2022-06-26');
-	// 		foreach ($events as $event) {
-	// 			$date1 = Carbon::createFromFormat('Y-m-d', $event->data_evento);
-	// 			$result = $date1->eq($date2);
-	// 		}
-	// 		dd($result);
-
     // }
 }

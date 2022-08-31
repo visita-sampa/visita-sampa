@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ __('Cadastro') }}</title>
+  <title>{{ __('Entrar') }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <link href="/assets/css/style.css" rel="stylesheet" />
   <link href="/assets/css/login.css" rel="stylesheet" />
@@ -68,31 +68,10 @@
         <div class="container login p-4 d-flex flex-row w-100 align-items-center">
           <img src="/assets/img/logoVisitaSampa.png" alt="" class="img-logo" />
 
-          <div id="signup" class="signup text-center h-100">
-            <h2 class="title-login">{{ __('CADASTRE-SE') }}</h2>
-            <form method="POST" action="{{ route('user.store', app()->getLocale()) }}" class="form-signup d-flex flex-column h-100 justify-content-around">
-              @csrf
-              @if(session('msgSignup'))
-              {{ session('msgSignup') }}
-              @endif
-              <input type="text" name="nameSignup" id="nameSignup" placeholder="{{ __('Nome') }}" autocomplete="off" class="input-signup" required />
-              <input type="text" name="usernameSignup" id="usernameSignup" placeholder="{{ __('Nome de usuário') }}" autocomplete="off" class="input-signup" required />
-              <input type="email" name="emailSignup" id="emailSignup" placeholder="E-mail" autocomplete="off" class="input-signup" required />
-              <input type="password" name="passwordSignup" id="passwordSignup" placeholder="{{ __('Senha') }}" autocomplete="off" class="input-signup" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#_])[0-9a-zA-Z$*&@#_]{6,12}$" required data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="A senha deve conter: <br/>Entre 6 e 12 caracteres;<br/>Ter pelo menos uma letra maiúscula e uma letra minúscula;</br>Um número;</br>Um símbolo (#, @, _, $, &, *)" />
-              <input type="checkbox" name="showPass" id="showPass" class="d-none" />
-              <label for="showPass" id="eye" class="showPass icon-eye-off"><span class="msg-pass">{{ __('Mostrar senha') }}</span></label>
-              <button type="submit" class="btn-signup">{{ __('Cadastrar') }}</button>
-            </form>
-            <p>{{ __('Já tem cadastro?') }} <a href="#" class="text-decoration-underline" onclick="login()">{{ __('Entre em sua conta') }}</a></p>
-          </div>
-
-          <div id="logon" class="signup d-none">
+          <div id="logon" class="signup">
             <h2 class="title-login">{{ __('ENTRAR') }}</h2>
             <form method="POST" action="{{ route('validate.login', app()->getLocale()) }}" class="form-signup d-flex flex-column align-items-center">
               @csrf
-              @if(session('msgLogin'))
-              {{ session('msgLogin') }}
-              @endif
               <input type="text" name="login" id="login" placeholder="{{ __('E-mail ou Nome de usuário') }}" autocomplete="off" class="input-signup" required />
               <input type="password" name="passwordLogin" id="passwordLogin" placeholder="{{ __('Senha') }}" autocomplete="off" class="input-signup" required />
               <input type="checkbox" name="showPass" id="showPassLogin" class="d-none" />
@@ -100,12 +79,42 @@
               <p class="link-forgot-password"><a href="{{ route('recover.password', app()->getLocale()) }}" class="text-decoration-underline text-danger" >{{ __('Esqueci minha senha') }}</a></p>
               <button type="submit" class="btn-signup">{{ __('Entrar') }}</button>
             </form>
-            <p class="link-signup">{{ __('Não tem cadastro?') }}&nbsp;<a href="#" class="text-decoration-underline" onclick="login(1)">{{ __('Cadastre-se') }}</a></p>
+            <p class="link-signup">{{ __('Não tem cadastro?') }}&nbsp;<a href="{{ route('signup', app()->getLocale()) }}" class="text-decoration-underline">{{ __('Cadastre-se') }}</a></p>
           </div>
         </div>
       </div>
     </div>
   </main>
+
+  <button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        @if(session('msgUpdatePasswordSuccess'))
+        <strong class="me-auto text-success">
+          <i class="icon-check"></i>
+          Sucesso
+        </strong>
+        @elseif(session('msgEmailNotConfirmed'))
+        <strong class="me-auto text-danger">
+          <i class="icon-x"></i>
+          Falha
+        </strong>
+        @endif
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        @if(session('msgUpdatePasswordSuccess'))
+        {{ session('msgUpdatePasswordSuccess') }}
+
+        @elseif(session('msgEmailNotConfirmed'))
+        {{ session('msgEmailNotConfirmed') }}
+
+        @endif
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="text-center text-lg-start bg-light text-muted pt-4">
@@ -185,6 +194,23 @@
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="/assets/js/login.js"></script>
+  <script>
+    @if(session('msgUpdatePasswordSuccess') || session('msgEmailNotConfirmed'))
+      $(document).ready(function () {
+        $("#liveToastBtn").click();
+      });
+    @endif
+
+    var toastTrigger = document.getElementById('liveToastBtn')
+    var toastLiveExample = document.getElementById('liveToast')
+    if (toastTrigger) {
+      toastTrigger.addEventListener('click', function () {
+        var toast = new bootstrap.Toast(toastLiveExample)
+
+        toast.show()
+      })
+    }
+  </script>
 </body>
 
 </html>

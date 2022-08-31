@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\roadMap;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Auth;
-use Session;
-use Cookie;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class RoadMapController extends Controller
 {
@@ -16,47 +16,54 @@ class RoadMapController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($language, $personality = null)
+    public function index()
     {
         // if (!Auth::user()) {
         //     return redirect()->route('login', app()->getLocale());
         // }
 
+        $personality = request()->cookie('personality');
+
         if (Auth::user()) {
-            if($personality != null) {
+            if ($personality != null) {
                 DB::table('usuario')
-                ->where('id_usuario', Auth::user()->id_usuario)
-                ->update(['fk_classificacao_perfil_roteiro_id_classificacao' => $personality, 'fk_classificacao_perfil_roteiro_id_roteiro' => $personality]);
+                    ->where('id_usuario', Auth::user()->id_usuario)
+                    ->update(['fk_classificacao_perfil_roteiro_id_classificacao' => $personality, 'fk_classificacao_perfil_roteiro_id_roteiro' => $personality]);
             }
-            
+
             $user = DB::table('usuario')
                 ->where('id_usuario', Auth::user()->id_usuario)
                 ->get();
-                
+
             $roadMap = null;
-                
-            foreach($user as $u){
+
+            foreach ($user as $u) {
                 $roadMap = $u->fk_classificacao_perfil_roteiro_id_roteiro;
             }
 
-            if($roadMap == null && $personality == null) {
+            if ($roadMap == null && $personality == null) {
                 return redirect()->route('quiz', app()->getLocale());
             }
 
             $pontos = DB::select("SELECT * FROM ponto_turistico WHERE fk_roteiro_id_roteiro = $roadMap");
-        }
-        else {
-            $personality = Cookie::get('personality');
-
-            if($personality != null) {
+        } else {
+            $personality = request()->cookie('personality');
+            
+            if ($personality != null) {
                 $pontos = DB::select("SELECT * FROM ponto_turistico WHERE fk_roteiro_id_roteiro = $personality");
-            }
-            else {
+            } else {
                 return redirect()->route('quiz', app()->getLocale());
             }
         }
+        
+        if ($personality != null) {
+            $roadMapTitle = DB::select("SELECT nome_roteiro FROM classificacao_perfil_roteiro WHERE id_classificacao = $personality");
+            
+            $roadMapType = DB::select("SELECT descricao FROM classificacao_perfil_roteiro WHERE id_classificacao = $personality");
+        }
+        
 
-        return view('roadMap', ['pontos' => $pontos]);
+        return view('roadMap', ['pontos' => $pontos, 'roadMapType' => $roadMapType, 'roadMapTitle' => $roadMapTitle]);
     }
 
     /**
@@ -131,22 +138,22 @@ class RoadMapController extends Controller
         $answers = Session::get('answers');
 
         $alternatives = DB::select('SELECT * FROM alternativa');
-            foreach ($answers as $answer) {
-                foreach ($alternatives as $alternative) {
-                    for ($i = 1; $i <= 15; $i++) {
-                        if ($answer == $alternative->id_alternativa) {
-                            array_push($count, $alternative->fk_classificacao_perfil_roteiro_id_classificacao);
-                        }
+        foreach ($answers as $answer) {
+            foreach ($alternatives as $alternative) {
+                for ($i = 1; $i <= 15; $i++) {
+                    if ($answer == $alternative->id_alternativa) {
+                        array_push($count, $alternative->fk_classificacao_perfil_roteiro_id_classificacao);
                     }
                 }
             }
-            $count = array_count_values($count);
-            $count = array_keys($count, max($count));
-            $personalidade = $count[0];
+        }
+        $count = array_count_values($count);
+        $count = array_keys($count, max($count));
+        $personalidade = $count[0];
 
-            $pontos = DB::select("SELECT * FROM ponto_turistico WHERE fk_roteiro_id_roteiro = $personalidade");
+        $pontos = DB::select("SELECT * FROM ponto_turistico WHERE fk_roteiro_id_roteiro = $personalidade");
 
-            $name = "personality";
-            return redirect()->route('roadMap', ['language'=>app()->getLocale(), 'personality'=>$personalidade])->withCookie(cookie($name, $personalidade, 5));
+        $name = "personality";
+        return redirect()->route('roadMap', ['language' => app()->getLocale()])->withCookie(cookie($name, $personalidade, 5));
     }
 }

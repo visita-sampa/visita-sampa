@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\feed;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Auth;
-use Hash;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FeedController extends Controller
 {
@@ -34,10 +34,10 @@ class FeedController extends Controller
             ->orderBy('id_publicacao', 'desc')
             ->paginate(12);
 
-            if($request->ajax()) {
-							$view = view('feedPublication', ['publications' => $publications])->render();
-							return response()->json(['html'=>$view]);
-						}
+        if ($request->ajax()) {
+            $view = view('feedPublication', ['publications' => $publications])->render();
+            return response()->json(['html' => $view]);
+        }
 
         return view('feed', ['publications' => $publications]);
     }

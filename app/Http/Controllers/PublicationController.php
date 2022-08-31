@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\publication;
 use App\Models\complaint;
+use App\Models\publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class PublicationController extends Controller
 {
@@ -42,7 +42,7 @@ class PublicationController extends Controller
 
         $post = new Publication;
 
-        $post->midia                                    = cloudinary()->upload($request->fileAux)->getSecurePath();
+        $post->midia                                    = cloudinary()->upload($request->fileAux, array("folder" => "publications", "overwrite" => TRUE, "resource_type" => "image"))->getSecurePath();
         $post->legenda                                  = $request->postDescription;
         $post->data                                     = now();
         $post->fk_usuario_id_usuario                    = Auth::user()->id_usuario;
@@ -50,7 +50,7 @@ class PublicationController extends Controller
 
         $post->save();
 
-        return redirect()->route('touristSpot.show', ['language'=>app()->getLocale(), 'id'=>$request->touristSpotId]);
+        return redirect()->route('touristSpot.show', ['language' => app()->getLocale(), 'id' => $request->touristSpotId]);
     }
 
 
@@ -114,11 +114,10 @@ class PublicationController extends Controller
         $complaint->fk_usuario_id_usuario       = Auth::user()->id_usuario;
         $complaint->fk_publicacao_id_publicacao = $request->idPostDenouce;
 
-        if($complaint->save()) {
+        if ($complaint->save()) {
             $report['success']  = true;
             $report['message']  = 'A publicação foi reportada com sucesso. Enviaremos sua denúncia para análise dos administradores. Agradecemos sua colaboração!';
-        }
-        else {
+        } else {
             $report['success']  = false;
             $report['message']  = 'A publicação não foi reportada. Algo inesperado aconteceu, tente novamente.';
         }
