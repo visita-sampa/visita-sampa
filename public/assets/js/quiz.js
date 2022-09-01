@@ -91,6 +91,8 @@ function markAnswered(index) {
 function switchQuestion(index) {
     const question = document.getElementById(`question-${index}`);
     const btn_question = document.getElementById(`btn-question-${index}`);
+    const btnNext = document.getElementById("next");
+    const btnPrev = document.getElementById("prev");
 
     hideQuestions();
     disabledQuizButton();
@@ -101,8 +103,35 @@ function switchQuestion(index) {
 
     question.classList.remove("question-disabled");
     btn_question.classList.add("quiz-button-active");
+
+    if (last_question === 1) {
+        // btnNext.style.visibility = "visible";
+        // btnPrev.style.visibility = "hidden";
+        btnNext.classList.remove("disappear");
+        btnPrev.classList.add("disappear");
+    } else if (last_question === 15) {
+        // btnNext.style.visibility = "hidden";
+        // btnPrev.style.visibility = "visible";
+        btnNext.classList.add("disappear");
+        btnPrev.classList.remove("disappear");
+    } else {
+        // btnNext.style.visibility = "visible";
+        // btnPrev.style.visibility = "visible";
+        btnNext.classList.remove("disappear");
+        btnPrev.classList.remove("disappear");
+    }
 }
 
 hideQuestions();
 disabledQuizButton();
 switchQuestion(1);
+
+// Next and previous buttons
+
+function nextQuestion() {
+    switchQuestion(last_question + 1);
+}
+
+function prevQuestion() {
+    switchQuestion(last_question - 1);
+}
