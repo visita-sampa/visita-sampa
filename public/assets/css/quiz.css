@@ -47,6 +47,35 @@ input[type="radio"]:checked + label {
     align-items: center;
 }
 
+.buttons-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.next-prev {
+    border: none;
+    background: transparent;
+    font-weight: 500;
+    align-items: center;
+    display: flex;
+}
+
+.next-prev:hover {
+    color: var(--pink);
+    transition: color 0.5s;
+}
+
+.disappear {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.icon-chevron-right,
+.icon-chevron-left {
+    font-size: 1.5rem;
+}
+
 .quiz {
     width: 3rem;
     height: 3.3rem;
