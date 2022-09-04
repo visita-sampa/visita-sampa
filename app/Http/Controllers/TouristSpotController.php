@@ -68,7 +68,7 @@ class TouristSpotController extends Controller
                 $join->on('cidade.fk_estado_id_estado', '=', 'estado.id_estado');
             })
             ->where('ponto_turistico.id_ponto_turistico', '=', $id)
-            ->select('ponto_turistico.id_ponto_turistico', 'ponto_turistico.nome_ponto_turistico', 'ponto_turistico.informacoes', 'ponto_turistico.imagem', 'endereco.logradouro', 'endereco.cep', 'endereco.numero', 'endereco.complemento', 'bairro.nome_bairro', 'cidade.nome_cidade', 'estado.nome_estado')
+            ->select('ponto_turistico.id_ponto_turistico', 'ponto_turistico.nome_ponto_turistico', 'ponto_turistico.informacoes', 'ponto_turistico.horario_funcionamento', 'ponto_turistico.valor', 'ponto_turistico.link', 'ponto_turistico.imagem', 'endereco.logradouro', 'endereco.cep', 'endereco.numero', 'endereco.complemento', 'bairro.nome_bairro', 'cidade.nome_cidade', 'estado.nome_estado')
             ->get();
 
         $publications = DB::table('publicacao')
@@ -79,6 +79,11 @@ class TouristSpotController extends Controller
                 $join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico');
             })
             ->where('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', $id)
+            ->where(function ($query) {
+								$query
+									->where('publicacao.situacao', false)
+									->orWhereNull('publicacao.situacao');
+            })
             ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'ponto_turistico.nome_ponto_turistico', 'publicacao.data', 'publicacao.updated_at', 'usuario.nome', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
             ->orderBy('id_publicacao', 'desc')
             ->paginate(12);

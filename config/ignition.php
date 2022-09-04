@@ -20,7 +20,7 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvi
 
 return [
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Editor
     |--------------------------------------------------------------------------
@@ -33,9 +33,9 @@ return [
     |
     */
 
-    'editor' => env('IGNITION_EDITOR', 'phpstorm'),
+	'editor' => env('IGNITION_EDITOR', 'phpstorm'),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Theme
     |--------------------------------------------------------------------------
@@ -46,9 +46,9 @@ return [
     |
     */
 
-    'theme' => env('IGNITION_THEME', 'auto'),
+	'theme' => env('IGNITION_THEME', 'auto'),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Sharing
     |--------------------------------------------------------------------------
@@ -60,9 +60,9 @@ return [
     |
     */
 
-    'enable_share_button' => env('IGNITION_SHARING_ENABLED', true),
+	'enable_share_button' => env('IGNITION_SHARING_ENABLED', true),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Register Ignition commands
     |--------------------------------------------------------------------------
@@ -75,9 +75,9 @@ return [
     |
     */
 
-    'register_commands' => env('REGISTER_IGNITION_COMMANDS', false),
+	'register_commands' => env('REGISTER_IGNITION_COMMANDS', false),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Solution Providers
     |--------------------------------------------------------------------------
@@ -88,30 +88,30 @@ return [
     |
     */
 
-    'solution_providers' => [
-        // from spatie/ignition
-        BadMethodCallSolutionProvider::class,
-        MergeConflictSolutionProvider::class,
-        UndefinedPropertySolutionProvider::class,
+	'solution_providers' => [
+		// from spatie/ignition
+		BadMethodCallSolutionProvider::class,
+		MergeConflictSolutionProvider::class,
+		UndefinedPropertySolutionProvider::class,
 
-        // from spatie/laravel-ignition
-        IncorrectValetDbCredentialsSolutionProvider::class,
-        MissingAppKeySolutionProvider::class,
-        DefaultDbNameSolutionProvider::class,
-        TableNotFoundSolutionProvider::class,
-        MissingImportSolutionProvider::class,
-        InvalidRouteActionSolutionProvider::class,
-        ViewNotFoundSolutionProvider::class,
-        RunningLaravelDuskInProductionProvider::class,
-        MissingColumnSolutionProvider::class,
-        UnknownValidationSolutionProvider::class,
-        MissingMixManifestSolutionProvider::class,
-        MissingLivewireComponentSolutionProvider::class,
-        UndefinedViewVariableSolutionProvider::class,
-        GenericLaravelExceptionSolutionProvider::class,
-    ],
+		// from spatie/laravel-ignition
+		IncorrectValetDbCredentialsSolutionProvider::class,
+		MissingAppKeySolutionProvider::class,
+		DefaultDbNameSolutionProvider::class,
+		TableNotFoundSolutionProvider::class,
+		MissingImportSolutionProvider::class,
+		InvalidRouteActionSolutionProvider::class,
+		ViewNotFoundSolutionProvider::class,
+		RunningLaravelDuskInProductionProvider::class,
+		MissingColumnSolutionProvider::class,
+		UnknownValidationSolutionProvider::class,
+		MissingMixManifestSolutionProvider::class,
+		MissingLivewireComponentSolutionProvider::class,
+		UndefinedViewVariableSolutionProvider::class,
+		GenericLaravelExceptionSolutionProvider::class,
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Ignored Solution Providers
     |--------------------------------------------------------------------------
@@ -122,11 +122,9 @@ return [
     |
     */
 
-    'ignored_solution_providers' => [
+	'ignored_solution_providers' => [],
 
-    ],
-
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Runnable Solutions
     |--------------------------------------------------------------------------
@@ -139,9 +137,9 @@ return [
     |
     */
 
-    'enable_runnable_solutions' => env('IGNITION_ENABLE_RUNNABLE_SOLUTIONS', env('APP_DEBUG', false)),
+	'enable_runnable_solutions' => env('IGNITION_ENABLE_RUNNABLE_SOLUTIONS', env('APP_DEBUG', false)),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Remote Path Mapping
     |--------------------------------------------------------------------------
@@ -164,10 +162,10 @@ return [
     |
     */
 
-    'remote_sites_path' => env('IGNITION_REMOTE_SITES_PATH', base_path()),
-    'local_sites_path' => env('IGNITION_LOCAL_SITES_PATH', ''),
+	'remote_sites_path' => env('IGNITION_REMOTE_SITES_PATH', base_path()),
+	'local_sites_path' => env('IGNITION_LOCAL_SITES_PATH', ''),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Housekeeping Endpoint Prefix
     |--------------------------------------------------------------------------
@@ -177,9 +175,9 @@ return [
     |
     */
 
-    'housekeeping_endpoint_prefix' => '_ignition',
+	'housekeeping_endpoint_prefix' => '_ignition',
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Settings File
     |--------------------------------------------------------------------------
@@ -202,6 +200,6 @@ return [
     | Default value: '' (empty string)
     */
 
-    'settings_file_path' => '',
+	'settings_file_path' => '',
 
 ];

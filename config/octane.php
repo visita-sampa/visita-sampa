@@ -23,7 +23,7 @@ use Laravel\Octane\Octane;
 
 return [
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Octane Server
     |--------------------------------------------------------------------------
@@ -36,9 +36,9 @@ return [
     |
     */
 
-    'server' => env('OCTANE_SERVER', 'roadrunner'),
+	'server' => env('OCTANE_SERVER', 'roadrunner'),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Force HTTPS
     |--------------------------------------------------------------------------
@@ -49,9 +49,9 @@ return [
     |
     */
 
-    'https' => env('OCTANE_HTTPS', true),
+	'https' => env('OCTANE_HTTPS', true),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Octane Listeners
     |--------------------------------------------------------------------------
@@ -62,61 +62,61 @@ return [
     |
     */
 
-    'listeners' => [
-        WorkerStarting::class => [
-            EnsureUploadedFilesAreValid::class,
-            EnsureUploadedFilesCanBeMoved::class,
-        ],
+	'listeners' => [
+		WorkerStarting::class => [
+			EnsureUploadedFilesAreValid::class,
+			EnsureUploadedFilesCanBeMoved::class,
+		],
 
-        RequestReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
-            ...Octane::prepareApplicationForNextRequest(),
-            //
-        ],
+		RequestReceived::class => [
+			...Octane::prepareApplicationForNextOperation(),
+			...Octane::prepareApplicationForNextRequest(),
+			//
+		],
 
-        RequestHandled::class => [
-            //
-        ],
+		RequestHandled::class => [
+			//
+		],
 
-        RequestTerminated::class => [
-            // FlushUploadedFiles::class,
-        ],
+		RequestTerminated::class => [
+			// FlushUploadedFiles::class,
+		],
 
-        TaskReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
-            //
-        ],
+		TaskReceived::class => [
+			...Octane::prepareApplicationForNextOperation(),
+			//
+		],
 
-        TaskTerminated::class => [
-            //
-        ],
+		TaskTerminated::class => [
+			//
+		],
 
-        TickReceived::class => [
-            ...Octane::prepareApplicationForNextOperation(),
-            //
-        ],
+		TickReceived::class => [
+			...Octane::prepareApplicationForNextOperation(),
+			//
+		],
 
-        TickTerminated::class => [
-            //
-        ],
+		TickTerminated::class => [
+			//
+		],
 
-        OperationTerminated::class => [
-            FlushTemporaryContainerInstances::class,
-            // DisconnectFromDatabases::class,
-            // CollectGarbage::class,
-        ],
+		OperationTerminated::class => [
+			FlushTemporaryContainerInstances::class,
+			// DisconnectFromDatabases::class,
+			// CollectGarbage::class,
+		],
 
-        WorkerErrorOccurred::class => [
-            ReportException::class,
-            StopWorkerIfNecessary::class,
-        ],
+		WorkerErrorOccurred::class => [
+			ReportException::class,
+			StopWorkerIfNecessary::class,
+		],
 
-        WorkerStopping::class => [
-            //
-        ],
-    ],
+		WorkerStopping::class => [
+			//
+		],
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Warm / Flush Bindings
     |--------------------------------------------------------------------------
@@ -127,15 +127,15 @@ return [
     |
     */
 
-    'warm' => [
-        ...Octane::defaultServicesToWarm(),
-    ],
+	'warm' => [
+		...Octane::defaultServicesToWarm(),
+	],
 
-    'flush' => [
-        //
-    ],
+	'flush' => [
+		//
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Octane Cache Table
     |--------------------------------------------------------------------------
@@ -146,12 +146,12 @@ return [
     |
     */
 
-    'cache' => [
-        'rows' => 1000,
-        'bytes' => 10000,
-    ],
+	'cache' => [
+		'rows' => 1000,
+		'bytes' => 10000,
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Octane Swoole Tables
     |--------------------------------------------------------------------------
@@ -162,14 +162,14 @@ return [
     |
     */
 
-    'tables' => [
-        'example:1000' => [
-            'name' => 'string:1000',
-            'votes' => 'int',
-        ],
-    ],
+	'tables' => [
+		'example:1000' => [
+			'name' => 'string:1000',
+			'votes' => 'int',
+		],
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | File Watching
     |--------------------------------------------------------------------------
@@ -180,19 +180,19 @@ return [
     |
     */
 
-    'watch' => [
-        'app',
-        'bootstrap',
-        'config',
-        'database',
-        'public/**/*.php',
-        'resources/**/*.php',
-        'routes',
-        'composer.lock',
-        '.env',
-    ],
+	'watch' => [
+		'app',
+		'bootstrap',
+		'config',
+		'database',
+		'public/**/*.php',
+		'resources/**/*.php',
+		'routes',
+		'composer.lock',
+		'.env',
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Garbage Collection Threshold
     |--------------------------------------------------------------------------
@@ -203,9 +203,9 @@ return [
     |
     */
 
-    'garbage' => 50,
+	'garbage' => 50,
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Maximum Execution Time
     |--------------------------------------------------------------------------
@@ -216,6 +216,6 @@ return [
     |
     */
 
-    'max_execution_time' => 30,
+	'max_execution_time' => 30,
 
 ];

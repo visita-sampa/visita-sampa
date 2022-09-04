@@ -91,7 +91,7 @@ $(window).scroll(function () {
     }
 });
 
-// active toast ans tooltips
+// active toasts
 var toastTrigger = document.getElementById("liveToastBtn");
 var toastLiveExample = document.getElementById("liveToast");
 if (toastTrigger) {
@@ -102,9 +102,22 @@ if (toastTrigger) {
     });
 }
 
-var tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
-);
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-});
+var btnDeletePostSuccess = document.getElementById("toastBtnDeletePostSuccess");
+var toastDeletePostSuccess = document.getElementById("toastDeletePostSuccess");
+if (btnDeletePostSuccess) {
+    btnDeletePostSuccess.addEventListener("click", function () {
+        var toast = new bootstrap.Toast(toastDeletePostSuccess);
+
+        toast.show();
+    });
+}
+
+var btnDeletePostFail = document.getElementById("toastBtnDeletePostFail");
+var toastDeletePostFail = document.getElementById("toastDeletePostFail");
+if (btnDeletePostFail) {
+    btnDeletePostFail.addEventListener("click", function () {
+        var toast = new bootstrap.Toast(toastDeletePostFail);
+
+        toast.show();
+    });
+}

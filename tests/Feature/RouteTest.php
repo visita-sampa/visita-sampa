@@ -8,11 +8,11 @@ use Tests\TestCase;
 
 class RouteTest extends TestCase
 {
-    /** @test */
-    public function check_if_home_route_is_correct()
-    {
-        $response = $this->get('/pt/home/');
+	/** @test */
+	public function check_if_home_route_is_correct()
+	{
+		$response = $this->get('/pt/home/');
 
-        $response->assertStatus(200);
-    }
+		$response->assertStatus(200);
+	}
 }

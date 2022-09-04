@@ -71,10 +71,10 @@
           <!-- Ativos -->
           <div class="tab-pane fade show active" id="report" role="tabpanel" aria-labelledby="report-tab">
             @foreach($postReported as $post)
-            <div class="card" id="card">
+            <div class="card" id="card-report-noreply-{{ $post->id_publicacao }}">
               <div class="card-body d-flex">
                 <div class="rounded-circle position-relative">
-                  <img src="/img/users/profileDefault.png" alt="" class="profile-img rounded-circle" />
+                  <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="" class="profile-img rounded-circle" />
                 </div>
                 <div class="card-content">
                   <div class="card-infos">
@@ -86,6 +86,7 @@
                     @php
                       $cont = 0;
                     @endphp
+                    
                     @foreach($complaints as $report)
                     @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
                     @php
@@ -96,21 +97,23 @@
                     <span class="badge badge-pill badge-report" id="badge-report">{{ $cont }}</span>
                   </div>
                   <div class="card-buttons">
-                    <button type="button" class="btn btn-accept"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceitar denúncia"></i></button>
-                    <button type="button" class="btn btn-refuse"><i class="icon-x" data-bs-toggle="tooltip" data-bs-placement="top" title="Rejeitar denúncia"></i></button>
+                    <button type="button" class="btn btn-accept" id="btn-accept-report-noreply-{{ $post->id_publicacao }}" onclick="acceptComplaint({{ $post->id_publicacao }}, 'noreply')"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceitar denúncia"></i></button>
+                    <button type="button" class="btn btn-refuse" id="btn-refuse-report-noreply-{{ $post->id_publicacao }}" onclick="refuseComplaint({{ $post->id_publicacao }}, 'noreply')"><i class="icon-x" data-bs-toggle="tooltip" data-bs-placement="top" title="Rejeitar denúncia"></i></button>
                   </div>
                 </div>
               </div>
               <div class="card-description" id="card-description">
                 <!-- Informações Ocultadas -->
                 <div class="card-text">
-                  @foreach($complaints as $report)
-                  @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
-                  <div class="reason">
-                    <p>{{ $report->motivo }}</p>
-                  </div>
-                  @endif
-                  @endforeach
+                <div class="card w-100">
+                  <ul class="list-group list-group-flush">
+                    @foreach($complaints as $report)
+                    @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
+                    <li class="list-group-item reason">{{ $report->motivo }}</li>
+                    @endif
+                    @endforeach
+                  </ul>
+                </div>
                   <div class="report">
                     <div class="report-dialog">
                       <div class="report-content">
@@ -169,46 +172,66 @@
           </div>
           <!-- Denúncias aceitas -->
           <div class="tab-pane fade" id="report-accept" role="tabpanel" aria-labelledby="report-accept-tab">
-            <div class="card" id="card">
+            @foreach($postComplaintAccepted as $post)
+            <div class="card" id="card-report-accept-{{ $post->id_publicacao }}">
               <div class="card-body d-flex">
                 <div class="rounded-circle position-relative">
-                  <img src="/img/users/profileDefault.png" alt="" class="profile-img rounded-circle" />
+                  <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="" class="profile-img rounded-circle" />
                 </div>
                 <div class="card-content">
                   <div class="card-infos">
-                    <h5 class="card-title">Nome usuário</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Ponto Turístico</h6>
-                    <span class="badge badge-pill badge-report" id="badge-report">1</span>
+                    <h5 class="card-title">{{ $post->nome }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ $post->nome_ponto_turistico }}</h6>
+                    @php
+                      $cont = 0;
+                    @endphp
+                    
+                    @foreach($complaintAccepted as $report)
+                    @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
+                    @php
+                      $cont++
+                    @endphp
+                    @endif
+                    @endforeach
+                    <span class="badge badge-pill badge-report" id="badge-report">{{ $cont }}</span>
                   </div>
                   <div class="card-buttons">
-                    <button type="button" class="btn btn-accept"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceitar denúncia"></i></button>
-                    <button type="button" class="btn btn-refuse"><i class="icon-x" data-bs-toggle="tooltip" data-bs-placement="top" title="Rejeitar denúncia"></i></button>
+                    <button type="button" class="btn btn-accept disabled" id="btn-accept-report-accept-{{ $post->id_publicacao }}" onclick="acceptComplaint({{ $post->id_publicacao }}, 'accept')"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceitar denúncia"></i></button>
+                    <button type="button" class="btn btn-refuse" id="btn-refuse-report-accept-{{ $post->id_publicacao }}" onclick="refuseComplaint({{ $post->id_publicacao }}, 'accept')"><i class="icon-x" data-bs-toggle="tooltip" data-bs-placement="top" title="Rejeitar denúncia"></i></button>
                   </div>
                 </div>
               </div>
               <div class="card-description" id="card-description">
                 <!-- Informações Ocultadas -->
                 <div class="card-text">
-                  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker
+                <div class="card w-100">
+                  <ul class="list-group list-group-flush">
+                    @foreach($complaintAccepted as $report)
+                    @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
+                    <li class="list-group-item reason">{{ $report->motivo }}</li>
+                    @endif
+                    @endforeach
+                  </ul>
+                </div>
                   <div class="report">
                     <div class="report-dialog">
                       <div class="report-content">
                         <div class="report-body">
                           <div class="report-image">
-                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/99/d8/ed/paulista.jpg?w=1200&h=-1&s=1" class="img-publication" alt="" />
+                            <img src="{{ $post->midia }}" class="img-publication" alt="" />
                           </div>
                           <!-- Informações Usuário -->
                           <div class="report-header">
                             <div class="user">
                               <div class="user-image">
-                                <img src="/img/users/profileDefault.png" alt="Foto de Perfil do Usuário" />
+                                <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="Foto de Perfil do Usuário" />
                               </div>
                               <div class="user-information">
                                 <p class="user-name">
-                                  Nome Usuário
+                                  {{ $post->nome }}
                                 </p>
                                 <p class="user-localization">
-                                  Avenida Paulista
+                                  {{ $post->nome_ponto_turistico }}
                                 </p>
                               </div>
                             </div>
@@ -218,16 +241,20 @@
                             <div class="comment">
                               <div class="user">
                                 <div class="user-image">
-                                  <img src="/img/users/profileDefault.png" alt="Foto de Perfil do Usuário" />
+                                  <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="Foto de Perfil do Usuário" />
                                 </div>
                               </div>
                               <p class="user-comment">
-                                <span class="name-comment">Nome Usuário</span>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus id eros tincidunt, eu pellentesque risus consequat. Donec convallis sem sit amet dolor ornare luctus. Aliquam dapibus leo eu faucibus porttitor.
+                                <span class="name-comment">{{ $post->nome }}</span>
+                                {{ $post->legenda }}
                               </p>
                             </div>
                             <p class="post-date">
-                              Há 11 dias
+                              @if($post->data == 0)
+                                Há menos de um dia
+                              @else
+                                Há {{ $post->data }} dias
+                              @endif
                             </p>
                           </div>
                         </div>
@@ -240,49 +267,70 @@
                 <button id="btn-see-more">Ver Mais <i class="icon-chevron-down p-1"></i></button>
               </div>
             </div>
+            @endforeach
           </div>
           <!-- Denúncias recusadas -->
           <div class="tab-pane fade" id="report-refuse" role="tabpanel" aria-labelledby="report-refuse-tab">
-            <div class="card" id="card">
+            @foreach($postComplaintDenied as $post)
+            <div class="card" id="card-report-refuse-{{ $post->id_publicacao }}">
               <div class="card-body d-flex">
                 <div class="rounded-circle position-relative">
-                  <img src="/img/users/profileDefault.png" alt="" class="profile-img rounded-circle" />
+                  <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="" class="profile-img rounded-circle" />
                 </div>
                 <div class="card-content">
                   <div class="card-infos">
-                    <h5 class="card-title">Nome usuário</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Ponto Turístico</h6>
-                    <span class="badge badge-pill badge-report" id="badge-report">11</span>
+                    <h5 class="card-title">{{ $post->nome }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ $post->nome_ponto_turistico }}</h6>
+                    @php
+                      $cont = 0;
+                    @endphp
+                    
+                    @foreach($deniedComplaint as $report)
+                    @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
+                    @php
+                      $cont++
+                    @endphp
+                    @endif
+                    @endforeach
+                    <span class="badge badge-pill badge-report" id="badge-report">{{ $cont }}</span>
                   </div>
                   <div class="card-buttons">
-                    <button type="button" class="btn btn-accept"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceitar denúncia"></i></button>
-                    <button type="button" class="btn btn-refuse"><i class="icon-x" data-bs-toggle="tooltip" data-bs-placement="top" title="Rejeitar denúncia"></i></button>
+                    <button type="button" class="btn btn-accept" id="btn-accept-report-refuse-{{ $post->id_publicacao }}" onclick="acceptComplaint({{ $post->id_publicacao }}, 'refuse')"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceitar denúncia"></i></button>
+                    <button type="button" class="btn btn-refuse disabled" id="btn-refuse-report-refuse-{{ $post->id_publicacao }}" onclick="refuseComplaint({{ $post->id_publicacao }}, 'refuse')"><i class="icon-x" data-bs-toggle="tooltip" data-bs-placement="top" title="Rejeitar denúncia"></i></button>
                   </div>
                 </div>
               </div>
               <div class="card-description" id="card-description">
                 <!-- Informações Ocultadas -->
                 <div class="card-text">
-                  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker
+                <div class="card w-100">
+                  <ul class="list-group list-group-flush">
+                    @foreach($deniedComplaint as $report)
+                    @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
+                    <li class="list-group-item reason">{{ $report->motivo }}</li>
+                    @endif
+                    @endforeach
+                  </ul>
+                </div>
                   <div class="report">
                     <div class="report-dialog">
                       <div class="report-content">
                         <div class="report-body">
                           <div class="report-image">
-                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/99/d8/ed/paulista.jpg?w=1200&h=-1&s=1" class="img-publication" alt="" />
+                            <img src="{{ $post->midia }}" class="img-publication" alt="" />
                           </div>
                           <!-- Informações Usuário -->
                           <div class="report-header">
                             <div class="user">
                               <div class="user-image">
-                                <img src="/img/users/profileDefault.png" alt="Foto de Perfil do Usuário" />
+                                <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="Foto de Perfil do Usuário" />
                               </div>
                               <div class="user-information">
                                 <p class="user-name">
-                                  Nome Usuário
+                                {{ $post->nome }}
                                 </p>
                                 <p class="user-localization">
-                                  Avenida Paulista
+                                {{ $post->nome_ponto_turistico }}
                                 </p>
                               </div>
                             </div>
@@ -292,16 +340,20 @@
                             <div class="comment">
                               <div class="user">
                                 <div class="user-image">
-                                  <img src="/img/users/profileDefault.png" alt="Foto de Perfil do Usuário" />
+                                  <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="Foto de Perfil do Usuário" />
                                 </div>
                               </div>
                               <p class="user-comment">
-                                <span class="name-comment">Nome Usuário</span>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus id eros tincidunt, eu pellentesque risus consequat. Donec convallis sem sit amet dolor ornare luctus. Aliquam dapibus leo eu faucibus porttitor.
+                                <span class="name-comment">{{ $post->nome }}</span>
+                                {{ $post->legenda }}
                               </p>
                             </div>
                             <p class="post-date">
-                              Há 11 dias
+                              @if($post->data == 0)
+                                Há menos de um dia
+                              @else
+                                Há {{ $post->data }} dias
+                              @endif
                             </p>
                           </div>
                         </div>
@@ -314,20 +366,91 @@
                 <button id="btn-see-more">Ver Mais <i class="icon-chevron-down p-1"></i></button>
               </div>
             </div>
+            @endforeach
           </div>
         </div>
       </div>
     </main>
 
-    <script src="/assets/js/jquery.slim.min.js"></script>
+    <button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto text-info">
+            <i class="icon-check"></i>
+            Processando
+          </strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          A denúncia está sendo validada
+        </div>
+      </div>
+    </div>
+
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="/assets/js/adminReport.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+  
     <script>
       var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });
+
+      var toastTrigger = document.getElementById('liveToastBtn')
+      var toastLiveExample = document.getElementById('liveToast')
+      if (toastTrigger) {
+        toastTrigger.addEventListener('click', function () {
+          var toast = new bootstrap.Toast(toastLiveExample)
+
+          toast.show()
+        })
+      }
+
+      function acceptComplaint(value, from) {
+        $.ajax({
+          url: "{{ route('accept.complaint', app()->getLocale()) }}",
+          type: 'GET',
+          data: {
+            'response': 'accept',
+            'publication': value
+          },
+          beforeSend: () => {
+            $(document).ready(function () {
+              $("#liveToastBtn").click();
+            })
+          }
+        })
+        .done((response) => {
+          $(`#card-report-${from}-${value}`).prependTo("#report-accept");
+          $(`#btn-accept-report-${from}-${value}`).addClass('disabled');
+          $(`#btn-refuse-report-${from}-${value}`).removeClass('disabled');
+        });
+      }
+
+      function refuseComplaint(value, from) {
+        $.ajax({
+          url: "{{ route('refuse.complaint', app()->getLocale()) }}",
+          type: 'GET',
+          data: {
+            'response': 'refuse',
+            'publication': value
+          },
+          beforeSend: () => {
+            $(document).ready(function () {
+              $("#liveToastBtn").click();
+            })
+          }
+        })
+        .done((response) => {
+          $(`#card-report-${from}-${value}`).prependTo("#report-refuse");
+          $(`#btn-refuse-report-${from}-${value}`).addClass('disabled');
+          $(`#btn-accept-report-${from}-${value}`).removeClass('disabled');
+        });
+      }
     </script>
   </body>
 </html>

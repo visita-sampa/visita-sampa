@@ -16,6 +16,7 @@ class AdminReportController extends Controller
    */
   public function index()
   {
+    // get posts with complaint
     $postReported = DB::table('publicacao')
     ->join('denuncia', function($join) {
       $join->on('publicacao.id_publicacao', '=', 'denuncia.fk_publicacao_id_publicacao');
@@ -29,21 +30,37 @@ class AdminReportController extends Controller
     ->distinct('fk_publicacao_id_publicacao')
     ->get();
 
-      // dd($postReported);
+    // set formatted date
+    date_default_timezone_set('America/Sao_Paulo');
+    $now = time();
 
+    foreach ($postReported as $post) {
+      $post->data = round(($now - strtotime($post->data)) / (60 * 60 * 24));
+    }
+
+    // get complaints without response
     $complaints = DB::table('denuncia')
       ->where('situacao', null)
       ->get();
 
+    $activeComplaint = $this->calculateComplaints($postReported, $complaints);
+    
+    // get accepted complaints
     $complaintAccepted = DB::table('denuncia')
-      ->where('situacao', 1)
+      ->where('situacao', true)
       ->get();
-      
+    
+    // $postComplaintAccepted = $this->calculateComplaintsAccepted($postReported, $complaintAccepted);
+    $postComplaintAccepted = $this->calculateComplaints($postReported, $complaintAccepted);
+    
+    // get denied complaints
     $deniedComplaint = DB::table('denuncia')
-      ->where('situacao', 0)
+      ->where('situacao', false)
       ->get();
 
-    return view('adminReport', ['complaints' => $complaints, 'complaintAccepted' => $complaintAccepted, 'deniedComplaint' => $deniedComplaint, 'postReported' => $postReported]);
+    $postComplaintDenied = $this->calculateComplaints($postReported, $deniedComplaint);
+
+    return view('adminReport', ['complaints' => $complaints, 'complaintAccepted' => $complaintAccepted, 'deniedComplaint' => $deniedComplaint, 'postReported' => $activeComplaint, 'postComplaintAccepted' => $postComplaintAccepted, 'postComplaintDenied' => $postComplaintDenied]);
   }
 
   /**
@@ -51,10 +68,10 @@ class AdminReportController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function create()
-  {
-    //
-  }
+  // public function create()
+  // {
+  //   //
+  // }
 
   /**
    * Store a newly created resource in storage.
@@ -62,10 +79,10 @@ class AdminReportController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
-  {
-    //
-  }
+  // public function store(Request $request)
+  // {
+  //   //
+  // }
 
   /**
    * Display the specified resource.
@@ -73,10 +90,10 @@ class AdminReportController extends Controller
    * @param  \App\Models\event  $event
    * @return \Illuminate\Http\Response
    */
-  public function show(event $event)
-  {
-    //
-  }
+  // public function show(event $event)
+  // {
+  //   //
+  // }
 
   /**
    * Show the form for editing the specified resource.
@@ -84,10 +101,10 @@ class AdminReportController extends Controller
    * @param  \App\Models\event  $event
    * @return \Illuminate\Http\Response
    */
-  public function edit(event $event)
-  {
-    //
-  }
+  // public function edit(event $event)
+  // {
+  //   //
+  // }
 
   /**
    * Update the specified resource in storage.
@@ -96,10 +113,10 @@ class AdminReportController extends Controller
    * @param  \App\Models\event  $event
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, event $event)
-  {
-    //
-  }
+  // public function update(Request $request, event $event)
+  // {
+  //   //
+  // }
 
   /**
    * Remove the specified resource from storage.
@@ -107,8 +124,53 @@ class AdminReportController extends Controller
    * @param  \App\Models\event  $event
    * @return \Illuminate\Http\Response
    */
-  public function destroy(event $event)
-  {
-    //
+  // public function destroy(event $event)
+  // {
+  //   //
+  // }
+
+  public function calculateComplaints($postReported, $complaints) {
+    $activeComplaint = [];
+
+    foreach($postReported as $post) {
+      $cont = 0;
+      foreach($complaints as $report) {
+        if($report->fk_publicacao_id_publicacao == $post->id_publicacao) {
+          $cont++;
+        }
+      }
+
+      if($cont >= 2) {
+        array_push($activeComplaint, $post);
+      }
+    }
+
+    return $activeComplaint;
+  }
+
+  public function acceptComplaint(Request $request) {
+    if($request->response == 'accept') {
+      DB::table('publicacao')->where('id_publicacao', $request->publication)->update(['situacao' => true]);
+
+      DB::table('denuncia')->where('fk_publicacao_id_publicacao', $request->publication)->update(['situacao' => true]);
+    }
+    else {
+      DB::table('publicacao')->where('id_publicacao', $request->publication)->update(['situacao' => null]);
+    }
+    
+    return;
+  }
+  
+  public function refuseComplaint(Request $request) {
+    if($request->response == 'refuse') {
+      DB::table('publicacao')->where('id_publicacao', $request->publication)->update(['situacao' => false]);
+      
+      DB::table('denuncia')->where('fk_publicacao_id_publicacao', $request->publication)->update(['situacao' => false]);
+    }
+    else {
+      DB::table('publicacao')->where('id_publicacao', $request->publication)->update(['situacao' => null]);
+    }
+    
+    return;
   }
 }

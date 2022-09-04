@@ -16,51 +16,7 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
-      <div class="container">
-        <a href="home">
-          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
-        </a>
-
-        <div class="sec-center">
-          <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
-          <label class="for-dropdown" for="dropdown">
-            <i class="icon-menu"></i>
-          </label>
-          <div class="section-dropdown">
-            <input class="dropdown-profile" type="checkbox" id="dropdown-profile" name="dropdown-profile" />
-            <label class="for-dropdown-profile user" for="dropdown-profile">
-              <a href="{{ route('signup', app()->getLocale()) }}">
-                <i class="icon-user"></i>
-                <span>{{ __('Criar conta')}}</span>
-              </a>
-            </label>
-
-            <input class="dropdown-translate" type="checkbox" id="dropdown-translate" name="dropdown-translate" />
-            <label class="for-dropdown-translate user-account" for="dropdown-translate" id="for-dropdown-translate">
-              <div class="option-translate">
-                <i class="icon-translate"></i>
-                <span class="user-without-account">{{ __('Idioma') }}<i class="icon-arrow_drop_down"></i></span>
-              </div>
-              <ul class="translate" id="translate">
-                <li class="portuguese">
-                  <a href="{{ route(Route::currentRouteName(), 'pt') }}">
-                    <i class="icon-brazil"></i>
-                    PT-BR
-                  </a>
-                </li>
-                <li class="english user">
-                  <a href="{{ route(Route::currentRouteName(), 'en') }}">
-                    <i class="icon-usa"></i>
-                    EN-US
-                  </a>
-                </li>
-              </ul>
-            </label>
-          </div>
-        </div>
-      </div>
-    </nav>
+    @include('nav')
   </header>
 
   <main class="d-flex">

@@ -9,7 +9,7 @@
 
 return [
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Cloudinary Configuration
     |--------------------------------------------------------------------------
@@ -19,10 +19,10 @@ return [
     |
     |
     */
-    'notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
+	'notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
 
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Cloudinary Configuration
     |--------------------------------------------------------------------------
@@ -32,11 +32,11 @@ return [
     |
     |
     */
-    'cloud_url' => env('CLOUDINARY_URL'),
+	'cloud_url' => env('CLOUDINARY_URL'),
 
-    /**
-     * Upload Preset From Cloudinary Dashboard
-     *
-     */
-    'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET')
+	/**
+	 * Upload Preset From Cloudinary Dashboard
+	 *
+	 */
+	'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET')
 ];

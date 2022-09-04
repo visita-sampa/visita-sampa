@@ -1,5 +1,5 @@
 /* container */
-body > div.container {
+body>div.container {
     padding-top: 2.38rem;
 }
 
@@ -163,11 +163,17 @@ textarea:hover {
     padding: 0;
     display: grid;
     grid-template-areas:
-        "img modal-header-explore"
-        "img comment-publication";
+        "img container-info";
 }
 
-.modal-dialog-explore {
+.modal-body.one {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.modal-dialog {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -181,8 +187,33 @@ textarea:hover {
     border-radius: 5px;
 }
 
+.modal-content.one {
+    max-width: 21.88rem;
+}
+
+.denounce {
+    color: var(--pink);
+    background-color: var(--white);
+    font-weight: 600;
+    border: 0;
+}
+
+.denounce:hover {
+    color: var(--pink);
+}
+
+.cancel {
+    color: var(--black);
+    background-color: var(--white);
+    border: 0;
+}
+
+.cancel:hover {
+    background-color: var(--white);
+    color: var(--blak);
+}
+
 .modal-header-explore {
-    justify-content: space-between;
     padding: 0;
     align-items: center;
     height: 4.87rem;
@@ -230,7 +261,6 @@ textarea:hover {
     width: 22rem;
     margin-right: 1rem;
     display: flex;
-    margin-top: -24.75rem;
 }
 
 .user {
@@ -322,7 +352,7 @@ p.user-name {
         overflow: auto;
     }
 
-    .modal-dialog-explore {
+    .modal-dialog {
         height: calc(100vh + 200px);
     }
 

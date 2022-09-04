@@ -19,225 +19,9 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
-      <div class="container">
-        <a href="home">
-          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
-        </a>
-        <div class="sec-center">
-          <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
-          <label class="for-dropdown" for="dropdown">
-            <i class="icon-arrow_drop_down"></i>
-            <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" alt="" class="profile-img-menu rounded-circle" alt="Foto Perfil Usuário" />
-            <!-- <i class="icon-user"></i> -->
-          </label>
-          <div class="section-dropdown">
-            <input class="dropdown-profile" type="checkbox" id="dropdown-profile" name="dropdown-profile" />
-            <label class="for-dropdown-profile" for="dropdown-profile">
-              <a href="user">
-                <i class="icon-user"></i>
-                <span>{{ __('Meu Perfil') }}</span>
-              </a>
-            </label>
-
-            <input class="dropdown-settings" type="checkbox" id="dropdown-settings" name="dropdown-settings" />
-            <label class="for-dropdown-settings" for="dropdown-settings" onclick="openModal('#modalConfiguration')">
-              <i class="icon-settings"></i>
-              <span id="config" data-toggle="modal" data-target="#modalConfiguration">{{ __('Configurações') }}</span>
-            </label>
-
-            <input class="dropdown-translate" type="checkbox" id="dropdown-translate" name="dropdown-translate" />
-            <label class="for-dropdown-translate" for="dropdown-translate" id="for-dropdown-translate">
-              <div class="option-translate">
-                <i class="icon-translate"></i>
-                <span>{{ __('Idioma') }}<i class="icon-arrow_drop_down"></i></span>
-              </div>
-              <ul class="translate" id="translate">
-                <li class="portuguese">
-                  <a href="{{ route(Route::currentRouteName(), 'pt') }}">
-                    <i class="icon-brazil"></i>
-                    PT-BR
-                  </a>
-                </li>
-                <li class="english">
-                  <a href="{{ route(Route::currentRouteName(), 'en') }}">
-                    <i class="icon-usa"></i>
-                    EN-US
-                  </a>
-                </li>
-              </ul>
-            </label>
-
-            <input class="dropdown-paper" type="checkbox" id="dropdown-paper" name="dropdown-paper" />
-            <label class="for-dropdown-paper" for="dropdown-paper" onclick="openModal('#modalTerms')">
-              <i class="icon-paper"></i>
-              <span id="terms" data-toggle="modal" data-target="#modalTerms">{{ __('Termo de Uso') }}</span>
-            </label>
-
-            <input class="dropdown-alert" type="checkbox" id="dropdown-alert" name="dropdown-alert" />
-            <label class="for-dropdown-alert" for="dropdown-alert" onclick="openModal('#modalAbout')">
-              <i class="icon-alert-circle"></i>
-              <span id="about" data-toggle="modal" data-target="#modalAbout">{{ __('Sobre') }}</span>
-            </label>
-
-            <input class="dropdown-log-out" type="checkbox" id="dropdown-log-out" name="dropdown-log-out" />
-            <label class="for-dropdown-log-out" for="dropdown-log-out">
-              <a href="{{ route('logout', app()->getLocale()) }}">
-                <i class="icon-log-out"></i>
-                <span>{{ __('Sair') }}</span>
-              </a>
-            </label>
-          </div>
-          <!-- Modais -->
-
-          <div class="modal fade" id="modalConfiguration" tabindex="-1" role="dialog" aria-labelledby="modalConfiguration" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <form id="formConfig" method="POST" action="{{ route('update.profile', app()->getLocale()) }}">
-                  @csrf
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="modalConfigurationTitle">{{ __('Configurações') }}</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
-                      <!-- <span aria-hidden="true">&times;</span> -->
-                    </button>
-                  </div>
-                  <div class="modal-body modal-body-user">
-                    <div id="image-preview" style="background-image: url({{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}})" alt="" class="profile-img rounded-circle">
-                    </div>
-                    <label for="profile-pic" class="change-picture">
-                      {{ __('Alterar foto de perfil') }}
-                    </label>
-                    <input type="file" name="profile-pic" id="profile-pic" class="d-none image-upload" />
-                    <input type="hidden" name="base64image" id="base64image">
-                    <div class="bio">
-                      <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>
-                      <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingName" name="floatingName" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
-                        <label for="floatingName">{{ __('Nome') }}</label>
-                      </div>
-
-                      <div class="form-floating" id="usernameContent">
-                          <input type="text" class="form-control" id="floatingUsername" name="floatingUsername" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
-                          <label for="floatingUsername">{{ __('Nome de usuário') }}</label>
-                          <span id="loading" class="messageLoading">Verificando nome...</span>
-                      </div>
-
-                      <div class="form-floating textarea">
-                        <textarea class="form-control" id="floatingBio" name="floatingBio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
-                        <label for="floatingBio">Bio</label>
-                      </div>
-                    </div>
-                    <div class="password">
-                      <span class="password-title"><i class="icon-lock"></i>{{ __('Senha') }}</span>
-                      <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" name="floatingPassword" placeholder="{{ __('Senha atual') }}">
-                        <label for="floatingPassword">{{ __('Senha atual') }}</label>
-                      </div>
-                      <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingNewPassword" name="floatingNewPassword" placeholder="{{ __('Nova senha') }}">
-                        <label for="floatingNewPassword">{{ __('Nova senha') }}</label>
-                      </div>
-                      <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingRepeatPassword" name="floatingRepeatPassword" placeholder="Repita a nova senha">
-                        <label for="floatingRepeatPassword">Repita a nova senha</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-secondary close" id="btn-close" data-dismiss="modal" onclick="closeModal()">{{ __('Fechar') }}</button>
-                    <button type="submit" class="btn btn-primary save" id="btn-submit">{{ __('Salvar') }}</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <!-- Modal -->
-          <div class="modal fade" id="modalTerms" tabindex="-1" aria-labelledby="modalTerms" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalTermsTitle">{{ __('Termo de Uso') }}</h5>
-                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
-                    <!-- <span aria-hidden="true">&times;</span> -->
-                  </button>
-                </div>
-                <div class="modal-body text-center p-3">
-                  <h6><u>{{ __('Política de Privacidade e Proteção de Dados Pessoais') }}</u></h6>
-                  <p>
-                    <em>{{ __('Atualizado em') }} 17/08/2022</em>
-                  </p>
-                  <br />
-                  <div class="text-start">
-                    <p>
-                      {{ __('Ao utilizar o sistema, você está concordando com os Termos de Uso') }}.
-                    </p>
-                    <p>
-                      {{ __('Os dados utilizados pelo sistema não são públicos e não serão divulgados pela entidade responsável pela aplicação') }}.
-                    </p>
-                    <p>
-                      {{ __('Para manter a rede funcionando de maneira amigável, o usuário não deve postar fotos indevidas no website, além de publicar apenas fotos condizente com o local selecionado no roteiro') }}.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal fade" id="modalAbout" tabindex="-1" aria-labelledby="modalAbout" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalAboutTitle">{{ __('Sobre') }} Visita Sampa</h5>
-                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
-                    <!-- <span aria-hidden="true">&times;</span> -->
-                  </button>
-                </div>
-                <div class="modal-body text-center p-3">
-                  <img class="logo my-3" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
-                  <p>
-                    {{ __('Plataforma WEB com informações a respeito da cultura paulistana, indicações de locais da cidade e eventos que ocorrerão') }}
-                  </p>
-                  <p class="text-blue my-3">
-                    {{ __('Fale Conosco') }}
-                  </p>
-                  <div class="d-flex justify-content-evenly mb-3">
-                    <div class="email">
-                      <a href="mailto:sigma5.equipe@gmail.com" class="text-decoration-none text-dark fs-6">
-                        <i class="icon-mail fs-6"></i>
-                        <h6 class="fs-6" title="sigma5.equipe@gmail.com">E-mail</h6>
-                      </a>
-                    </div>
-                    <div class="form">
-                      <a href="{{ route('contact', app()->getLocale()) }}" class="text-decoration-none text-dark fs-6">
-                        <i class="icon-message-circle fs-6"></i>
-                        <h6 class="fs-6">{{ __('Formulário') }}</h6>
-                      </a>
-                    </div>
-                  </div>
-                  <p>
-                    {{ __('Para mais informações, entre em um dos links abaixo') }}:
-                  </p>
-                  <div class="d-flex justify-content-around mt-3">
-                    <a href="https://sigma-equipe.blogspot.com" class="text-decoration-none text-dark" target="_blank">
-                      <i class="icon-blogger fs-5"></i>
-                    </a>
-                    <a href="https://github.com/visita-sampa" class="text-decoration-none text-dark" target="_blank">
-                      <i class="icon-github fs-5"></i>
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCQ9lG55gNSXKlr6X9af336w/featured" class="text-decoration-none text-dark" target="_blank">
-                      <i class="icon-youtube-play fs-5"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </nav>
+    @include('nav')
   </header>
+
   <div class="w-100 d-flex justify-content-center">
     <nav class="nav-bottom position-fixed">
       <ul class="nav nav-pills nav-fill">
@@ -319,12 +103,12 @@
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
-        @if(session('msgUpdateProfileSuccess'))
+        @if(session('msgUpdateProfileSuccess') || session('msgUpdatePostSuccess') || session('msgDeletePostSuccess'))
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
           Sucesso
         </strong>
-        @elseif(session('msgPasswordComparisonFailed') || session('msgUnfilledPasswordFields') || session('msgInvalidCurrentPassword') || session('msgUpdateProfileFail'))
+        @elseif(session('msgPasswordComparisonFailed') || session('msgUnfilledPasswordFields') || session('msgInvalidCurrentPassword') || session('msgUpdateProfileFail') || session('msgUpdatePostFail') || session('msgDeletePostFail'))
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
           Falha
@@ -335,6 +119,12 @@
       <div class="toast-body">
         @if(session('msgUpdateProfileSuccess'))
         {{ session('msgUpdateProfileSuccess') }}
+
+        @elseif(session('msgUpdatePostSuccess'))
+        {{ session('msgUpdatePostSuccess') }}
+
+        @elseif(session('msgDeletePostSuccess'))
+        {{ session('msgDeletePostSuccess') }}
 
         @elseif(session('msgPasswordComparisonFailed'))
         {{ session('msgPasswordComparisonFailed') }}
@@ -348,7 +138,47 @@
         @elseif(session('msgUpdateProfileFail'))
         {{ session('msgUpdateProfileFail') }}
 
+        @elseif(session('msgUpdatePostFail'))
+        {{ session('msgUpdatePostFail') }}
+
+        @elseif(session('msgDeletePostFail'))
+        {{ session('msgDeletePostFail') }}
+
         @endif
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-primary d-none" id="toastBtnDeletePostSuccess">Show live toast</button>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastDeletePostSuccess" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto text-success">
+          <i class="icon-check"></i>
+          Sucesso
+        </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+      Sua publicação foi excluída permanentemente
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-primary d-none" id="toastBtnDeletePostFail">Show live toast</button>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastDeletePostFail" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto text-danger">
+          <i class="icon-x"></i>
+          Falha
+        </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+      Não foi possível excluir a publicação. Tente novamente
       </div>
     </div>
   </div>
@@ -379,6 +209,36 @@
     </div>
   </div>
 
+  <script>
+     function deletePublication(id) {
+      $.ajax({
+        url: "{{ route('delete.publication', app()->getLocale()) }}",
+        type: 'GET',
+        data: {
+          'id': id
+        },
+      })
+      .done((response) => {
+        if(response) {
+          $('.close').click();
+
+          $(document).ready(function() {
+            $("#toastBtnDeletePostSuccess").click();
+          });
+
+          $(`#post-${id}`).remove();
+        }
+        else {
+          $('.close').click();
+
+          $(document).ready(function() {
+            $("#toastBtnDeletePostFail").click();
+          });
+        }
+      });
+    }
+  </script>
+
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/user.js"></script>
@@ -387,7 +247,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 
   <script>
-    @if(session('msgUpdateProfileSuccess') || session('msgPasswordComparisonFailed') || session('msgUnfilledPasswordFields') || session('msgInvalidCurrentPassword') || session('msgUpdateProfileFail'))
+    var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
+    @if(session('msgUpdateProfileSuccess') || session('msgUpdatePostSuccess') || session('msgDeletePostSuccess') || session('msgPasswordComparisonFailed') || session('msgUnfilledPasswordFields') || session('msgInvalidCurrentPassword') || session('msgUpdateProfileFail') || session('msgUpdatePostFail') || session('msgDeletePostFail'))
     $(document).ready(function() {
       $("#liveToastBtn").click();
     });
@@ -397,7 +265,14 @@
       $('#floatingUsername').on('focusout', function() {
         var value = $(this).val();
         $('#btn-submit').addClass("disabled");
-        
+
+        let msg = document.getElementById("msgUsername");
+        if (msg) usernameContent.removeChild(msg);
+        if (value === "") {
+          msgAlert(usernameContent, "Campo obrigatório", "msgUsername");
+          usernameFlag = false;
+          return;
+        }
         $.ajax({
             url: "{{ route('username.availability', app()->getLocale()) }}",
             type: 'GET',
@@ -406,7 +281,7 @@
             },
             beforeSend: () => {
               let msg = document.getElementById("msgUsername");
-	            if (msg) 
+	            if (msg)
                 usernameContent.removeChild(msg);;
               $("#loading").css('display','block');
               usenameFlag = false;
@@ -421,7 +296,7 @@
 
               let msg = document.getElementById("msgUsername");
               usernameFlag = true;
-	            if (msg) 
+	            if (msg)
                 usernameContent.removeChild(msg);
             } else {
               msgAlert(usernameContent,'Nome já utilizado','msgUsername');

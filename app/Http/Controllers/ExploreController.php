@@ -29,20 +29,23 @@ class ExploreController extends Controller
                 $join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico');
             })
             ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'ponto_turistico.nome_ponto_turistico', 'publicacao.data', 'publicacao.updated_at', 'usuario.nome', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
+            ->where('publicacao.situacao', false)
+            ->orWhereNull('publicacao.situacao')
             ->orderBy('id_publicacao', 'desc')
             ->paginate(12);
 
-        date_default_timezone_set('America/Sao_Paulo');
+						date_default_timezone_set('America/Sao_Paulo');
 
-        $now = time();
-
-        foreach ($publications as $post) {
-            if ($post->data != $post->updated_at) {
-                $post->updated_at = round(($now - strtotime($post->updated_at)) / (60 * 60 * 24));
-            } else {
-                $post->data = round(($now - strtotime($post->data)) / (60 * 60 * 24));
-            }
-        }
+						$now = time();
+				
+						foreach ($publications as $post) {
+							if ($post->data != $post->updated_at) {
+								$post->updated_at = round(($now - strtotime($post->updated_at)) / (60 * 60 * 24));
+							} 
+							else {
+								$post->data = round(($now - strtotime($post->data)) / (60 * 60 * 24));
+							}
+						}
 
         // dd($request->all());
         // search profiles or tourist spots

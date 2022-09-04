@@ -43,7 +43,7 @@ class PublicationController extends Controller
 
 		$post = new Publication;
 
-		$post->midia                                    = cloudinary()->upload($request->fileAux, array("folder" => "publications", "overwrite" => TRUE, "resource_type" => "image"))->getSecurePath();
+		$post->midia                                    = cloudinary()->upload($request->base64image, array("folder" => "publications", "overwrite" => TRUE, "resource_type" => "image"))->getSecurePath();
 		$post->legenda                                  = $request->postDescription;
 		$post->data                                     = now();
 		$post->fk_usuario_id_usuario                    = Auth::user()->id_usuario;
@@ -84,10 +84,23 @@ class PublicationController extends Controller
 	 * @param  \App\Models\publication  $publication
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function update(Request $request, publication $publication)
-	// {
-	//     //
-	// }
+	public function update(Request $request, $language, $id = null)
+	{
+		$post = Publication::find($id);
+
+		if ($request->floatingLegend) {
+			$post->legenda = $request->floatingLegend;
+		}
+
+		if($post->save()) {
+			$msg = "Sua publicação foi atualizada";
+			return redirect()->route('user', app()->getLocale())->with('msgUpdatePostSuccess', $msg);
+		}
+		else {
+			$msg = "Não foi possível atualizar a publicação. Tente novamente";
+			return redirect()->route('user', app()->getLocale())->with('msgUpdatePostFail', $msg);
+		}
+	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -95,10 +108,27 @@ class PublicationController extends Controller
 	 * @param  \App\Models\publication  $publication
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function destroy(publication $publication)
-	// {
-	//     //
-	// }
+	public function delete(Request $request)
+	{
+		$post = Publication::find($request->id);
+		
+		foreach(explode('/', $post->midia) as $row) {
+			$midia = $row;
+		}
+		foreach(array_reverse(explode('.', $midia)) as $row) {
+			$midia = $row;
+		}
+
+		if($post->delete()) {
+			cloudinary()->destroy('publications/'.$midia);
+			$response = true;
+		}
+		else {
+			$response = false;
+		}
+
+		return $response;
+	}
 
 	public function crop(Request $request)
 	{
@@ -125,29 +155,5 @@ class PublicationController extends Controller
 
 		echo json_encode($report);
 		return;
-	}
-
-	public function update(Request $request, $index)
-	{
-		$post = new Publication;
-
-		if ($request->newPostDescription) {
-			$post->legenda = $request->newPostDescription;
-		}
-
-		DB::table('publicacao')
-			->where('id_publicacao', $index)
-			->update(['legenda' => $post->legenda]);
-
-		return redirect()->route('user', app()->getLocale());
-	}
-
-	public function delete($index)
-	{
-		DB::table('publicacao')
-			->where('id_publicacao', $index)
-			->delete();
-
-		return redirect()->route('user', app()->getLocale());
 	}
 }

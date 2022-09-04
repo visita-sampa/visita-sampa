@@ -7,16 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class touristSpot extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'ponto_turistico';
-    protected $primaryKey = 'id_ponto_turistico';
+	protected $table = 'ponto_turistico';
+	protected $primaryKey = 'id_ponto_turistico';
 
     protected $fillable = [
-        'nome',
-        'informacoes',
-        'imagem',
-        'fk_roteiro_id_roteiro',
-        'fk_endereco_id_endereco',
-    ];
+			'nome',
+			'informacoes',
+			'imagem',
+			'fk_roteiro_id_roteiro',
+			'fk_endereco_id_endereco',
+			'horario_funcionamento',
+			'valor',
+			'link',
+  ];
 }
