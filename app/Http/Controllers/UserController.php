@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\answer;
 use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -10,6 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
@@ -20,10 +22,6 @@ class UserController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		if (!Auth::user()) {
-			return redirect()->route('login', app()->getLocale());
-		}
-
 		$user = DB::table('usuario')
 			->where('nome_usuario', Auth::user()->nome_usuario)
 			->first();
@@ -76,6 +74,8 @@ class UserController extends Controller
 		if ($validateCredencials) {
 			$user->save();
 
+			$this->checkQuizAnswer($user);
+
 			$mail = new PHPMailer(true);
 
 			try {
@@ -110,10 +110,6 @@ class UserController extends Controller
 			}
 
 			$findUser = $user->where('email', $request->emailSignup)->first();
-
-			// if (!empty($findUser) && Hash::check($request->passwordSignup, $findUser->senha)) {
-			//     Auth::loginUsingId($findUser->id_usuario);
-			// }
 		}
 		return redirect()->route('login', app()->getLocale());
 	}
@@ -168,10 +164,55 @@ class UserController extends Controller
 	 * @param  \App\Models\user  $user
 	 * @return \Illuminate\Http\Response
 	 */
-	// public function update(Request $request, user $user)
-	// {
-	//     //
-	// }
+	public function update(Request $request)
+	{
+		$user = Auth::user();
+
+		if ($request->base64image) {
+			$response = cloudinary()->upload($request->base64image, array("folder" => "profile-pic", "overwrite" => TRUE, "resource_type" => "image"))->getSecurePath();
+
+			$user->foto_perfil = $response;
+		}
+
+		if ($request->floatingName) {
+			$user->nome = $request->floatingName;
+		}
+
+		if ($request->floatingUsername) {
+			$user->nome_usuario = $request->floatingUsername;
+		}
+
+		if ($request->floatingBio) {
+			$user->descricao = $request->floatingBio;
+		}
+
+		if ($request->floatingPassword) {
+			if (Hash::check($request->floatingPassword, $user->senha)) {
+				if ($request->floatingNewPassword && $request->floatingRepeatPassword) {
+					if ($request->floatingNewPassword == $request->floatingRepeatPassword) {
+						$user->senha = bcrypt($request->floatingNewPassword);
+					} else {
+						$msg = "Verifique a confirmação de senha";
+						return redirect()->route('user', app()->getLocale())->with('msgPasswordComparisonFailed', $msg);
+					}
+				} else {
+					$msg = "Preencha os campos para atualização de senha";
+					return redirect()->route('user', app()->getLocale())->with('msgUnfilledPasswordFields', $msg);
+				}
+			} else {
+				$msg = "Senha atual inválida";
+				return redirect()->route('user', app()->getLocale())->with('msgInvalidCurrentPassword', $msg);
+			}
+		}
+
+		if ($user->save()) {
+			$msg = "Perfil atualizado";
+			return redirect()->route('user', app()->getLocale())->with('msgUpdateProfileSuccess', $msg);
+		}
+
+		$msg = "Não foi possível atualizar o perfil";
+		return redirect()->route('user', app()->getLocale())->with('msgUpdateProfileFail', $msg);
+	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -200,14 +241,6 @@ class UserController extends Controller
 			return true;
 	}
 
-	// public function validatePassword($password)
-	// {
-	//     // if((strlen($password) >= 8) && (filter_var($password, FILTER_SANITIZE_NUMBER_INT) == true))
-	//     $pattern = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d].\S{8,36}$/';
-
-	//     return preg_match($pattern, $password) ? true : false;
-	// }
-
 	public function emailConfirmation($language, $key = null)
 	{
 		if (!empty($key)) {
@@ -228,10 +261,10 @@ class UserController extends Controller
 					->update(['chave_confirmacao' => null]);
 
 				if ($confirm) {
-					$msg = "Sucesso: E-mail confirmado. Faça login com suas credenciais";
+					$msg = "E-mail confirmado. Faça login com suas credenciais";
 					return redirect()->route('signup', app()->getLocale())->with('msgSignupCompleted', $msg);
 				} else {
-					$msg = "Erro: E-mail não confirmado.";
+					$msg = "E-mail não confirmado.";
 					return redirect()->route('signup', app()->getLocale())->with('msgSignupNotCompleted', $msg);
 				}
 			} else {
@@ -244,19 +277,55 @@ class UserController extends Controller
 		}
 	}
 
-	// public function emailConfirmationFail()
-	// {
-	//     return view('emailConfirmation');
-	// }
-
-	public function crop(Request $request)
+	public function checkUsernameAvailability(Request $request)
 	{
-		$response = cloudinary()->upload($request->file('profile-pic')->getRealPath())->getSecurePath();
+		$findUserByUsername = User::where('nome_usuario', $request->floatingUsername)->first();
 
-		$user = Auth::user();
+		if ($findUserByUsername == null || Auth::user()->nome_usuario == $request->floatingUsername) {
+			$response = true;
+		} else {
+			$response = false;
+		}
 
-		User::where('id_usuario', $user->id_usuario)->update(['foto_perfil' => $response]);
+		return $response;
+	}
 
-		return response()->json(['status' => 1, 'msg' => 'Sua foto de perfil foi atualizada com sucesso.', 'name' => $response]);
+	public function checkQuizAnswer($user)
+	{
+		$personality = request()->cookie('personality');
+		$answers = json_decode(request()->cookie('quiz-answers'), true);
+		$answer = new Answer;
+
+		if ($answers && $personality) {
+			$answer->questao_1 = $answers['question-1'];
+			$answer->questao_2 = $answers['question-2'];
+			$answer->questao_3 = $answers['question-3'];
+			$answer->questao_4 = $answers['question-4'];
+			$answer->questao_5 = $answers['question-5'];
+			$answer->questao_6 = $answers['question-6'];
+			$answer->questao_7 = $answers['question-7'];
+			$answer->questao_8 = $answers['question-8'];
+			$answer->questao_9 = $answers['question-9'];
+			$answer->questao_10 = $answers['question-10'];
+			$answer->questao_11 = $answers['question-11'];
+			$answer->questao_12 = $answers['question-12'];
+			$answer->questao_13 = $answers['question-13'];
+			$answer->questao_14 = $answers['question-14'];
+			$answer->questao_15 = $answers['question-15'];
+
+			$answer->save();
+
+			DB::table('usuario_questionario_resposta')
+				->where('fk_usuario_id_usuario', $user->id_usuario)
+				->update(['fk_respostas_id_resposta' => $answer->id_resposta]);
+
+			DB::table('usuario')
+				->where('id_usuario', $user->id_usuario)
+				->update(['fk_classificacao_perfil_roteiro_id_classificacao' => $personality, 'fk_classificacao_perfil_roteiro_id_roteiro' => $personality]);
+
+			Cookie::forget('personality');
+			Cookie::forget('quiz-answers');
+		}
+		return;
 	}
 }

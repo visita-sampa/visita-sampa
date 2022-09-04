@@ -1,332 +1,326 @@
 body {
-    background-color: #fcfcfc;
+	background-color: #fcfcfc;
 }
 
 .meet {
-    background: linear-gradient(
-            180deg,
-            rgba(252, 252, 252, 0) 0%,
-            rgba(252, 252, 252, 0.588785) 30.21%,
-            #fcfcfc 60.94%
-        ),
-        url("../img/fundo.png");
-    height: calc(100vh - 76.53px);
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+	background: linear-gradient(180deg,
+			rgba(252, 252, 252, 0) 0%,
+			rgba(252, 252, 252, 0.588785) 30.21%,
+			#fcfcfc 60.94%),
+		url("../img/fundo.png");
+	height: calc(100vh - 76.53px);
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .img-meet {
-    width: auto;
-    object-fit: none;
+	width: auto;
+	object-fit: none;
 }
 
 .infos {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    gap: 3rem;
-    width: 100%;
-    background-color: var(--light-gray);
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	gap: 3rem;
+	width: 100%;
+	background-color: var(--light-gray);
 }
 
 .profile {
-    background: linear-gradient(
-            0deg,
-            rgba(252, 252, 252, 0) 20%,
-            rgba(252, 252, 252, 0.588785) 43.23%,
-            #fcfcfc 78.12%
-        ),
-        linear-gradient(
-            180deg,
-            rgba(252, 252, 252, 0) 20%,
-            rgba(252, 252, 252, 0.588785) 43.23%,
-            #fcfcfc 78.12%
-        ),
-        url("../img/fundo.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12.43rem;
+	background: linear-gradient(0deg,
+			rgba(252, 252, 252, 0) 20%,
+			rgba(252, 252, 252, 0.588785) 43.23%,
+			#fcfcfc 78.12%),
+		linear-gradient(180deg,
+			rgba(252, 252, 252, 0) 20%,
+			rgba(252, 252, 252, 0.588785) 43.23%,
+			#fcfcfc 78.12%),
+		url("../img/fundo.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12.43rem;
 }
 
 .description-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 h3 {
-    font-family: "Fresca", sans-serif;
-    color: var(--blue);
-    font-size: 50px;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    text-align: center;
-    width: 32.38rem;
+	font-family: "Fresca", sans-serif;
+	color: var(--blue);
+	font-size: 50px;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	text-align: center;
+	width: 32.38rem;
 }
 
 .btn-road-map {
-    background-color: var(--yellow);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    border: none;
-    width: 17.63rem;
-    height: 3.19rem;
-    color: var(--blue);
-    font-size: 20px;
-    font-weight: 500;
-    margin-top: 1rem;
-    transition: all 0.2s;
+	background-color: var(--yellow);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 5px;
+	border: none;
+	width: 17.63rem;
+	height: 3.19rem;
+	color: var(--blue);
+	font-size: 20px;
+	font-weight: 500;
+	margin-top: 1rem;
+	transition: all 0.2s;
 }
 
 .btn-road-map a {
-    text-decoration: none;
-    color: var(--blue);
+	text-decoration: none;
+	color: var(--blue);
 }
 
 .btn-road-map:hover {
-    background-color: var(--pink);
-    transform: scale(1.06);
+	background-color: var(--pink);
+	transform: scale(1.06);
+	color: var(--white);
 }
 
 .btn-road-map:hover a {
-    color: var(--white);
+	color: var(--white);
 }
 
 .sing-up {
-    background-color: var(--light-gray);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 13rem;
+	background-color: var(--light-gray);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 13rem;
 }
 
 .btn-sing-up {
-    background-color: var(--pink);
-    color: var(--white);
-    width: 14.94rem;
-    height: 3.5rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 24px;
-    font-weight: 400;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: all 0.2s;
+	background-color: var(--pink);
+	color: var(--white);
+	width: 14.94rem;
+	height: 3.5rem;
+	border: none;
+	border-radius: 5px;
+	font-size: 24px;
+	font-weight: 400;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	transition: all 0.2s;
 }
 
 .btn-sing-up.header {
-    width: 100%;
-    font-size: 16px;
-    height: auto;
-    padding: 4px 16px;
-    box-shadow: none;
-    border: 1px solid var(--dark-gray);
+	width: 100%;
+	font-size: 16px;
+	height: auto;
+	padding: 4px 16px;
+	box-shadow: none;
+	border: 1px solid var(--dark-gray);
 }
 
 .btn-sing-up a {
-    text-decoration: none;
-    color: var(--white);
+	text-decoration: none;
+	color: var(--white);
 }
 
 .btn-sing-up:hover {
-    background-color: var(--yellow);
-    transform: scale(1.06);
+	background-color: var(--yellow);
+	transform: scale(1.06);
+	color: var(--blue);
 }
 
 .btn-sing-up:hover a {
-    color: var(--blue);
+	color: var(--blue);
 }
 
 .btn-top {
-    width: 8rem;
-    height: 2.5rem;
-    font-size: 14px;
+	width: 8rem;
+	height: 2.5rem;
+	font-size: 14px;
 }
 
 .link-a-home {
-    padding: 10px 0;
+	padding: 10px 0;
 }
 
 .img-sing-up {
-    width: 25.31rem;
-    height: 25.31rem;
+	width: 25.31rem;
+	height: 25.31rem;
 }
 
 .contact {
-    background: linear-gradient(
-            0deg,
-            rgba(252, 252, 252, 0) 20%,
-            rgba(252, 252, 252, 0.588785) 43.23%,
-            #fcfcfc 78.12%
-        ),
-        linear-gradient(
-            180deg,
-            rgba(252, 252, 252, 0) 20%,
-            rgba(252, 252, 252, 0.588785) 43.23%,
-            #fcfcfc 78.12%
-        ),
-        url("../img/fundo.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 7rem;
+	background: linear-gradient(0deg,
+			rgba(252, 252, 252, 0) 20%,
+			rgba(252, 252, 252, 0.588785) 43.23%,
+			#fcfcfc 78.12%),
+		linear-gradient(180deg,
+			rgba(252, 252, 252, 0) 20%,
+			rgba(252, 252, 252, 0.588785) 43.23%,
+			#fcfcfc 78.12%),
+		url("../img/fundo.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 7rem;
 }
 
 .contact-us {
-    display: flex;
-    margin-top: 9.13rem;
-    justify-content: space-around;
-    align-items: center;
-    width: 63.94rem;
+	display: flex;
+	margin-top: 9.13rem;
+	justify-content: space-around;
+	align-items: center;
+	width: 63.94rem;
 }
 
 i.icon-mail,
 i.icon-message-circle {
-    color: #8a8a8a;
-    font-size: 40px;
-    font-weight: 100;
+	color: #8a8a8a;
+	font-size: 40px;
+	font-weight: 100;
 }
 
 h4 {
-    color: var(--blue);
-    font-weight: 600;
-    font-size: 30px;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+	color: var(--blue);
+	font-weight: 600;
+	font-size: 30px;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
 }
 
 .text-sing-up {
-    font-size: 18px;
-    font-weight: 300;
-    color: #343434;
-    margin-bottom: 3.38rem;
+	font-size: 18px;
+	font-weight: 300;
+	color: #343434;
+	margin-bottom: 3.38rem;
 }
 
 h6,
 .go-form {
-    font-weight: 600;
-    font-size: 18px;
-    color: #343434;
-    text-decoration: none;
-    transition: 0.2s;
+	font-weight: 600;
+	font-size: 18px;
+	color: #343434;
+	text-decoration: none;
+	transition: 0.2s;
 }
 
 .go-form:hover {
-    color: var(--pink);
+	color: var(--pink);
 }
 
-#terms, #about:hover {
-    background-color: transparent !important;
+#terms,
+#about:hover {
+	background-color: transparent !important;
 }
 
 @media screen and (max-width: 1280px) {
-    .infos {
-        flex-direction: column;
-    }
+	.infos {
+		flex-direction: column;
+	}
 
-    .profile {
-        gap: 0;
-        flex-direction: column;
-        padding-top: 5rem;
-    }
+	.profile {
+		gap: 0;
+		flex-direction: column;
+		padding-top: 5rem;
+	}
 
-    .sing-up {
-        flex-direction: column;
-        padding-top: 5rem;
-        gap: 5rem;
-    }
+	.sing-up {
+		flex-direction: column;
+		padding-top: 5rem;
+		gap: 5rem;
+	}
 
-    .btn-sing-up,
-    .btn-road-map {
-        margin-top: 2rem;
-    }
+	.btn-sing-up,
+	.btn-road-map {
+		margin-top: 2rem;
+	}
 
-    .contact {
-        flex-direction: column;
-        height: auto;
-        padding-top: 8rem !important;
-    }
+	.contact {
+		flex-direction: column;
+		height: auto;
+		padding-top: 8rem !important;
+	}
 
-    .contact-us {
-        width: 100%;
-    }
+	.contact-us {
+		width: 100%;
+	}
 
-    .img-sing-up {
-        order: -1;
-    }
+	.img-sing-up {
+		order: -1;
+	}
 }
 
 @media screen and (max-width: 840px) {
-    .img-infos,
-    .img-quiz {
-        width: 34.38rem;
-    }
 
-    .contact-us {
-        flex-direction: column;
-        gap: 5rem;
-    }
+	.img-infos,
+	.img-quiz {
+		width: 34.38rem;
+	}
+
+	.contact-us {
+		flex-direction: column;
+		gap: 5rem;
+	}
 }
 
 @media screen and (max-width: 670px) {
-    h3 {
-        font-size: 45px;
-    }
+	h3 {
+		font-size: 45px;
+	}
 
-    .img-infos,
-    .img-quiz {
-        width: 28.38rem;
-    }
+	.img-infos,
+	.img-quiz {
+		width: 28.38rem;
+	}
 
-    .img-sing-up {
-        width: 22.38rem;
-        height: 22.38rem;
-    }
+	.img-sing-up {
+		width: 22.38rem;
+		height: 22.38rem;
+	}
 }
 
 @media screen and (max-width: 500px) {
-    h3 {
-        width: 100%;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+	h3 {
+		width: 100%;
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
 
-    .img-meet {
-        width: 22rem;
-        object-fit: initial;
-    }
+	.img-meet {
+		width: 22rem;
+		object-fit: initial;
+	}
 
-    .img-infos,
-    .img-quiz {
-        width: 22.38rem;
-    }
+	.img-infos,
+	.img-quiz {
+		width: 22.38rem;
+	}
 
-    .contact-us {
-        margin-top: 6rem;
-    }
+	.contact-us {
+		margin-top: 6rem;
+	}
 }
 
 @media screen and (max-width: 350px) {
-    .img-meet {
-        width: 20rem;
-    }
+	.img-meet {
+		width: 20rem;
+	}
 
-    .img-infos,
-    .img-quiz {
-        width: 20rem;
-    }
+	.img-infos,
+	.img-quiz {
+		width: 20rem;
+	}
 
-    .img-sing-up {
-        width: 18.38rem;
-        height: 18.38rem;
-    }
+	.img-sing-up {
+		width: 18.38rem;
+		height: 18.38rem;
+	}
 }

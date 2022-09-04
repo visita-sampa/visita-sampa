@@ -91,11 +91,12 @@ function markAnswered(index) {
 function switchQuestion(index) {
     const question = document.getElementById(`question-${index}`);
     const btn_question = document.getElementById(`btn-question-${index}`);
-    const btnNext = document.getElementById("next");
-    const btnPrev = document.getElementById("prev");
 
+    console.log(index);
     hideQuestions();
     disabledQuizButton();
+    checkFirstQuestion(index);
+    checkLastQuestion(index);
 
     markAnswered(last_question);
 
@@ -103,22 +104,24 @@ function switchQuestion(index) {
 
     question.classList.remove("question-disabled");
     btn_question.classList.add("quiz-button-active");
+}
 
-    if (last_question === 1) {
-        // btnNext.style.visibility = "visible";
-        // btnPrev.style.visibility = "hidden";
-        btnNext.classList.remove("disappear");
-        btnPrev.classList.add("disappear");
-    } else if (last_question === 15) {
-        // btnNext.style.visibility = "hidden";
-        // btnPrev.style.visibility = "visible";
-        btnNext.classList.add("disappear");
-        btnPrev.classList.remove("disappear");
+// disabled previous and next button
+function checkFirstQuestion(index) {
+    btn_prev = document.getElementById("prev");
+    if (index == 1) {
+        btn_prev.classList.add("disabled");
     } else {
-        // btnNext.style.visibility = "visible";
-        // btnPrev.style.visibility = "visible";
-        btnNext.classList.remove("disappear");
-        btnPrev.classList.remove("disappear");
+        btn_prev.classList.remove("disabled");
+    }
+}
+
+function checkLastQuestion(index) {
+    btn_next = document.getElementById("next");
+    if (index == 15) {
+        btn_next.classList.add("disabled");
+    } else {
+        btn_next.classList.remove("disabled");
     }
 }
 
@@ -127,11 +130,14 @@ disabledQuizButton();
 switchQuestion(1);
 
 // Next and previous buttons
-
 function nextQuestion() {
-    switchQuestion(last_question + 1);
+    last_question < 15
+        ? switchQuestion(last_question + 1)
+        : switchQuestion(last_question);
 }
 
 function prevQuestion() {
-    switchQuestion(last_question - 1);
+    last_question > 1
+        ? switchQuestion(last_question - 1)
+        : switchQuestion(last_question);
 }

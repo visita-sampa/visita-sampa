@@ -19,43 +19,45 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
       <div class="container">
-        <a href="{{ route('home', app()->getLocale()) }}">
+        <a href="home">
           <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ __('Trocar idioma') }}</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle d-flex align-items-center" href="" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  @if (Request::is('pt/*'))
-                  <i class="icon-brazil me-2"></i>
-                  PT-BR @else
-                  <i class="icon-usa me-2"></i>
-                  EN-US @endif
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ route(Route::currentRouteName(), 'pt') }}">
-                      <i class="icon-brazil me-2"></i>
-                      PT-BR
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ route(Route::currentRouteName(), 'en') }}">
-                      <i class="icon-usa me-2"></i>
-                      EN-US
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+
+        <div class="sec-center">
+          <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
+          <label class="for-dropdown" for="dropdown">
+            <i class="icon-menu"></i>
+          </label>
+          <div class="section-dropdown">
+            <input class="dropdown-profile" type="checkbox" id="dropdown-profile" name="dropdown-profile" />
+            <label class="for-dropdown-profile user" for="dropdown-profile">
+              <a href="{{ route('signup', app()->getLocale()) }}">
+                <i class="icon-user"></i>
+                <span>{{ __('Criar conta')}}</span>
+              </a>
+            </label>
+
+            <input class="dropdown-translate" type="checkbox" id="dropdown-translate" name="dropdown-translate" />
+            <label class="for-dropdown-translate user-account" for="dropdown-translate" id="for-dropdown-translate">
+              <div class="option-translate">
+                <i class="icon-translate"></i>
+                <span class="user-without-account">{{ __('Idioma') }}<i class="icon-arrow_drop_down"></i></span>
+              </div>
+              <ul class="translate" id="translate">
+                <li class="portuguese">
+                  <a href="{{ route(Route::currentRouteName(), 'pt') }}">
+                    <i class="icon-brazil"></i>
+                    PT-BR
+                  </a>
+                </li>
+                <li class="english user">
+                  <a href="{{ route(Route::currentRouteName(), 'en') }}">
+                    <i class="icon-usa"></i>
+                    EN-US
+                  </a>
+                </li>
+              </ul>
+            </label>
           </div>
         </div>
       </div>
@@ -100,25 +102,28 @@
         <div class="container p-5 d-flex flex-row">
           <div class="d-flex justify-content-center w-100">
             <form method="POST" action="{{ route('quiz.store', app()->getLocale()) }}" class="d-flex w-100 alternative-index quiz-form">
-              @csrf @foreach ($questions as $question)
-              <div id="question-{{$question->id_questao}}" class="question-container col-9 mx-3">
-                <div class="row mx-3">
-                  <div class="question">
-                    <h2>{{$question->id_questao}}. {{ __($question->conteudo) }}</h2>
-                  </div>
-                </div>
-                <div class="alternative-container">
-                  @foreach ($alternatives as $alternative) @if($alternative->fk_questao_id_questao == $question->id_questao)
-                  <div class="card my-3">
-                    <div class="card-body p-0">
-                      <input class="input-alternative d-none" value="{{$alternative->id_alternativa}}" type="radio" name="question-{{$question->id_questao}}" id="alternative-{{$alternative->id_alternativa}}" />
-                      <label id="alternative-label-{{$alternative->id_alternativa}}" class="alternative-label w-100 p-3" for="alternative-{{$alternative->id_alternativa}}">
-                        {{ __($alternative->enunciado) }}.
-                      </label>
+              <div class="col-9">
+                @csrf @foreach ($questions as $question)
+                <div id="question-{{$question->id_questao}}" class="question-container col-12 px-3">
+                  <div class="row mx-3">
+                    <div class="question">
+                      <h2>{{$question->id_questao}}. {{ __($question->conteudo) }}</h2>
                     </div>
                   </div>
-                  @endif @endforeach
+                  <div class="alternative-container">
+                    @foreach ($alternatives as $alternative) @if($alternative->fk_questao_id_questao == $question->id_questao)
+                    <div class="card my-3">
+                      <div class="card-body p-0">
+                        <input class="input-alternative d-none" value="{{$alternative->id_alternativa}}" type="radio" name="question-{{$question->id_questao}}" id="alternative-{{$alternative->id_alternativa}}" />
+                        <label id="alternative-label-{{$alternative->id_alternativa}}" class="alternative-label w-100 p-3" for="alternative-{{$alternative->id_alternativa}}">
+                          {{ __($alternative->enunciado) }}.
+                        </label>
+                      </div>
+                    </div>
+                    @endif @endforeach
+                  </div>
                 </div>
+                @endforeach
                 <div class="buttons-content">
                   <button class="next-prev" onclick="prevQuestion()" type="button" id="prev">
                     <i class="icon-chevron-left"></i>
@@ -130,9 +135,8 @@
                   </button>
                 </div>
               </div>
-              @endforeach
 
-              <div class="col-3 question-index-container justify-content-center mx-3">
+              <div class="col-3 question-index-container justify-content-center">
                 <div class="card my-3 text-center">
                   <div class="card-header border-bottom-0 bg-transparent">
                     {{ __('Perguntas') }}
@@ -245,6 +249,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="/assets/js/quiz.js"></script>
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="/assets/js/main.js"></script>
   <script>
     $(window).load(function() {
       $("#quiz-or-roadmap").modal("show");

@@ -21,10 +21,6 @@ class ExploreController extends Controller
      */
     public function index(Request $request)
     {
-        if (!Auth::user()) {
-            return redirect()->route('login', app()->getLocale());
-        }
-
         $publications = DB::table('publicacao')
             ->join('usuario', function ($join) {
                 $join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');
@@ -32,7 +28,7 @@ class ExploreController extends Controller
             ->join('ponto_turistico', function ($join) {
                 $join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico');
             })
-            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'ponto_turistico.nome_ponto_turistico', 'publicacao.data', 'usuario.nome', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
+            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'ponto_turistico.nome_ponto_turistico', 'publicacao.data', 'publicacao.updated_at', 'usuario.nome', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
             ->orderBy('id_publicacao', 'desc')
             ->paginate(12);
 
@@ -41,7 +37,11 @@ class ExploreController extends Controller
         $now = time();
 
         foreach ($publications as $post) {
-            $post->data = round(($now - strtotime($post->data)) / (60 * 60 * 24));
+            if ($post->data != $post->updated_at) {
+                $post->updated_at = round(($now - strtotime($post->updated_at)) / (60 * 60 * 24));
+            } else {
+                $post->data = round(($now - strtotime($post->data)) / (60 * 60 * 24));
+            }
         }
 
         // dd($request->all());
@@ -60,21 +60,20 @@ class ExploreController extends Controller
             ->paginate(12, ['*'], 'profileSearchPage');
 
         $publications->appends(['page' => $publications->currentPage()])->links();
-        
+
         $touristSpot->appends(['touristSpotSearchPage' => $touristSpot->currentPage()])->links();
 
         $profiles->appends(['profileSearchPage' => $profiles->currentPage()])->links();
 
-        if($search) {
-            if($request->typeSearch == 1) {
+        if ($search) {
+            if ($request->typeSearch == 1) {
                 $touristSpot = DB::table('ponto_turistico')
                     ->select('ponto_turistico.id_ponto_turistico', 'ponto_turistico.nome_ponto_turistico')
                     ->where('nome_ponto_turistico', 'ilike', '%' . $search . '%')
                     ->orderBy('nome_ponto_turistico', 'asc')
                     ->get();
                 $typeSearch = "pontos turísticos";
-            }
-            elseif($request->typeSearch == 2) {
+            } elseif ($request->typeSearch == 2) {
                 $profiles = DB::table('usuario')
                     ->select('usuario.id_usuario', 'usuario.nome', 'usuario.nome_usuario')
                     ->where('nome', 'ilike', '%' . $search . '%')
@@ -93,7 +92,7 @@ class ExploreController extends Controller
             return response()->json(['html' => $view, 'htmlSearchTouristSpot' => $touristSpotContent, 'htmlSearchProfile' => $profileContent]);
         }
 
-        return view('explore', ['publications' => $publications, 'touristSpot' => $touristSpot, 'profiles' => $profiles, 'search' => $search, 'typeSearch' =>$typeSearch]);
+        return view('explore', ['publications' => $publications, 'touristSpot' => $touristSpot, 'profiles' => $profiles, 'search' => $search, 'typeSearch' => $typeSearch]);
     }
 
     /**

@@ -97,7 +97,8 @@ i.icon-edit-2 {
     color: var(--black);
 }
 
-.for-dropdown .icon-user {
+.for-dropdown .icon-user,
+.for-dropdown .icon-menu {
     color: var(--blue) !important;
     font-size: 33px !important;
     margin-left: 0.5rem;
@@ -109,6 +110,10 @@ i.icon-edit-2 {
     border-radius: 50%;
     border: 3px solid var(--blue);
     padding-left: 0 !important;
+}
+
+.for-dropdown .icon-menu {
+    border: none;
 }
 
 .for-dropdown:hover .icon-user {
@@ -181,6 +186,10 @@ i.icon-edit-2 {
     justify-content: space-between;
 }
 
+.user-without-account {
+    border: 0px !important;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -248,11 +257,6 @@ label a {
     border-radius: 0 0 6px 6px;
 }
 
-.dropdown-profile:checked + label:hover,
-.dropdown-profile:not(:checked) + label:hover {
-    border-radius: 6px 6px 0 0;
-}
-
 .icon-alert-circle {
     transform: rotate(180deg);
 }
@@ -269,6 +273,17 @@ label a {
 
 .for-dropdown-translate {
     flex-direction: column;
+}
+
+.for-dropdown-translate.user-account,
+.for-dropdown-log-out a:hover {
+    border-radius: 0 0 6px 6px;
+}
+
+.dropdown-profile:not(:checked) + label:hover,
+label.for-dropdown-profile.user a:hover,
+.for-dropdown-profile a:hover {
+    border-radius: 6px 6px 0 0 !important;
 }
 
 .icon-arrow_drop_down {
@@ -317,6 +332,10 @@ label a {
 .english a:hover {
     background-color: #dfdfdf;
     background: transparent;
+}
+
+.english.user {
+    border-radius: 0 0 4px 4px;
 }
 
 ul,
@@ -420,7 +439,7 @@ li {
     height: auto;
 }
 
-#floating-bio {
+#floatingBio {
     display: block;
     overflow: hidden;
     resize: none;
@@ -463,12 +482,12 @@ i.icon-lock {
     padding: 1rem 0.7rem;
 }
 
-#floating-password,
-#floating-new-password,
-#floating-repeat-password,
-#floating-name,
-#floating-user-name,
-#floating-bio {
+#floatingPassword,
+#floatingNewPassword,
+#floatingRepeatPassword,
+#floatingName,
+#floatingUsername,
+#floatingBio {
     border: none;
     border-bottom: 1.8px solid #dee2e6;
     border-radius: inherit;
@@ -478,7 +497,7 @@ i.icon-lock {
     outline: 0;
 }
 
-#floating-bio {
+#floatingBio {
     height: auto;
 }
 
@@ -559,6 +578,46 @@ i.icon-lock {
 
 .text-blue {
     color: var(--blue);
+}
+
+.btn.save {
+    color: var(--blue);
+    background-color: transparent;
+    border: none;
+}
+
+.btn.close {
+    color: var(--black);
+    background-color: transparent;
+    border: none;
+}
+
+.btn.close:hover {
+    color: var(--pink);
+}
+
+.inputContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.messageAlert {
+    color: var(--pink);
+    font-size: 15px;
+    margin-bottom: -0.5rem;
+    padding-left: 0.5rem;
+}
+
+.messageLoading {
+    color: black;
+    font-size: 15px;
+    margin-bottom: -0.5rem;
+    padding-left: 0.5rem;
+    display: none;
+}
+
+.loading-username {
+    display: none;
 }
 
 /* Media Screen */

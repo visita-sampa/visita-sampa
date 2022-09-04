@@ -46,10 +46,14 @@ body>div.container {
 
 .card-text {
   justify-content: center;
-  display: flex;
   padding: 0 1.63rem;
   font-weight: 300;
   font-size: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Altura do paragrafo */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Imagem do local */

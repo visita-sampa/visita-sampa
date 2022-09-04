@@ -22,42 +22,44 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
       <div class="container">
         <a href="home">
-          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="{{ __('Logo Visita Sampa') }}" />
+          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ __('Trocar idioma') }}</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle d-flex align-items-center" href="" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  @if (Request::is('pt/*'))
-                  <i class="icon-brazil me-2"></i>
-                  PT-BR @else
-                  <i class="icon-usa me-2"></i>
-                  EN-US @endif
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ route(Route::currentRouteName(), 'pt') }}">
-                      <i class="icon-brazil me-2"></i>
-                      PT-BR
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ route(Route::currentRouteName(), 'en') }}">
-                      <i class="icon-usa me-2"></i>
-                      EN-US
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+
+        <div class="sec-center">
+          <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
+          <label class="for-dropdown" for="dropdown">
+            <i class="icon-menu"></i>
+          </label>
+          <div class="section-dropdown">
+            <input class="dropdown-profile" type="checkbox" id="dropdown-profile" name="dropdown-profile" />
+            <label class="for-dropdown-profile user" for="dropdown-profile">
+              <a href="{{ route('signup', app()->getLocale()) }}">
+                <i class="icon-user"></i>
+                <span>{{ __('Criar conta')}}</span>
+              </a>
+            </label>
+
+            <input class="dropdown-translate" type="checkbox" id="dropdown-translate" name="dropdown-translate" />
+            <label class="for-dropdown-translate user-account" for="dropdown-translate" id="for-dropdown-translate">
+              <div class="option-translate">
+                <i class="icon-translate"></i>
+                <span class="user-without-account">{{ __('Idioma') }}<i class="icon-arrow_drop_down"></i></span>
+              </div>
+              <ul class="translate" id="translate">
+                <li class="portuguese">
+                  <a href="{{ route(Route::currentRouteName(), 'pt') }}">
+                    <i class="icon-brazil"></i>
+                    PT-BR
+                  </a>
+                </li>
+                <li class="english user">
+                  <a href="{{ route(Route::currentRouteName(), 'en') }}">
+                    <i class="icon-usa"></i>
+                    EN-US
+                  </a>
+                </li>
+              </ul>
+            </label>
           </div>
         </div>
       </div>
@@ -70,7 +72,7 @@
           <img src="/assets/img/formVisitaSampa.png" alt="" class="img-logo" />
           <div id="contact" class="contact text-center h-100">
             <h2 class="title-contact">{{ __('FORMULÁRIO') }}</h2>
-            
+
             <form method="POST" id="form" action="{{ route('contact.email', app()->getLocale()) }}" class="form-signup d-flex flex-column h-100 justify-content-around align-items-center">
               @csrf
               <div id="nameContent" class="inputContent">
@@ -269,6 +271,8 @@
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="/assets/js/contact.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/main.js"></script>
   <script>
     @if(session('msgEmailSendSuccess') || session('msgEmailSendFail'))
       $(document).ready(function () {

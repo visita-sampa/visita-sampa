@@ -53,10 +53,19 @@
               </p>
             </div>
             <p class="post-date">
+              @if(is_numeric($post->updated_at))
+              @if($post->updated_at == 0)
+              Editado - Há menos de um dia
+              @else
+              Editado - Há {{ $post->updated_at }} dias
+              @endif
+              @endif
+              @if(is_numeric($post->data))
               @if($post->data == 0)
               Há menos de um dia
               @else
               Há {{ $post->data }} dias
+              @endif
               @endif
             </p>
           </div>

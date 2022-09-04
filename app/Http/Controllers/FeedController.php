@@ -18,10 +18,6 @@ class FeedController extends Controller
      */
     public function index(Request $request)
     {
-        if (!Auth::user()) {
-            return redirect()->route('login', app()->getLocale());
-        }
-
         $publications = DB::table('publicacao')
             ->join('usuario', function ($join) {
                 $join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');

@@ -107,37 +107,37 @@
                   <div class="bio">
                     <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floating-name" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
+                      <input type="text" class="form-control" id="floatingName" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
                       <label for="floating-name">{{ __('Nome') }}</label>
                     </div>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floating-user-name" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
+                      <input type="text" class="form-control" id="floatingUsername" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
                       <label for="floating-user-name">{{ __('Nome de usuário') }}</label>
                     </div>
                     <div class="form-floating textarea">
-                      <textarea class="form-control" id="floating-bio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
+                      <textarea class="form-control" id="floatingBio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
                       <label for="floating-bio">Bio</label>
                     </div>
                   </div>
                   <div class="password">
                     <span class="password-title"><i class="icon-lock"></i>{{ __('Senha') }}</span>
                     <div class="form-floating">
-                      <input type="password" class="form-control" id="floating-password" placeholder="{{ __('Senha atual') }}">
+                      <input type="password" class="form-control" id="floatingPassword" placeholder="{{ __('Senha atual') }}">
                       <label for="floating-password">{{ __('Senha atual') }}</label>
                     </div>
                     <div class="form-floating">
-                      <input type="password" class="form-control" id="floating-new-password" placeholder="{{ __('Nova senha') }}">
+                      <input type="password" class="form-control" id="floatingNewPassword" placeholder="{{ __('Nova senha') }}">
                       <label for="floating-new-password">{{ __('Nova senha') }}</label>
                     </div>
                     <div class="form-floating">
-                      <input type="password" class="form-control" id="floating-repeat-password" placeholder="Repita a nova senha">
-                      <label for="floating-repeat-password">Repita a nova senha</label>
+                      <input type="password" class="form-control" id="floatingRepeatPassword" placeholder="Repita a nova senha">
+                      <label for="floatingRepeatPassword">Repita a nova senha</label>
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" id="btn-close" data-dismiss="modal" onclick="closeModal()">{{ __('Fechar') }}</button>
-                  <button type="button" class="btn btn-primary">{{ __('Salvar') }}</button>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-secondary close" id="btn-close" data-dismiss="modal" onclick="closeModal()">{{ __('Fechar') }}</button>
+                  <button type="button" class="btn btn-primary save">{{ __('Salvar') }}</button>
                 </div>
               </div>
             </div>
@@ -296,7 +296,7 @@
                   <button class="nav-link" aria-current="page" id="profile-search-tab" data-bs-toggle="tab" data-bs-target="#profile-search" type="button" role="tab" aria-controls="profile-search" aria-selected="false">Perfis</button>
                 </li>
               </ul>
-            
+
               <div class="tab-content" id="search-content">
                 <div class="tab-pane fade show active" id="tourist-spot-search" role="tabpanel" aria-labelledby="tourist-spot-search-tab">
                   <ul class="list-group list-group-flush" id="tourist-spot-search-container">
@@ -348,29 +348,29 @@
 
     function loadMoreTouristSpotSearchData(page, touristSpotSearchPage, profileSearchPage) {
       $.ajax({
-        url: '?page=' + page + '&touristSpotSearchPage=' + touristSpotSearchPage + '&profileSearchPage=' + profileSearchPage,
-        type: "get",
-        beforeSend: function () {
-          $(".ajax-load-tourist-spot-search").show();
-        },
-      })
-      .done(function (searchTouristSpot) {
-        if (searchTouristSpot.htmlSearchTouristSpot == "") {
-          $(".ajax-load-tourist-spot-search").html(
-            "Nenhum outro ponto turístico encontrado"
+          url: '?page=' + page + '&touristSpotSearchPage=' + touristSpotSearchPage + '&profileSearchPage=' + profileSearchPage,
+          type: "get",
+          beforeSend: function() {
+            $(".ajax-load-tourist-spot-search").show();
+          },
+        })
+        .done(function(searchTouristSpot) {
+          if (searchTouristSpot.htmlSearchTouristSpot == "") {
+            $(".ajax-load-tourist-spot-search").html(
+              "Nenhum outro ponto turístico encontrado"
             );
             return;
           }
           $(".ajax-load-tourist-spot-search").hide();
           $("#tourist-spot-search-container").append(searchTouristSpot.htmlSearchTouristSpot);
         })
-        .fail(function (jqXHR, ajaxOptions, thrownError) {
+        .fail(function(jqXHR, ajaxOptions, thrownError) {
           alert("Servidor não está respondendo à busca por ponto turístico...");
         });
-      }
-      
-      function loadMoreProfileSearchData(page, touristSpotSearchPage, profileSearchPage) {
-        $.ajax({
+    }
+
+    function loadMoreProfileSearchData(page, touristSpotSearchPage, profileSearchPage) {
+      $.ajax({
           url: '?page=' + page + '&touristSpotSearchPage=' + touristSpotSearchPage + '&profileSearchPage=' + profileSearchPage,
           type: 'get',
           beforeSend: function() {
@@ -388,10 +388,10 @@
         .fail(function(jqXHR, ajaxOptions, thrownError) {
           alert("Servidor não está respondendo à busca por perfil...");
         });
-      }
-      
-      function loadMoreData(page, touristSpotSearchPage, profileSearchPage) {
-        $.ajax({
+    }
+
+    function loadMoreData(page, touristSpotSearchPage, profileSearchPage) {
+      $.ajax({
           url: '?page=' + page + '&touristSpotSearchPage=' + touristSpotSearchPage + '&profileSearchPage=' + profileSearchPage,
           type: 'get',
           beforeSend: function() {
@@ -409,50 +409,49 @@
         .fail(function(jqXHR, ajaxOptions, thrownError) {
           alert("Servidor não está respondendo...");
         });
+    }
+
+    var page = 1;
+    var touristSpotSearchPage = 1;
+    var profileSearchPage = 1;
+
+    @if($search)
+    $(document).ready(function() {
+      $("#search").click();
+    });
+    @if($typeSearch == "pontos turísticos")
+    $(document).ready(function() {
+      $("#tourist-spot-search-tab").click();
+    });
+    $(".ajax-load-tourist-spot-search").hide();
+    @elseif($typeSearch == "perfis")
+    $(document).ready(function() {
+      $("#profile-search-tab").click();
+    });
+    $(".ajax-load-profile-search").hide();
+    @endif
+    @else
+    $('#search-result-container').scroll(function() {
+      if ($('#search-result-container').scrollTop() + $('#search-result-container').height() >= $('#search-result-container').height()) {
+        touristSpotSearchPage++;
+        loadMoreTouristSpotSearchData(page, touristSpotSearchPage, profileSearchPage);
       }
+    });
 
-      var page = 1;
-      var touristSpotSearchPage = 1;
-      var profileSearchPage = 1;
+    $('#search-result-container').scroll(function() {
+      if ($('#search-result-container').scrollTop() + $('#search-result-container').height() >= $('#search-result-container').height()) {
+        profileSearchPage++;
+        loadMoreProfileSearchData(page, touristSpotSearchPage, profileSearchPage);
+      }
+    });
+    @endif
 
-      @if($search)
-        $(document).ready(function () {
-            $("#search").click();
-        });
-        @if($typeSearch == "pontos turísticos")
-          $(document).ready(function () {
-              $("#tourist-spot-search-tab").click();
-          });
-          $(".ajax-load-tourist-spot-search").hide();
-        @elseif($typeSearch == "perfis")
-          $(document).ready(function () {
-              $("#profile-search-tab").click();
-          });
-          $(".ajax-load-profile-search").hide();
-        @endif
-      @else
-        $('#search-result-container').scroll(function () {
-          if ($('#search-result-container').scrollTop() + $('#search-result-container').height() >= $('#search-result-container').height()) {
-            touristSpotSearchPage++;
-            loadMoreTouristSpotSearchData(page, touristSpotSearchPage, profileSearchPage);
-          }
-        });
-
-        $('#search-result-container').scroll(function () {
-          if ($('#search-result-container').scrollTop() + $('#search-result-container').height() >= $('#search-result-container').height()) {
-            profileSearchPage++;
-            loadMoreProfileSearchData(page, touristSpotSearchPage, profileSearchPage);
-          }
-        });
-      @endif
-      
-      $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-          page++;
-          loadMoreData(page, touristSpotSearchPage, profileSearchPage);
-        }
-      });
-
+    $(window).scroll(function() {
+      if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        page++;
+        loadMoreData(page, touristSpotSearchPage, profileSearchPage);
+      }
+    });
   </script>
 
 </body>

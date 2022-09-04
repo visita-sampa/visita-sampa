@@ -54,11 +54,6 @@ class TouristSpotController extends Controller
      */
     public function show(Request $request, $language, $id = 1)
     {
-        if (!Auth::user()) {
-            return redirect()->route('login', app()->getLocale());
-        }
-
-        // $touristSpot = TouristSpot::where('id_ponto_turistico', $id)->get();
         $touristSpot = DB::table('ponto_turistico')
             ->join('endereco', function ($join) {
                 $join->on('ponto_turistico.fk_endereco_id_endereco', '=', 'endereco.id_endereco');
@@ -80,14 +75,27 @@ class TouristSpotController extends Controller
             ->join('usuario', function ($join) {
                 $join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');
             })
+            ->join('ponto_turistico', function ($join) {
+                $join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico');
+            })
             ->where('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', $id)
-            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'publicacao.data', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
+            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'ponto_turistico.nome_ponto_turistico', 'publicacao.data', 'publicacao.updated_at', 'usuario.nome', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil')
             ->orderBy('id_publicacao', 'desc')
             ->paginate(12);
 
         if ($request->ajax()) {
             $view = view('touristSpotPublication', ['publications' => $publications])->render();
             return response()->json(['html' => $view]);
+        }
+
+        $now = time();
+
+        foreach ($publications as $post) {
+            if ($post->data != $post->updated_at) {
+                $post->updated_at = round(($now - strtotime($post->updated_at)) / (60 * 60 * 24));
+            } else {
+                $post->data = round(($now - strtotime($post->data)) / (60 * 60 * 24));
+            }
         }
 
         return view('touristSpot', ['touristSpot' => $touristSpot, 'publications' => $publications]);

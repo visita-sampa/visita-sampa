@@ -17,11 +17,10 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        if (!Auth::user()) {
-            return redirect()->route('login', app()->getLocale());
-        }
+        $now = now()->format('Y-m-d');
 
         $events = DB::table('eventos')
+            ->where('data_evento', '>', $now)
             ->paginate(12);
 
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');

@@ -7,6 +7,7 @@
   <title>{{ __('Meu Perfil') }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
   <link href="/assets/css/style.css" rel="stylesheet" />
   <link href="/assets/css/user.css" rel="stylesheet" />
   <link href="/assets/icon/style.css" rel="stylesheet" />
@@ -14,7 +15,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ asset('ijaboCropTool/ijaboCropTool.min.css') }}" />
 </head>
 
 <body>
@@ -93,53 +93,61 @@
           <div class="modal fade" id="modalConfiguration" tabindex="-1" role="dialog" aria-labelledby="modalConfiguration" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalConfigurationTitle">{{ __('Configurações') }}</h5>
-                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
-                    <!-- <span aria-hidden="true">&times;</span> -->
-                  </button>
-                </div>
-                <div class="modal-body modal-body-user">
-                  <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle" />
-                  <label for="profile-pic" class="change-picture">
-                    {{ __('Alterar foto de perfil') }}
-                  </label>
-                  <input type="file" name="profile-pic" id="profile-pic" class="d-none" />
-                  <div class="bio">
-                    <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="floating-name" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
-                      <label for="floating-name">{{ __('Nome') }}</label>
+                <form id="formConfig" method="POST" action="{{ route('update.profile', app()->getLocale()) }}">
+                  @csrf
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalConfigurationTitle">{{ __('Configurações') }}</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                      <!-- <span aria-hidden="true">&times;</span> -->
+                    </button>
+                  </div>
+                  <div class="modal-body modal-body-user">
+                    <div id="image-preview" style="background-image: url({{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}})" alt="" class="profile-img rounded-circle">
                     </div>
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="floating-user-name" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
-                      <label for="floating-user-name">{{ __('Nome de usuário') }}</label>
+                    <label for="profile-pic" class="change-picture">
+                      {{ __('Alterar foto de perfil') }}
+                    </label>
+                    <input type="file" name="profile-pic" id="profile-pic" class="d-none image-upload" />
+                    <input type="hidden" name="base64image" id="base64image">
+                    <div class="bio">
+                      <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingName" name="floatingName" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
+                        <label for="floatingName">{{ __('Nome') }}</label>
+                      </div>
+
+                      <div class="form-floating" id="usernameContent">
+                          <input type="text" class="form-control" id="floatingUsername" name="floatingUsername" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
+                          <label for="floatingUsername">{{ __('Nome de usuário') }}</label>
+                          <span id="loading" class="messageLoading">Verificando nome...</span>
+                      </div>
+
+                      <div class="form-floating textarea">
+                        <textarea class="form-control" id="floatingBio" name="floatingBio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
+                        <label for="floatingBio">Bio</label>
+                      </div>
                     </div>
-                    <div class="form-floating textarea">
-                      <textarea class="form-control" id="floating-bio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
-                      <label for="floating-bio">Bio</label>
+                    <div class="password">
+                      <span class="password-title"><i class="icon-lock"></i>{{ __('Senha') }}</span>
+                      <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" name="floatingPassword" placeholder="{{ __('Senha atual') }}">
+                        <label for="floatingPassword">{{ __('Senha atual') }}</label>
+                      </div>
+                      <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingNewPassword" name="floatingNewPassword" placeholder="{{ __('Nova senha') }}">
+                        <label for="floatingNewPassword">{{ __('Nova senha') }}</label>
+                      </div>
+                      <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingRepeatPassword" name="floatingRepeatPassword" placeholder="Repita a nova senha">
+                        <label for="floatingRepeatPassword">Repita a nova senha</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="password">
-                    <span class="password-title"><i class="icon-lock"></i>{{ __('Senha') }}</span>
-                    <div class="form-floating">
-                      <input type="password" class="form-control" id="floating-password" placeholder="{{ __('Senha atual') }}">
-                      <label for="floating-password">{{ __('Senha atual') }}</label>
-                    </div>
-                    <div class="form-floating">
-                      <input type="password" class="form-control" id="floating-new-password" placeholder="{{ __('Nova senha') }}">
-                      <label for="floating-new-password">{{ __('Nova senha') }}</label>
-                    </div>
-                    <div class="form-floating">
-                      <input type="password" class="form-control" id="floating-repeat-password" placeholder="Repita a nova senha">
-                      <label for="floating-repeat-password">Repita a nova senha</label>
-                    </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary close" id="btn-close" data-dismiss="modal" onclick="closeModal()">{{ __('Fechar') }}</button>
+                    <button type="submit" class="btn btn-primary save" id="btn-submit">{{ __('Salvar') }}</button>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" id="btn-close" data-dismiss="modal" onclick="closeModal()">{{ __('Fechar') }}</button>
-                  <button type="button" class="btn btn-primary">{{ __('Salvar') }}</button>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -306,59 +314,121 @@
     </div>
   </main>
 
+  <button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        @if(session('msgUpdateProfileSuccess'))
+        <strong class="me-auto text-success">
+          <i class="icon-check"></i>
+          Sucesso
+        </strong>
+        @elseif(session('msgPasswordComparisonFailed') || session('msgUnfilledPasswordFields') || session('msgInvalidCurrentPassword') || session('msgUpdateProfileFail'))
+        <strong class="me-auto text-danger">
+          <i class="icon-x"></i>
+          Falha
+        </strong>
+        @endif
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        @if(session('msgUpdateProfileSuccess'))
+        {{ session('msgUpdateProfileSuccess') }}
+
+        @elseif(session('msgPasswordComparisonFailed'))
+        {{ session('msgPasswordComparisonFailed') }}
+
+        @elseif(session('msgUnfilledPasswordFields'))
+        {{ session('msgUnfilledPasswordFields') }}
+
+        @elseif(session('msgInvalidCurrentPassword'))
+        {{ session('msgInvalidCurrentPassword') }}
+
+        @elseif(session('msgUpdateProfileFail'))
+        {{ session('msgUpdateProfileFail') }}
+
+        @endif
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-lg imagecrop" id="model" tabindex="-1" role="dialog" aria-labelledby="modalCropProfilePic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cortar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <!-- <span aria-hidden="true">&times;</span> -->
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="img-container">
+            <div class="row">
+              <div class="col-md-11">
+                <img id="image" src="https://avatars0.githubusercontent.com/u/3456749" class="d-block mw-100">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCrop">Cancelar</button>
+          <button type="button" class="btn btn-primary crop" id="crop">Cortar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/user.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="{{ asset('ijaboCropTool/ijaboCropTool.min.js') }}"></script>
-  <script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-  </script>
-  <script>
-    $("#profile-pic").ijaboCropTool({
-      preview: ".profile-img",
-      setRatio: 1,
-      processUrl: '{{ route("user.crop", app()->getLocale()) }}',
-      withCSRF: ["_token", "{{ csrf_token() }}"],
-      buttonsText: ["Salvar", "Cancelar"],
-      onSuccess: function(message, element, status) {
-        alert(message);
-      },
-      onError: function(message, element, status) {
-        alert(message);
-      },
-    });
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 
-    function loadMoreData(page) {
-      $.ajax({
-          url: '?page=' + page,
-          type: 'get',
-          beforeSend: function() {
-            $('.ajax-load').show();
-          }
-        })
-        .done(function(userPublication) {
-          if (userPublication.html == "") {
-            $('.ajax-load').html('Nenhuma outra publicação encontrada');
-            return;
-          }
-          $('.ajax-load').hide();
-          $('#post-container').append(userPublication.html);
-        })
-        .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("Servidor não está respondendo...");
-        });
-    }
+  <script>
+    @if(session('msgUpdateProfileSuccess') || session('msgPasswordComparisonFailed') || session('msgUnfilledPasswordFields') || session('msgInvalidCurrentPassword') || session('msgUpdateProfileFail'))
+    $(document).ready(function() {
+      $("#liveToastBtn").click();
+    });
+    @endif
 
-    var page = 1;
-    $(window).scroll(function() {
-      if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        page++;
-        loadMoreData(page);
-      }
+    $(document).ready(function() {
+      $('#floatingUsername').on('focusout', function() {
+        var value = $(this).val();
+        $('#btn-submit').addClass("disabled");
+        
+        $.ajax({
+            url: "{{ route('username.availability', app()->getLocale()) }}",
+            type: 'GET',
+            data: {
+              'floatingUsername': value
+            },
+            beforeSend: () => {
+              let msg = document.getElementById("msgUsername");
+	            if (msg) 
+                usernameContent.removeChild(msg);;
+              $("#loading").css('display','block');
+              usenameFlag = false;
+            },
+            complete: () => {
+              $("#loading").css('display','none');
+            }
+          })
+          .done((response) => {
+            if (response) {
+              $('#btn-submit').removeClass("disabled");
+
+              let msg = document.getElementById("msgUsername");
+              usernameFlag = true;
+	            if (msg) 
+                usernameContent.removeChild(msg);
+            } else {
+              msgAlert(usernameContent,'Nome já utilizado','msgUsername');
+              usernameFlag = false;
+            }
+          })
+      });
     });
   </script>
 </body>

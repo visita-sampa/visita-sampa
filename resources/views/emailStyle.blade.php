@@ -54,23 +54,23 @@
                     .flex-column {
                         flex-direction: column!important;
                     }
-                    
+
                     .m-0 {
                         margin: 0!important;
                     }
-                    
+
                     .m-2 {
                         margin: 0.5rem!important;
                     }
-                    
+
                     .mt-2 {
                         margin-top: 0.5rem!important;
                     }
-                    
+
                     .mt-3 {
                         margin-top: 1rem!important;
                     }
-                    
+
                     .m-auto {
                         margin: auto!important;
                     }
@@ -94,7 +94,7 @@
                         border-radius: 0.25rem;
                         text-align: center;
                     }
-                    
+
                     .card-body {
                         flex: 1 1 auto;
                         padding: 1rem 1rem;

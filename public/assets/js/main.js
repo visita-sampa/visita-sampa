@@ -36,7 +36,7 @@ function closeModal() {
 }
 
 // TextArea resize
-const textarea = document.querySelector("#floating-bio");
+const textarea = document.querySelector("#floatingBio");
 
 function autoResize() {
     if (textarea.scrollHeight == 0) {
@@ -47,3 +47,29 @@ function autoResize() {
 textarea.addEventListener("input", autoResize, false);
 
 autoResize();
+
+//Verificaçao de input
+const usernameContent = document.getElementById("usernameContent");
+const usernameInput = document.getElementById("floatingUsername");
+let usernameFlag = true;
+
+function msgAlert(pai, text, key) {
+    let message = document.createElement("span");
+    message.textContent = text;
+    message.className = "messageAlert";
+    message.id = key;
+    pai.appendChild(message);
+}
+
+usernameInput.addEventListener("focus", () => {
+    usernameFlag = false;
+});
+
+//Verficando submit form
+const formConfig = document.getElementById("formConfig");
+
+formConfig.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (usernameFlag) formConfig.submit();
+});

@@ -20,7 +20,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
       <div class="container">
-        <a href="home">
+        <a href="{{ route('home', app()->getLocale()) }}">
           <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
         </a>
         <div class="sec-center">
@@ -33,7 +33,7 @@
           <div class="section-dropdown">
             <input class="dropdown-profile" type="checkbox" id="dropdown-profile" name="dropdown-profile" />
             <label class="for-dropdown-profile" for="dropdown-profile">
-              <a href="user">
+              <a href="{{ route('user', app()->getLocale()) }}">
                 <i class="icon-user"></i>
                 <span>{{ __('Meu Perfil') }}</span>
               </a>
@@ -384,7 +384,7 @@
         var image = document.getElementById("img-preview").src;
         var inputFile = document.getElementById("fileAux");
         inputFile.value = image;
-        console.log(inputFile);
+        // console.log(inputFile);
         alert(message);
       },
       onError: function(message, element, status) {

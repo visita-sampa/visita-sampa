@@ -9,41 +9,41 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->call(function () {
-            $events = DB::table('eventos')->get();
-            
-            setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-            date_default_timezone_set('America/Sao_Paulo');
-            
-            $now = now()->format('Y-m-d');
+	/**
+	 * Define the application's command schedule.
+	 *
+	 * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+	 * @return void
+	 */
+	protected function schedule(Schedule $schedule)
+	{
+		$schedule->call(function () {
+			$events = DB::table('eventos')->get();
 
-            foreach ($events as $event) {
-                if ($event->data_evento == $now){   
-                    DB::table('eventos')
-                    ->where('data_evento', $now)
-                    ->delete();
-                }
-            }
-        })->dailyAt('03:25')->timezone('America/Sao_Paulo');
-    }
+			setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+			date_default_timezone_set('America/Sao_Paulo');
 
-    /**
-     * Register the commands for the application.
-     *
-     * @return void
-     */
-    protected function commands()
-    {
-        $this->load(__DIR__ . '/Commands');
+			$now = now()->format('Y-m-d');
 
-        require base_path('routes/console.php');
-    }
+			foreach ($events as $event) {
+				if ($event->data_evento == $now) {
+					DB::table('eventos')
+						->where('data_evento', $now)
+						->delete();
+				}
+			}
+		})->dailyAt('01:00')->timezone('America/Sao_Paulo');
+	}
+
+	/**
+	 * Register the commands for the application.
+	 *
+	 * @return void
+	 */
+	protected function commands()
+	{
+		$this->load(__DIR__ . '/Commands');
+
+		require base_path('routes/console.php');
+	}
 }

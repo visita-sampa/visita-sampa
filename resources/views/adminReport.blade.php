@@ -70,6 +70,7 @@
         <div class="tab-content denounce" id="myTabContent">
           <!-- Ativos -->
           <div class="tab-pane fade show active" id="report" role="tabpanel" aria-labelledby="report-tab">
+            @foreach($postReported as $post)
             <div class="card" id="card">
               <div class="card-body d-flex">
                 <div class="rounded-circle position-relative">
@@ -77,9 +78,22 @@
                 </div>
                 <div class="card-content">
                   <div class="card-infos">
-                    <h5 class="card-title">Nome usuário</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Ponto Turístico</h6>
-                    <span class="badge badge-pill badge-report" id="badge-report">1</span>
+                    <div class="d-flex py-2 align-items-center">
+                      <h5 class="card-title m-0">{{ $post->nome }}</h5>
+                      <span class="text-muted mx-2">&#64;{{ $post->nome_usuario }}</span>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ $post->nome_ponto_turistico }}</h6>
+                    @php
+                      $cont = 0;
+                    @endphp
+                    @foreach($complaints as $report)
+                    @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
+                    @php
+                      $cont++
+                    @endphp
+                    @endif
+                    @endforeach
+                    <span class="badge badge-pill badge-report" id="badge-report">{{ $cont }}</span>
                   </div>
                   <div class="card-buttons">
                     <button type="button" class="btn btn-accept"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceitar denúncia"></i></button>
@@ -90,26 +104,32 @@
               <div class="card-description" id="card-description">
                 <!-- Informações Ocultadas -->
                 <div class="card-text">
-                  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker
+                  @foreach($complaints as $report)
+                  @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
+                  <div class="reason">
+                    <p>{{ $report->motivo }}</p>
+                  </div>
+                  @endif
+                  @endforeach
                   <div class="report">
                     <div class="report-dialog">
                       <div class="report-content">
                         <div class="report-body">
                           <div class="report-image">
-                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/99/d8/ed/paulista.jpg?w=1200&h=-1&s=1" class="img-publication" alt="" />
+                            <img src="{{ $post->midia }}" class="img-publication" alt="" />
                           </div>
                           <!-- Informações Usuário -->
                           <div class="report-header">
                             <div class="user">
                               <div class="user-image">
-                                <img src="/img/users/profileDefault.png" alt="Foto de Perfil do Usuário" />
+                                <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="Foto de Perfil do Usuário" />
                               </div>
                               <div class="user-information">
                                 <p class="user-name">
-                                  Nome Usuário
+                                {{ $post->nome }}
                                 </p>
                                 <p class="user-localization">
-                                  Avenida Paulista
+                                {{ $post->nome_ponto_turistico }}
                                 </p>
                               </div>
                             </div>
@@ -119,16 +139,20 @@
                             <div class="comment">
                               <div class="user">
                                 <div class="user-image">
-                                  <img src="/img/users/profileDefault.png" alt="Foto de Perfil do Usuário" />
+                                  <img src="{{ $post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="Foto de Perfil do Usuário" />
                                 </div>
                               </div>
                               <p class="user-comment">
-                                <span class="name-comment">Nome Usuário</span>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur metus id eros tincidunt, eu pellentesque risus consequat. Donec convallis sem sit amet dolor ornare luctus. Aliquam dapibus leo eu faucibus porttitor.
+                                <span class="name-comment">{{ $post->nome }}</span>
+                                {{ $post->legenda }}
                               </p>
                             </div>
                             <p class="post-date">
-                              Há 11 dias
+                              @if($post->data == 0)
+                              Há menos de um dia
+                              @else
+                              Há {{ $post->data }} dias
+                              @endif
                             </p>
                           </div>
                         </div>
@@ -141,6 +165,7 @@
                 <button id="btn-see-more">Ver Mais <i class="icon-chevron-down p-1"></i></button>
               </div>
             </div>
+            @endforeach
           </div>
           <!-- Denúncias aceitas -->
           <div class="tab-pane fade" id="report-accept" role="tabpanel" aria-labelledby="report-accept-tab">
