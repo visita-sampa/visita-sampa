@@ -68,13 +68,13 @@
       </div>
       <div class="toast-body">
         @if(session('msgSendUpdatePasswordEmailSuccess'))
-        {{ session('msgSendUpdatePasswordEmailSuccess') }}
+        {{ __(session('msgSendUpdatePasswordEmailSuccess')) }}
 
         @elseif(session('msgSendUpdatePasswordEmailFail'))
-        {{ session('msgSendUpdatePasswordEmailFail') }}
+        {{ __(session('msgSendUpdatePasswordEmailFail')) }}
 
         @elseif(session('msgUpdatePasswordRequestFail'))
-        {{ session('msgUpdatePasswordRequestFail') }}
+        {{ __(session('msgUpdatePasswordRequestFail')) }}
 
         @elseif(session('msgFindUserFail'))
         {{ session('msgFindUserFail') }}
