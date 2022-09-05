@@ -20,7 +20,7 @@
           </a>
         </label>
 
-        <input class="dropdown-settings" type="checkbox" id="dropdown-settings" name="dropdown-settings" data-bs-toggle="dropdown"/>
+        <input class="dropdown-settings" type="checkbox" id="dropdown-settings" name="dropdown-settings" data-bs-toggle="dropdown" />
         <label class="for-dropdown-settings" for="dropdown-settings" data-bs-toggle="dropdown">
           <i class="icon-settings"></i>
           <span id="config" data-toggle="modal" data-target="#modalConfiguration">{{ __('Configurações') }}</span>
@@ -95,7 +95,7 @@
                   <div class="form-floating" id="usernameContentFloating">
                     <input type="text" class="form-control" id="floatingUsername" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
                     <label for="floating-user-name">{{ __('Nome de usuário') }}</label>
-                    <span id="loading" class="loading-username">Verificando nome</span>
+                    <span id="loading" class="loading-username">{{ __('Verificando nome') }}</span>
                   </div>
                   <div class="form-floating textarea">
                     <textarea class="form-control" id="floatingBio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
@@ -120,7 +120,7 @@
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary close" data-dismiss="modal">{{ __('Fechar') }}</button>
-                <button type="submit" class="btn btn-primary save">{{ __('Salvar') }}</button>
+                <button type="submit" class="btn btn-primary save" id="btn-save">{{ __('Salvar') }}</button>
               </div>
             </form>
           </div>
@@ -336,49 +336,49 @@
   $('#modalAbout').appendTo("body");
 
   $(document).ready(function() {
-      $('#floatingUsername').on('focusout', function() {
-        var value = $(this).val();
-        $('#btn-submit').addClass("disabled");
+    $('#floatingUsername').on('focusout', function() {
+      var value = $(this).val();
+      $('#btn-submit').addClass("disabled");
 
-        let msg = document.getElementById("msgUsername");
-        if (msg) usernameContentConfig.removeChild(msg);
-        if (value === "") {
-          msgAlert(usernameContentConfig, "Campo obrigatório", "msgUsername");
-          usernameFlag = false;
-          return;
-        }
-        $.ajax({
-            url: "{{ route('username.availability', app()->getLocale()) }}",
-            type: 'GET',
-            data: {
-              'floatingUsername': value
-            },
-            beforeSend: () => {
-              let msg = document.getElementById("msgUsername");
-	            if (msg)
-                usernameContentConfig.removeChild(msg);;
-              $("#loading").css('display','block');
-              usenameFlag = false;
-            },
-            complete: () => {
-              $("#loading").css('display','none');
-            }
-          })
-          .done((response) => {
-            if (response) {
-              $('#btn-submit').removeClass("disabled");
+      let msg = document.getElementById("msgUsername");
+      if (msg) usernameContentConfig.removeChild(msg);
+      if (value === "") {
+        msgAlert(usernameContentConfig, "Campo obrigatório", "msgUsername");
+        usernameFlag = false;
+        return;
+      }
+      $.ajax({
+          url: "{{ route('username.availability', app()->getLocale()) }}",
+          type: 'GET',
+          data: {
+            'floatingUsername': value
+          },
+          beforeSend: () => {
+            let msg = document.getElementById("msgUsername");
+            if (msg)
+              usernameContentConfig.removeChild(msg);;
+            $("#loading").css('display', 'block');
+            usenameFlag = false;
+          },
+          complete: () => {
+            $("#loading").css('display', 'none');
+          }
+        })
+        .done((response) => {
+          if (response) {
+            $('#btn-submit').removeClass("disabled");
 
-              let msg = document.getElementById("msgUsername");
-              usernameFlag = true;
-	            if (msg)
-                usernameContentConfig.removeChild(msg);
-            } else {
-              msgAlert(usernameContentConfig,'Nome já utilizado','msgUsername');
-              usernameFlag = false;
-            }
-          })
-      });
+            let msg = document.getElementById("msgUsername");
+            usernameFlag = true;
+            if (msg)
+              usernameContentConfig.removeChild(msg);
+          } else {
+            msgAlert(usernameContentConfig, '{{ __("Nome já utilizado") }}', 'msgUsername');
+            usernameFlag = false;
+          }
+        })
     });
+  });
 </script>
 
 @elseif(Auth::user() && Auth::user()->id_usuario == 1)

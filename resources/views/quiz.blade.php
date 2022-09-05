@@ -154,6 +154,7 @@
   </main>
 
   @include('cropProfilePic')
+  @include('usernameAvailabilityScript')
 
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/main.js"></script>
@@ -170,9 +171,9 @@
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    // $(window).load(function () {
-    //   $("#cookie-consent-modal").modal("show");
-    // });
+    $(window).load(function() {
+      $("#cookie-consent-modal").modal("show");
+    });
   </script>
 </body>
 

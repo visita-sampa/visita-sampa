@@ -29,7 +29,7 @@
     <div class="roadmap-description">
       <div class="mx-5 py-3 px-5">
         @foreach($roadMapTitle as $titles)
-        <h1 class="title">{{$titles->nome_roteiro}}</h1>
+        <h1 class="title">{{ __($titles->nome_roteiro) }}</h1>
         @endforeach
         @foreach($roadMapType as $type)
         <p>{{ __($type->descricao) }}</p>
@@ -61,6 +61,7 @@
   </main>
 
   @include('cropProfilePic')
+  @include('usernameAvailabilityScript')
 
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/main.js"></script>

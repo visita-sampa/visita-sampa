@@ -7,7 +7,7 @@
     <h5 class="card-title">{{$event->nome}}</h5>
     <div class="card-text">
       <p class="localization"><i class="icon-map-pin two"></i> {{$event->local_evento}}</p>
-      <p class="time"><i class="icon-clock"></i> {{$event->data_evento}}</p>
+      <p class="time"><i class="icon-clock"></i> {{ __($event->data_evento) }}</p>
     </div>
   </div>
   <div class="btn-information">

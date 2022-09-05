@@ -66,12 +66,12 @@
         @if(session('msgSendEmailConfirmationSuccess'))
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
-          Sucesso
+          {{ __("Sucesso") }}
         </strong>
         @elseif(session('msgSendEmailConfirmationFail') || session('msgSignupNotCompleted') || session('msgInvalidLink'))
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
-          Falha
+          {{ __("Falha") }}
         </strong>
         @endif
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

@@ -40,6 +40,7 @@
   </main>
 
   @include('cropProfilePic')
+  @include('usernameAvailabilityScript')
 
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/main.js"></script>
@@ -62,14 +63,14 @@
         })
         .done(function(eventDivulgation) {
           if (eventDivulgation.html == "") {
-            $('.ajax-load').html('Nenhum outro evento encontrado');
+            $('.ajax-load').html('{{ __("Nenhum outro evento encontrado") }}');
             return;
           }
           $('.ajax-load').hide();
           $('#event-container').append(eventDivulgation.html);
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("Servidor não está respondendo...");
+          alert("{{ __('Servidor não está respondendo') }}...");
         });
     }
 

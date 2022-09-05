@@ -51,7 +51,7 @@
       <div class="toast-header">
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
-          Sucesso
+          {{ __('Sucesso') }}
         </strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
@@ -79,6 +79,7 @@
   </div>
 
   @include('cropProfilePic')
+  @include('usernameAvailabilityScript')
 
   <script src="/assets/js/bootstrap.min.js"></script>
   <!-- <script src="/assets/js/main.js"></script> -->
@@ -140,7 +141,7 @@
           $('#post-container').append(feedPublication.html);
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("Servidor não está respondendo...");
+          alert("{{ __('Servidor não está respondendo') }}...");
         });
     }
 

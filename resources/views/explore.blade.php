@@ -119,6 +119,7 @@
   </div>
 
   @include('cropProfilePic')
+  @include('usernameAvailabilityScript')
 
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/explore.js"></script>
@@ -175,7 +176,7 @@
           $("#tourist-spot-search-container").append(searchTouristSpot.htmlSearchTouristSpot);
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("Servidor não está respondendo à busca por ponto turístico...");
+          alert("{{ __('Servidor não está respondendo à busca por ponto turístico') }}...");
         });
     }
 
@@ -189,14 +190,14 @@
         })
         .done(function(searchProfile) {
           if (searchProfile.html == "") {
-            $('.ajax-load-profile-search').html('Nenhum outro perfil encontrado');
+            $('.ajax-load-profile-search').html("{{ __('Nenhum outro perfil encontrado') }}");
             return;
           }
           $('.ajax-load-profile-search').hide();
           $('#profile-search-container').append(searchProfile.htmlSearchProfile);
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("Servidor não está respondendo à busca por perfil...");
+          alert("{{ __('Servidor não está respondendo à busca por perfil') }}...");
         });
     }
 
@@ -210,14 +211,14 @@
         })
         .done(function(explorePublication) {
           if (explorePublication.html == "") {
-            $('.ajax-load').html('Nenhuma outra publicação encontrada');
+            $('.ajax-load').html("{{ __('Nenhuma outra publicação encontrada') }}");
             return;
           }
           $('.ajax-load').hide();
           $('#post-container').append(explorePublication.html);
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("Servidor não está respondendo...");
+          alert("{{ __('Servidor não está respondendo') }}...");
         });
     }
 

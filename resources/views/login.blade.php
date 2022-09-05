@@ -52,7 +52,7 @@
         @if(session('msgUpdatePasswordSuccess') || session('msgSignupCompleted'))
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
-          Sucesso
+          {{ __('Sucesso') }}
         </strong>
         @elseif(session('msgEmailNotConfirmed') || session('msgUserNotFound') || session('msgInvalidPassword'))
         <strong class="me-auto text-danger">

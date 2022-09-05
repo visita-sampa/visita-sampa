@@ -189,6 +189,8 @@
     </div>
   </div>
 
+  @include('usernameAvailabilityScript')
+
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/touristSpot.js"></script>
@@ -254,7 +256,7 @@
           $('#post-container').append(touristSpotPublication.html);
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("Servidor não está respondendo...");
+          alert("{{ __('Servidor não está respondendo') }}...");
         });
     }
 
