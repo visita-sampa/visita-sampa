@@ -61,7 +61,7 @@
       </div>
       <div class="ajax-load text-center">
         <div class="spinner-border text-danger" role="status">
-          <span class="visually-hidden">Carregando...</span>
+          <span class="visually-hidden">{{ __('Carregando') }}...</span>
         </div>
       </div>
     </div>

@@ -6,19 +6,18 @@ use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
 {
-    public function showUploadForm()
-    {
-        return view('upload');
-    }
-    
-    public function storeUploads(Request $request)
-    {
-        $response = cloudinary()->upload($request->file('file')->getRealPath())->getSecurePath();
+	public function showUploadForm()
+	{
+		return view('upload');
+	}
 
-        dd($response);
+	public function storeUploads(Request $request)
+	{
+		$response = cloudinary()->upload($request->file('file')->getRealPath())->getSecurePath();
 
-        return back()
-            ->with('success', 'File uploaded successfully');
-    }
+		dd($response);
 
+		return back()
+			->with('success', 'File uploaded successfully');
+	}
 }

@@ -5,9 +5,14 @@
       <img src="{{$post->foto_perfil == '' ? '/img/users/profileDefault.png' : $post->foto_perfil }}" alt="{{ __('Foto de Perfil do Usuário') }}" />
     </div>
     <div class="post-header">
-      <p class="user-name">
-        {{$post->nome_usuario}}
-      </p>
+      <div class="infos-publication">
+        <p class="user-name">
+          {{$post->nome_usuario}}
+        </p>
+        <p class="user-localization">
+          {{ $post->nome_ponto_turistico }}
+        </p>
+      </div>
       <button class="report" type="button" data-bs-toggle="modal" data-bs-target="#report-post-modal-{{ $post->id_publicacao }}">
         <i class="icon-alert-triangle"></i>
       </button>
@@ -21,7 +26,7 @@
               <p>{{ __('Deseja mesmo denunciar essa publicação') }}?</p>
             </div>
             <div class="modal-footer modal-footer-feed">
-              <button type="button" class="btn cancel" data-bs-dismiss="modal">{{ __('Cancelar') }}</button>
+              <button type="button" class="btn cancel close-all" data-bs-dismiss="modal">{{ __('Cancelar') }}</button>
 
               <button type="button" class="btn denounce" data-bs-toggle="modal" data-bs-target="#report-post-modal-two-{{ $post->id_publicacao }}">
                 {{ __('Denunciar') }}
@@ -37,13 +42,13 @@
               <div class="text">
                 <h5 class="modal-title" id="report-post-modal-two-title-{{ $post->id_publicacao }}">{{ __('Denunciar') }}</h5>
               </div>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close close-all" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form name="formReport">
               @csrf
               <div class="modal-body modal-body-feed two">
-                <label for="motiveDenounces">{{ __('Por que deseja denunciar essa publicação') }}?</label>
-                <textarea name="motiveDenounces" placeholder="{{ __('Explique seu motivo') }}" id="motive-denounces-{{ $post->id_publicacao }}" cols="50" rows="10"></textarea>
+                <label class="my-3" for="motiveDenounces">{{ __('Por que deseja denunciar essa publicação') }}?</label>
+                <textarea class="p-2 motive-denounces" name="motiveDenounces" placeholder="{{ __('Explique seu motivo') }}" id="motive-denounces-{{ $post->id_publicacao }}" cols="50" rows="10"></textarea>
                 <input type="hidden" name="idPostDenouce" value="{{ $post->id_publicacao }}">
               </div>
               <div class="modal-footer modal-footer-feed two">

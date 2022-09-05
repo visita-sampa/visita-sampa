@@ -73,7 +73,7 @@
             @endif
             <span>
               @if($user->nome_usuario == Auth::user()->nome_usuario)
-              {{ __('Minhas publicações') }}
+              {{ __('Minhas Publicações') }}
               @else
               {{ __('Publicações')  }}
               @endif
@@ -93,7 +93,7 @@
     </section>
     <div class="ajax-load text-center">
       <div class="spinner-border text-danger" role="status">
-        <span class="visually-hidden">Carregando...</span>
+        <span class="visually-hidden">{{ __('Carregando') }}...</span>
       </div>
     </div>
   </main>
@@ -106,12 +106,12 @@
         @if(session('msgUpdateProfileSuccess') || session('msgUpdatePostSuccess') || session('msgDeletePostSuccess'))
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
-          Sucesso
+          {{ __('Sucesso') }}
         </strong>
         @elseif(session('msgPasswordComparisonFailed') || session('msgUnfilledPasswordFields') || session('msgInvalidCurrentPassword') || session('msgUpdateProfileFail') || session('msgUpdatePostFail') || session('msgDeletePostFail'))
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
-          Falha
+          {{ __('Falha') }}
         </strong>
         @endif
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -156,12 +156,12 @@
       <div class="toast-header">
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
-          Sucesso
+          {{ __('Sucesso') }}
         </strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-      Sua publicação foi excluída permanentemente
+        {{ __('Sua publicação foi excluí­da permanentemente') }}
       </div>
     </div>
   </div>
@@ -173,12 +173,12 @@
       <div class="toast-header">
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
-          Falha
+          {{ __('Falha') }}
         </strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-      Não foi possível excluir a publicação. Tente novamente
+        {{ __('Não foi possível excluir a publicação. Tente novamente') }}
       </div>
     </div>
   </div>
@@ -187,7 +187,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Cortar</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{ __('Cortar') }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             <!-- <span aria-hidden="true">&times;</span> -->
           </button>
@@ -202,40 +202,39 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCrop">Cancelar</button>
-          <button type="button" class="btn btn-primary crop" id="crop">Cortar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCrop">{{ __('Cancelar') }}</button>
+          <button type="button" class="btn btn-primary crop" id="crop">{{ __('Cortar') }}</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-     function deletePublication(id) {
+    function deletePublication(id) {
       $.ajax({
-        url: "{{ route('delete.publication', app()->getLocale()) }}",
-        type: 'GET',
-        data: {
-          'id': id
-        },
-      })
-      .done((response) => {
-        if(response) {
-          $('.close').click();
+          url: "{{ route('delete.publication', app()->getLocale()) }}",
+          type: 'GET',
+          data: {
+            'id': id
+          },
+        })
+        .done((response) => {
+          if (response) {
+            $('.close').click();
 
-          $(document).ready(function() {
-            $("#toastBtnDeletePostSuccess").click();
-          });
+            $(document).ready(function() {
+              $("#toastBtnDeletePostSuccess").click();
+            });
 
-          $(`#post-${id}`).remove();
-        }
-        else {
-          $('.close').click();
+            $(`#post-${id}`).remove();
+          } else {
+            $('.close').click();
 
-          $(document).ready(function() {
-            $("#toastBtnDeletePostFail").click();
-          });
-        }
-      });
+            $(document).ready(function() {
+              $("#toastBtnDeletePostFail").click();
+            });
+          }
+        });
     }
   </script>
 
@@ -248,12 +247,12 @@
 
   <script>
     var tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  );
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
 
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
     @if(session('msgUpdateProfileSuccess') || session('msgUpdatePostSuccess') || session('msgDeletePostSuccess') || session('msgPasswordComparisonFailed') || session('msgUnfilledPasswordFields') || session('msgInvalidCurrentPassword') || session('msgUpdateProfileFail') || session('msgUpdatePostFail') || session('msgDeletePostFail'))
     $(document).ready(function() {
@@ -281,13 +280,13 @@
             },
             beforeSend: () => {
               let msg = document.getElementById("msgUsername");
-	            if (msg)
+              if (msg)
                 usernameContent.removeChild(msg);;
-              $("#loading").css('display','block');
-              usenameFlag = false;
+              $("#loading").css('display', 'block');
+              usernameFlag = false;
             },
             complete: () => {
-              $("#loading").css('display','none');
+              $("#loading").css('display', 'none');
             }
           })
           .done((response) => {
@@ -296,10 +295,10 @@
 
               let msg = document.getElementById("msgUsername");
               usernameFlag = true;
-	            if (msg)
+              if (msg)
                 usernameContent.removeChild(msg);
             } else {
-              msgAlert(usernameContent,'Nome já utilizado','msgUsername');
+              msgAlert(usernameContent, 'Nome já utilizado', 'msgUsername');
               usernameFlag = false;
             }
           })

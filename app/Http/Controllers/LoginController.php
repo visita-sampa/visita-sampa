@@ -14,74 +14,79 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
 
-    public function login()
-    {
-        if (Auth::user())
-            return redirect()->route('user', app()->getLocale());
-        else
-            return view('login');
-    }
+	public function login()
+	{
+		if (Auth::user())
+			return redirect()->route('feed', app()->getLocale());
+		else
+			return view('login');
+	}
 
-    public function validateLogin(Request $request)
-    {
-        $request->validate([
-            'login' => 'required',
-            'passwordLogin' => 'required'
-        ]);
+	public function validateLogin(Request $request)
+	{
+		$request->validate([
+			'login' => 'required',
+			'passwordLogin' => 'required'
+		]);
 
-        $user = new User;
+		$user = new User;
 
-        $findUser = $user->where('email', $request->login)->first();
-        if (empty($findUser))
-            $findUser = $user->where('nome_usuario', $request->login)->first();
+		$findUser = $user->where('email', $request->login)->first();
+		if (empty($findUser))
+			$findUser = $user->where('nome_usuario', $request->login)->first();
 
-        if ($findUser->situacao_cadastro != 1) {
-            $msg = "Erro: O cadastro não foi finalizado. Verifique seu e-mail para confirmar suas credenciais.";
-            return redirect()->route('login', app()->getLocale())->with('msgEmailNotConfirmed', $msg);
-        } elseif (!empty($findUser) && Hash::check($request->passwordLogin, $findUser->senha)) {
-            Auth::loginUsingId($findUser->id_usuario);
-        }
+		if(empty($findUser)) {
+			$msg = "Esse usuário não existe. Verifique suas credenciais";
+			return redirect()->route('login', app()->getLocale())->with('msgUserNotFound', $msg);
+		}
 
-        return redirect()->route('login', app()->getLocale());
-    }
+		if ($findUser->situacao_cadastro != 1) {
+			$msg = "Erro: O cadastro não foi finalizado. Verifique seu e-mail para confirmar suas credenciais.";
+			return redirect()->route('login', app()->getLocale())->with('msgEmailNotConfirmed', $msg);
+		} elseif (!empty($findUser) && Hash::check($request->passwordLogin, $findUser->senha)) {
+			Auth::loginUsingId($findUser->id_usuario);
+		}
 
-    public function recoverPassword()
-    {
-        return view('recoverPassword');
-    }
+		return redirect()->route('login', app()->getLocale());
+	}
 
-    public function passwordRequest(Request $request)
-    {
-        $user = new User;
-        $user = $user->where('email', $request->email)->first();
+	public function recoverPassword()
+	{
+		return view('recoverPassword');
+	}
 
-        if (!empty($user)) {
-            $user->recuperar_senha = bcrypt($user->id_usuario . date("Y-m-d H:i:s"));
-            $user->recuperar_senha = str_replace('/', '', $user->recuperar_senha);
+	public function passwordRequest(Request $request)
+	{
+		$user = new User;
+		$user = $user->where('email', $request->email)->first();
 
-            if ($user->save()) {
-                $mail = new PHPMailer(true);
+		if (!empty($user)) {
+			$user->recuperar_senha = bcrypt($user->id_usuario . date("Y-m-d H:i:s"));
+			$user->recuperar_senha = str_replace('/', '', $user->recuperar_senha);
 
-                try {
-                    //Server settings
-                    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-                    $mail->CharSet    = 'UTF-8';
-                    $mail->isSMTP();
-                    $mail->Host       = env('MAIL_HOST');
-                    $mail->SMTPAuth   = true;
-                    $mail->Username   = env('MAIL_USERNAME');
-                    $mail->Password   = env('MAIL_PASSWORD');
-                    $mail->SMTPSecure = env('MAIL_ENCRYPTION');
-                    $mail->Port       = env('MAIL_PORT');
+			if ($user->save()) {
+				$mail = new PHPMailer(true);
 
-                    //Recipients
-                    $mail->setFrom(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
-                    $mail->addAddress($request->email, $user->nome);     //Add a recipient
+				try {
+					//Server settings
+					// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+					$mail->CharSet    = 'UTF-8';
+					$mail->isSMTP();
+					$mail->Host       = env('MAIL_HOST');
+					$mail->SMTPAuth   = true;
+					$mail->Username   = env('MAIL_USERNAME');
+					$mail->Password   = env('MAIL_PASSWORD');
+					$mail->SMTPSecure = env('MAIL_ENCRYPTION');
+					$mail->Port       = env('MAIL_PORT');
 
-                    //Content
-                    $mail->isHTML(true);                                  //Set email format to HTML
-                    $mail->Subject = 'Visita Sampa - recuperação de senha';
-                    $mail->Body    = '
+					//Recipients
+					$mail->setFrom(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+					$mail->addAddress($request->email, $user->nome);     //Add a recipient
+
+					//Content
+					$mail->isHTML(true);                                  //Set email format to HTML
+					$mail->Subject = 'Visita Sampa - recuperação de senha';
+					$mail->Body    = '
                     <head>
                         <style>
                             @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300&display=swap");
@@ -257,67 +262,67 @@ class LoginController extends Controller
                             </div>
                         </div>
                     </div>';
-                    $mail->AltBody = 'Olá, ' . $user->nome . '\n\nRecebemos sua solicitação de atualização de senha. Para continuar, clique no link a seguir e redefina uma nova senha para sua conta: \n\nhttp://localhost/pt/resetPassword/' . $user->recuperar_senha . '\n\nApós confirmar uma nova senha, sua senha anterior não será mais válida.\n\n&copy; 2021 Copyright:\n\nTodos os direitos reservados.';
+					$mail->AltBody = 'Olá, ' . $user->nome . '\n\nRecebemos sua solicitação de atualização de senha. Para continuar, clique no link a seguir e redefina uma nova senha para sua conta: \n\nhttp://localhost/pt/resetPassword/' . $user->recuperar_senha . '\n\nApós confirmar uma nova senha, sua senha anterior não será mais válida.\n\n&copy; 2021 Copyright:\n\nTodos os direitos reservados.';
 
-                    $mail->send();
+					$mail->send();
 
-                    $msg = "Enviamos um e-mail com o link para atualização de senha. Verifique sua caixa de entrada.";
-                    return redirect()->route('recover.password', app()->getLocale())->with('msgSendUpdatePasswordEmailSuccess', $msg);
-                } catch (Exception $e) {
-                    $msg = "O e-mail não pôde ser enviado. Tente novamente em alguns instantes.";
-                    return redirect()->route('recover.password', app()->getLocale())->with('msgSendUpdatePasswordEmailFail', $msg);
-                }
-            } else {
-                $msg = "Falha na solicitação de recuperação de senha. Tente novamente.";
-                return redirect()->route('recover.password', app()->getLocale())->with('msgUpdatePasswordRequestFail', $msg);
-            }
-        } else {
-            $msg = "Usuário não encontrado. Verifique o e-mail fornecido para recuperação de senha.";
-            return redirect()->route('recover.password', app()->getLocale())->with('msgFindUserFail', $msg);
-        }
-    }
+					$msg = "Enviamos um e-mail com o link para atualização de senha. Verifique sua caixa de entrada.";
+					return redirect()->route('recover.password', app()->getLocale())->with('msgSendUpdatePasswordEmailSuccess', $msg);
+				} catch (Exception $e) {
+					$msg = "O e-mail não pôde ser enviado. Tente novamente em alguns instantes.";
+					return redirect()->route('recover.password', app()->getLocale())->with('msgSendUpdatePasswordEmailFail', $msg);
+				}
+			} else {
+				$msg = "Falha na solicitação de recuperação de senha. Tente novamente.";
+				return redirect()->route('recover.password', app()->getLocale())->with('msgUpdatePasswordRequestFail', $msg);
+			}
+		} else {
+			$msg = "Usuário não encontrado. Verifique o e-mail fornecido para recuperação de senha.";
+			return redirect()->route('recover.password', app()->getLocale())->with('msgFindUserFail', $msg);
+		}
+	}
 
-    public function resetPassword($language, $key = null)
-    {
-        if (!empty($key)) {
-            $user = new User;
-            $user = $user->where('recuperar_senha', $key)->first();
+	public function resetPassword($language, $key = null)
+	{
+		if (!empty($key)) {
+			$user = new User;
+			$user = $user->where('recuperar_senha', $key)->first();
 
-            if (!empty($user)) {
-                return view('resetPassword', ['key' => $key]);
-            } else {
-                $msg = "Link inválido. Solicite um novo link.";
-                return redirect()->route('recover.password', app()->getLocale())->with('msgInvalidLink', $msg);
-            }
-        } else {
-            $msg = "Link inválido. Solicite um novo link.";
-            return redirect()->route('recover.password', app()->getLocale())->with('msgInvalidLink', $msg);
-        }
-    }
+			if (!empty($user)) {
+				return view('resetPassword', ['key' => $key]);
+			} else {
+				$msg = "Link inválido. Solicite um novo link.";
+				return redirect()->route('recover.password', app()->getLocale())->with('msgInvalidLink', $msg);
+			}
+		} else {
+			$msg = "Link inválido. Solicite um novo link.";
+			return redirect()->route('recover.password', app()->getLocale())->with('msgInvalidLink', $msg);
+		}
+	}
 
-    public function updatePassword(Request $request)
-    {
-        if (!empty($request->key)) {
-            $user = new User;
-            $user = $user->where('recuperar_senha', $request->key)->first();
+	public function updatePassword(Request $request)
+	{
+		if (!empty($request->key)) {
+			$user = new User;
+			$user = $user->where('recuperar_senha', $request->key)->first();
 
-            $user->senha = bcrypt($request->password);
+			$user->senha = bcrypt($request->password);
 
-            if ($user->save()) {
-                $user->recuperar_senha = null;
-                $user->save();
+			if ($user->save()) {
+				$user->recuperar_senha = null;
+				$user->save();
 
-                $msg = "Sua senha foi atualizada. Entre com sua nova senha.";
-                return redirect()->route('login', app()->getLocale())->with('msgUpdatePasswordSuccess', $msg);
-            } else {
-                $msg = "Falha na atualização de senha. Tente novamente.";
-                return redirect()->route('reset.password', app()->getLocale())->with('msgUpdatePasswordFail', $msg);
-            }
-        }
-    }
+				$msg = "Sua senha foi atualizada. Entre com sua nova senha.";
+				return redirect()->route('login', app()->getLocale())->with('msgUpdatePasswordSuccess', $msg);
+			} else {
+				$msg = "Falha na atualização de senha. Tente novamente.";
+				return redirect()->route('reset.password', app()->getLocale())->with('msgUpdatePasswordFail', $msg);
+			}
+		}
+	}
 
-    public function emailStyle()
-    {
-        return view('emailStyle');
-    }
+	public function emailStyle()
+	{
+		return view('emailStyle');
+	}
 }

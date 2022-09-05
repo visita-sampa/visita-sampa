@@ -69,6 +69,10 @@ Route::group(['prefix' => '{language?}'], function () {
 	Route::get('/resetPassword/{key?}', [LoginController::class, 'resetPassword'])->name('reset.password');
 	Route::post('/updatePassword', [LoginController::class, 'updatePassword'])->name('update.password');
 
+	//check if username and email is avaliable
+	Route::get('/checkUsernameAvailability', [UserController::class, 'checkUsernameAvailability'])->name('username.availability');
+	Route::get('/checkEmailAvailability', [UserController::class, 'checkEmailAvailability'])->name('email.availability');
+
 	// protected routes, only authenticated users
 	Route::group(['middleware' => ['auth']], function () {
 		// main routes
@@ -89,31 +93,32 @@ Route::group(['prefix' => '{language?}'], function () {
 		Route::post('/cropPost', [PublicationController::class, 'crop'])->name('publication.crop');
 		Route::post('/report', [PublicationController::class, 'report'])->name('publication.report');
 
-        // edit publications
+		// edit publications
 		Route::post('/editPublication/{id?}', [PublicationController::class, 'update'])->name('update.publication');
 		Route::get('/deletePublication/{id?}', [PublicationController::class, 'delete'])->name('delete.publication');
-
+        
 		// edit profile
-		Route::get('/checkUsernameAvailability', [UserController::class, 'checkUsernameAvailability'])->name('username.availability');
 		Route::post('/updateProfile', [UserController::class, 'update'])->name('update.profile');
-
+        
 		// logout route
 		Route::get('/logout', function () {
-			Auth::logout();
+            Auth::logout();
 			return redirect()->route('login', app()->getLocale());
 		})->name('logout');
 	});
-
+    
 	// protected routes, only authenticated admins
 	Route::group(['middleware' => ['authAdmin']], function () {
         // admin routes 
-        Route::get('/adminEvents', [AdminEventsController::class, 'index'])->name('adminEvents');
-        Route::get('/adminReport', [AdminReportController::class, 'index'])->name('adminReport');
-        Route::post('/addEvent', [AdminEventsController::class, 'store'])->name('adminEvents.store');
-        
-        // report management
-        Route::get('/acceptComplaint', [AdminReportController::class, 'acceptComplaint'])->name('accept.complaint');
-        Route::get('/refuseComplaint', [AdminReportController::class, 'refuseComplaint'])->name('refuse.complaint');
+		Route::get('/adminEvents', [AdminEventsController::class, 'index'])->name('adminEvents');
+		Route::get('/adminReport', [AdminReportController::class, 'index'])->name('adminReport');
 
-    });
+        // events management
+		Route::post('/addEvent', [AdminEventsController::class, 'store'])->name('adminEvents.store');
+        Route::get('/deleteEvent/{id?}', [AdminEventsController::class, 'delete'])->name('delete.event');
+        
+		// report management
+		Route::get('/acceptComplaint', [AdminReportController::class, 'acceptComplaint'])->name('accept.complaint');
+		Route::get('/refuseComplaint', [AdminReportController::class, 'refuseComplaint'])->name('refuse.complaint');
+	});
 });

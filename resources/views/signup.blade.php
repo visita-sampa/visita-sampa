@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ __('Cadastro') }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <link href="/assets/css/style.css" rel="stylesheet" />
   <link href="/assets/css/login.css" rel="stylesheet" />
   <link href="/assets/icon/style.css" rel="stylesheet" />
@@ -28,22 +29,24 @@
 
           <div id="signup" class="signup text-center h-100">
             <h2 class="title-login">{{ __('CADASTRE-SE') }}</h2>
-            <form  id="form" method="POST" action="{{ route('user.store', app()->getLocale()) }}" class="form-signup d-flex flex-column h-100 justify-content-around">
+            <form id="form" method="POST" action="{{ route('user.store', app()->getLocale()) }}" class="form-signup d-flex flex-column h-100 justify-content-around">
               @csrf
-              <div id="nameContent" class="inputContent">
+              <div id="nameSignupContent" class="inputContent">
                 <input type="text" name="nameSignup" id="nameSignup" placeholder="{{ __('Nome') }}" autocomplete="off" class="input-signup" required />
               </div>
               <div id="usernameContent" class="inputContent">
                 <input type="text" name="usernameSignup" id="usernameSignup" placeholder="{{ __('Nome de usuário') }}" autocomplete="off" class="input-signup" required />
+                <span id="loading" class="loading-username">Verificando nome</span>
               </div>
               <div id="emailContent" class="inputContent">
                 <input type="email" name="emailSignup" id="emailSignup" placeholder="E-mail" autocomplete="off" class="input-signup" required />
+                <span id="loading-email" class="loading-username">Verificando email</span>
               </div>
               <div id="passwordContent" class="inputContent">
                 <input type="password" name="passwordSignup" id="passwordSignup" placeholder="{{ __('Senha') }}" autocomplete="off" class="input-signup" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#_])[0-9a-zA-Z$*&@#_]{6,12}$" required data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="A senha deve conter: <br/>Entre 6 e 12 caracteres;<br/>Ter pelo menos uma letra maiúscula e uma letra minúscula;</br>Um número;</br>Um símbolo (#, @, _, $, &, *)" />
               </div>
               <div id="passwordConfirmationContent" class="inputContent">
-                <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="{{ __('Confirmação de senha') }}" autocomplete="off" class="input-confirmation" required/>
+                <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="{{ __('Confirmação de senha') }}" autocomplete="off" class="input-confirmation" required />
               </div>
 
               <button type="submit" class="btn-signup">{{ __('Cadastrar') }}</button>
@@ -60,7 +63,7 @@
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
-        @if(session('msgSendEmailConfirmationSuccess') || session('msgSignupCompleted'))
+        @if(session('msgSendEmailConfirmationSuccess'))
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
           Sucesso
@@ -77,9 +80,6 @@
         @if(session('msgSendEmailConfirmationSuccess'))
         {{ session('msgSendEmailConfirmationSuccess') }}
 
-        @elseif(session('msgSignupCompleted'))
-        {{ session('msgSignupCompleted') }}
-
         @elseif(session('msgSendEmailConfirmationFail'))
         {{ session('msgSendEmailConfirmationFail') }}
 
@@ -95,100 +95,127 @@
   </div>
 
   <!-- Footer -->
-  <footer class="text-center text-lg-start bg-light text-muted pt-4">
-    <!-- Section: Links  -->
-    <div class="container text-center text-md-start">
-      <!-- Grid row -->
-      <div class="row">
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
-          <img src="/assets/img/logoVisitaSampa.png" class="logo me-3" alt="{{ __('Logo Visita Sampa') }}" />
-          <p class="m-0 text-dark">
-            &copy; 2021 Copyright:
-          </p>
-          <p class="text-dark">
-            {{ __('Todos os direitos reservados') }}
-          </p>
-        </div>
-        <!-- Grid column -->
+  @include('footer')
 
-        <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            Home
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Perfil') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Teste') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Roteiro') }}</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            Social
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Facebook</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Instagram</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Twitter</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            {{ __('Sobre') }}
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Política de Privacidade') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Nossa Equipe') }}</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-    </div>
-  </footer>
-
-  <script src="/assets/js/jquery.slim.min.js"></script>
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="/assets/js/login.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+  <script src="/assets/js/signup.js"></script>
   <script src="/assets/js/main.js"></script>
   <script>
-    @if(session('msgSendEmailConfirmationSuccess') || session('msgSignupCompleted') || session('msgSendEmailConfirmationFail') || session('msgSignupNotCompleted') || session('msgInvalidLink'))
-      $(document).ready(function () {
-        $("#liveToastBtn").click();
-      });
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    @if(session('msgSendEmailConfirmationSuccess') || session('msgSendEmailConfirmationFail') || session('msgSignupNotCompleted') || session('msgInvalidLink'))
+    $(document).ready(function() {
+      $("#liveToastBtn").click();
+    });
     @endif
 
     var toastTrigger = document.getElementById('liveToastBtn')
     var toastLiveExample = document.getElementById('liveToast')
     if (toastTrigger) {
-      toastTrigger.addEventListener('click', function () {
+      toastTrigger.addEventListener('click', function() {
         var toast = new bootstrap.Toast(toastLiveExample)
 
         toast.show()
       })
     }
+
+    $(document).ready(function() {
+      $('#usernameSignup').on('focusout', function() {
+        var value = $(this).val();
+        $('.btn-signup').addClass("disabled");
+
+        let msg = document.getElementById("msgUsername");
+        if (msg) usernameContent.removeChild(msg);
+        if (value === "") {
+          msgAlert(usernameContent, "Campo obrigatório", "msgUsername");
+          usernameFlag = false;
+          return;
+        }
+        $.ajax({
+            url: "{{ route('username.availability', app()->getLocale()) }}",
+            type: 'GET',
+            data: {
+              'floatingUsername': value
+            },
+            beforeSend: () => {
+              let msg = document.getElementById("msgUsername");
+              if (msg)
+                usernameContent.removeChild(msg);;
+              $("#loading").css('display', 'block');
+              usernameFlag = false;
+            },
+            complete: () => {
+              $("#loading").css('display', 'none');
+            }
+          })
+          .done((response) => {
+            if (response) {
+              $('.btn-signup').removeClass("disabled");
+
+              let msg = document.getElementById("msgUsername");
+              usernameFlag = true;
+              if (msg)
+                usernameContent.removeChild(msg);
+            } else {
+              msgAlert(usernameContent, 'Nome já utilizado', 'msgUsername');
+              usernameFlag = false;
+            }
+          })
+      });
+    });
+
+    $(document).ready(function() {
+      $('#emailSignup').on('focusout', function() {
+        var value = $(this).val();
+        $('.btn-signup').addClass("disabled");
+
+        let msg = document.getElementById("msgEmail");
+        if (msg) emailContent.removeChild(msg);
+        if (value === "") {
+          msgAlert(emailContent, "Campo obrigatório", "msgEmail");
+          emailFlag = false;
+          return;
+        }
+        $.ajax({
+            url: "{{ route('email.availability', app()->getLocale()) }}",
+            type: 'GET',
+            data: {
+              'floatingEmail': value
+            },
+            beforeSend: () => {
+              let msg = document.getElementById("msgEmail");
+              if (msg)
+                emailContent.removeChild(msg);;
+              $("#loading-email").css('display', 'block');
+              emailFlag = false;
+            },
+            complete: () => {
+              $("#loading-email").css('display', 'none');
+            }
+          })
+          .done((response) => {
+            if (response) {
+              $('.btn-signup').removeClass("disabled");
+
+              let msg = document.getElementById("msgEmail");
+              emailFlag = true;
+              if (msg)
+                emailContent.removeChild(msg);
+            } else {
+              msgAlert(emailContent, 'Email já utilizado', 'msgEmail');
+              emailFlag = false;
+            }
+          })
+      });
+    });
   </script>
 </body>
 

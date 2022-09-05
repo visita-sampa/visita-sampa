@@ -21,6 +21,7 @@
 /* container */
 body>main>.container {
 	padding-top: 2rem;
+	margin-top: 5.31rem;
 }
 
 /* navbar */
@@ -35,6 +36,12 @@ nav {
 
 nav .nav-top {
 	margin: 0 8.4rem;
+}
+
+nav.navbar {
+	position: fixed;
+	width: 100vw;
+	z-index: 99;
 }
 
 nav.nav-bottom {
@@ -636,6 +643,11 @@ i.icon-lock {
 	display: none;
 }
 
+.about,
+.terms {
+	color: var(--black);
+}
+
 /* Media Screen */
 /* extra extra extra large devices: 1700 < */
 @media screen and (min-width: 1700px) {
@@ -647,6 +659,10 @@ i.icon-lock {
 @media screen and (max-width: 992px) {
 	.logo {
 		width: 5.7rem;
+	}
+	.profile-img-menu {
+		width: 3rem;
+		height: 3rem;
 	}
 }
 

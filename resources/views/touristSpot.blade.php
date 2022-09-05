@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ __('Ponto Turístico') }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
   <link href="/assets/css/style.css" rel="stylesheet" />
-  <link href="/assets/css/roadMap.css" rel="stylesheet" />
   <link href="/assets/css/touristSpot.css" rel="stylesheet" />
   <link href="/assets/icon/style.css" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -66,18 +66,20 @@
             <p class="address">
               {{ $point->logradouro }}, {{ $point->numero }} - {{ $point->nome_bairro }}, {{ $point->nome_cidade }} - {{ $point->nome_estado }}, {{ $point->cep }}{{ $point->complemento != '' ? '. '.$point->complemento : ''}}
             </p>
-            <p class="description">{{ $point->informacoes }}</p>
+            <p class="description">{{ __($point->informacoes) }}</p>
             <p>
               <strong>Valor:</strong>
-              {{ $point->valor }}
+              {{ __($point->valor) }}
             </p>
             <p>
-              <strong>Horário de Funcionamento:</strong>
-              {{ $point->horario_funcionamento }}.
+              <strong>{{ __('Horário de Funcionamento') }}:</strong>
+              {{ __($point->horario_funcionamento) }}.
             </p>
-            <div class="btn-information">
-              <a href="{{ $point->link }}" target="_blank" class="btn-see-more">{{ __('Ver Mais') }}</a>
-            </div>
+            @if($point->link == null)
+            <a href="#" target="_blank" style="pointer-events: none; display: inline-block;"></a>
+            @else
+            <a href="{{ $point->link }}" target="_blank" class="btn-point">{{ __('Saiba mais') }}</a>
+            @endif
           </div>
         </div>
       </section>
@@ -142,26 +144,26 @@
           </div>
 
           <div class="modal fade bd-example-modal-lg imagecrop" id="model" tabindex="-1" role="dialog" aria-labelledby="modalCropProfilePic" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg d-flex justify-content-center">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Cortar</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title" id="exampleModalLabel">{{ __('Cortar') }}</h5>
+                  <button type="button" class="btn-close cancel-crop" data-bs-dismiss="modal" aria-label="Close">
                     <!-- <span aria-hidden="true">&times;</span> -->
                   </button>
                 </div>
                 <div class="modal-body">
                   <div class="img-container">
-                    <div class="row">
-                      <div class="col-md-11">
+                    <div class="row justify-content-center w-100 mx-0">
+                      <div class="col-md-11 p-0">
                         <img id="image" src="https://avatars0.githubusercontent.com/u/3456749" class="d-block mw-100">
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCrop">Cancelar</button>
-                  <button type="button" class="btn btn-primary crop" id="crop">Cortar</button>
+                  <button type="button" class="btn btn-secondary cancel-crop" data-bs-dismiss="modal" id="cancelCrop">{{ __('Cancelar') }}</button>
+                  <button type="button" class="btn btn-primary crop" id="crop">{{ __('Cortar') }}</button>
                 </div>
               </div>
             </div>
@@ -173,30 +175,52 @@
         </div>
         <div class="ajax-load text-center">
           <div class="spinner-border text-danger" role="status">
-            <span class="visually-hidden">Carregando...</span>
+            <span class="visually-hidden">{{ __('Carregando') }}...</span>
           </div>
         </div>
       </section>
     </div>
     @endforeach
-    <!-- <form action="" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label for="image">Imagem do Evento:</label>
-                <input type="file" id="image" name="image" class="from-control-file">
-            </div>
-            <input type="submit" class="btn btn-primary" value="Salvar">
-        </form>  -->
   </main>
 
-  <script src="/assets/js/jquery.slim.min.js"></script>
+  <button type="button" class="btn btn-primary d-none" id="toastBtnReportSuccess">Show live toast</button>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastReportSuccess" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto text-success">
+          <i class="icon-check"></i>
+          {{ __('Sucesso') }}
+        </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+      {{ __('A publicação foi reportada') }}
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-primary d-none" id="toastBtnReportFail">Show live toast</button>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastReportFail" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto text-danger">
+          <i class="icon-x"></i>
+          {{ __('Falha') }}
+        </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+      {{ __('Não foi possível reportar a publicação') }}
+      </div>
+    </div>
+  </div>
+
   <script src="/assets/js/bootstrap.min.js"></script>
-  <script src="/assets/js/main.js"></script>
-  <script src="/assets/js/touristSpot.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
-  <!-- <script src="{{ asset('ijaboCropTool/ijaboCropTool.min.js') }}"></script> -->
 
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -206,22 +230,37 @@
   </script>
 
   <script>
-    $("#newPost").ijaboCropTool({
-      preview: ".post-img",
-      setRatio: 7 / 5,
-      processUrl: '{{ route("publication.crop", app()->getLocale()) }}',
-      withCSRF: ["_token", "{{ csrf_token() }}"],
-      buttonsText: ["Salvar", "Cancelar"],
-      onSuccess: function(message, element, status) {
-        var image = document.getElementById("img-preview").src;
-        var inputFile = document.getElementById("fileAux");
-        inputFile.value = image;
-        // console.log(inputFile);
-        alert(message);
-      },
-      onError: function(message, element, status) {
-        alert(message);
-      },
+    var touristSpotId = document.getElementById('touristSpotId').value;
+
+    $('#pt-br').attr('href', `{{ route('touristSpot.show', ['language'=>'pt', 'id'=>null]) }}/${touristSpotId}`)
+    $('#en-us').attr('href', `{{ route('touristSpot.show', ['language'=>'en', 'id'=>null]) }}/${touristSpotId}`)
+
+    $(function() {
+      $('form[name="formReport"]').submit(function() {
+        event.preventDefault();
+
+        $.ajax({
+          url: "{{ route('publication.report', app()->getLocale()) }}",
+          type: "post",
+          data: $(this).serialize(),
+          dataType: 'json',
+          success: function(response) {
+            if (response) {
+              $('.close-all').click();
+
+              $(document).ready(function() {
+                $("#toastBtnReportSuccess").click();
+              });
+            } else {
+              $('.close-all').click();
+
+              $(document).ready(function() {
+                $("#toastBtnReportFail").click();
+              });
+            }
+          }
+        });
+      });
     });
 
     function loadMoreData(page) {
@@ -253,6 +292,10 @@
       }
     });
   </script>
+
+  <script src="/assets/js/touristSpot.js"></script>
+  <script src="/assets/js/main.js"></script>
+
 </body>
 
 </html>

@@ -7,9 +7,9 @@
     </div>
   </div>
   <!-- Modal -->
-  <div class="modal fade" id="post-modal-{{ $post->id_publicacao }}" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-{{ $post->id_publicacao }}" aria-hidden="true">
+  <div class="modal fade" onfocus="overlapModalClose({{ $post->id_publicacao }})" id="post-modal-{{ $post->id_publicacao }}" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-{{ $post->id_publicacao }}" aria-hidden="true">
     <div class="close-publication">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <button type="button" class="close close-all" data-dismiss="modal" aria-label="Close">
         <span class="close-post" aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -55,16 +55,16 @@
             <p class="post-date">
               @if(is_numeric($post->updated_at))
               @if($post->updated_at == 0)
-              Editado - Há menos de um dia
+              {{ __('Editado - Há menos de um dia') }}
               @else
-              Editado - Há {{ $post->updated_at }} dias
+              {{ __('Editado - Há') }} {{ $post->updated_at }} {{ __('dias') }}
               @endif
               @endif
               @if(is_numeric($post->data))
               @if($post->data == 0)
-              Há menos de um dia
+              {{ __('Há menos de um dia') }}
               @else
-              Há {{ $post->data }} dias
+              {{ __('Há') }} {{ $post->data }} {{ __('dias') }}
               @endif
               @endif
             </p>
@@ -73,41 +73,45 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="report-post-modal-{{ $post->id_publicacao }}" tabindex="-1" aria-labelledby="report-post-modal-label-{{ $post->id_publicacao }}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-tourist-spot">
-      <div class="modal-content">
-        <div class="modal-header modal-header-tourist-spot">
+  <div class="modal fade" onfocus="overlapModal({{ $post->id_publicacao }})" onblur="overlapModalClose({{ $post->id_publicacao }})" id="report-post-modal-{{ $post->id_publicacao }}" tabindex="-1" aria-labelledby="report-post-modal-label-{{ $post->id_publicacao }}" aria-hidden="true">
+    <div class="modal-dialog tourist-spot">
+      <div class="modal-content tourist-spot">
+        <div class="modal-header">
           <h5 class="modal-title" id="report-post-modal-title-{{ $post->id_publicacao }}">{{ __('DENÚNCIA') }}</h5>
         </div>
-        <div class="modal-body">
+        <div class="modal-body d-flex justify-content-center text-center align-items-center">
           <p>{{ __('Deseja mesmo denunciar essa publicação') }}?</p>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn cancel" data-bs-dismiss="modal">{{ __('Cancelar') }}</button>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn cancel close-all" aria-label="Close" data-dismiss="modal" onclick="overlapModalClose({{ $post->id_publicacao }})">{{ __('Cancelar') }}</button>
 
-          <button type="button" class="btn denounce" data-bs-toggle="modal" data-bs-target="#report-post-modal-two-{{ $post->id_publicacao }}">
+          <button type="button" class="btn denounce" data-toggle="modal" data-target="#report-post-modal-two-{{ $post->id_publicacao }}">
             {{ __('Denunciar') }}
           </button>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="report-post-modal-two-{{ $post->id_publicacao }}" tabindex="-1" aria-labelledby="report-post-modal-two-label-{{ $post->id_publicacao }}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-tourist-spot">
-      <div class="modal-content two">
-        <div class="modal-header modal-header-tourist-spot">
-          <div class="text">
+  <div class="modal fade" onfocus="overlapModal({{ $post->id_publicacao }})" id="report-post-modal-two-{{ $post->id_publicacao }}" tabindex="-1" aria-labelledby="report-post-modal-two-label-{{ $post->id_publicacao }}" aria-hidden="true">
+    <div class="modal-dialog tourist-spot">
+      <div class="modal-content tourist-spot-two">
+        <div class="modal-header ">
+          <div class="text-center w-100 position-absolute">
             <h5 class="modal-title" id="report-post-modal-two-title-{{ $post->id_publicacao }}">{{ __('Denunciar') }}</h5>
           </div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close close-all" data-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body two">
-          <p>{{ __('Por que deseja denunciar essa publicação') }}?</p>
-          <textarea name="motive-denounces" placeholder="{{ __('Explique seu motivo') }}" id="motive-denounces-{{ $post->id_publicacao }}" cols="50" rows="10"></textarea>
-        </div>
-        <div class="modal-footer two">
-          <button type="button" class="btn denounce">{{ __('Enviar') }}</button>
-        </div>
+        <form name="formReport">
+          @csrf
+          <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+            <label class="my-3" for="motiveDenounces">{{ __('Por que deseja denunciar essa publicação') }}?</label>
+            <textarea class="p-2 motive-denounces" name="motiveDenounces" placeholder="{{ __('Explique seu motivo') }}" id="motive-denounces-{{ $post->id_publicacao }}" cols="50" rows="10"></textarea>
+            <input type="hidden" name="idPostDenouce" value="{{ $post->id_publicacao }}">
+          </div>
+          <div class="modal-footer modal-footer-tourist-spot">
+            <button type="submit" class="btn denounce">{{ __('Enviar') }}</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -15,9 +15,29 @@ class AdminEventsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-    return view('adminEvents');
+    $now = now()->format('Y-m-d');
+
+		$events = DB::table('eventos')
+			->where('data_evento', '>', $now)
+			->paginate(12);
+
+		setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+		date_default_timezone_set('America/Sao_Paulo');
+
+		$now = time();
+
+		foreach ($events as $event) {
+			$event->data_evento = strftime('%A, %d de %B de %Y', strtotime($event->data_evento));
+		}
+
+		if ($request->ajax()) {
+			$view = view('adminEventDivulgation', ['events' => $events])->render();
+			return response()->json(['html' => $view]);
+		}
+
+		return view('adminEvents', ['events' => $events]);
   }
 
   /**
@@ -43,16 +63,37 @@ class AdminEventsController extends Controller
 
     $event->nome = $request->event_name;
     $event->link = $request->event_link;
-    $event->imagem = cloudinary()->upload($request->picture__input_aux, array("folder" => "events", "overwrite" => TRUE, "resource_type" => "image"))->getSecurePath();
+    $event->imagem = cloudinary()->upload($request->base64data, array("folder" => "events", "overwrite" => TRUE, "resource_type" => "image"))->getSecurePath();
     $event->data_evento = $request->event_date;
     $event->local_evento = $local;
     $event->fk_administrador_id_administrador = $this->searchAdminId();
     $event->fk_administrador_fk_usuario_id_usuario = Auth::user()->id_usuario;
 
-
     $event->save();
     return redirect()->route('adminEvents', app()->getLocale());
   }
+
+  public function delete(Request $request)
+	{
+		$event = Event::find($request->id);
+		
+		foreach(explode('/', $event->imagem) as $row) {
+			$midia = $row;
+		}
+		foreach(array_reverse(explode('.', $midia)) as $row) {
+			$midia = $row;
+		}
+
+		if($event->delete()) {
+			cloudinary()->destroy('events/'.$midia);
+			$response = true;
+		}
+		else {
+			$response = false;
+		}
+
+		return $response;
+	}
 
   public function searchAdminId()
   {

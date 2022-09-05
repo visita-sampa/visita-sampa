@@ -146,11 +146,9 @@ class PublicationController extends Controller
 		$complaint->fk_publicacao_id_publicacao = $request->idPostDenouce;
 
 		if ($complaint->save()) {
-			$report['success']  = true;
-			$report['message']  = 'A publicação foi reportada com sucesso. Enviaremos sua denúncia para análise dos administradores. Agradecemos sua colaboração!';
+			$report = true;
 		} else {
-			$report['success']  = false;
-			$report['message']  = 'A publicação não foi reportada. Algo inesperado aconteceu, tente novamente.';
+			$report = false;
 		}
 
 		echo json_encode($report);

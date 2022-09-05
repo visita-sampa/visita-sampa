@@ -9,36 +9,36 @@ use PHPMailer\PHPMailer\Exception;
 
 class ContactController extends Controller
 {
-    public function index()
-    {
-        return view('contact');
-    }
+	public function index()
+	{
+		return view('contact');
+	}
 
-    public function sendEmail(Request $request)
-    {
-        $mail = new PHPMailer(true);
-        
-        try {
-            //Server settings
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-            $mail->CharSet    = 'UTF-8';
-            $mail->isSMTP();
-            $mail->Host       = env('MAIL_HOST');
-            $mail->SMTPAuth   = true;
-            $mail->Username   = env('MAIL_USERNAME');
-            $mail->Password   = env('MAIL_PASSWORD');
-            $mail->SMTPSecure = env('MAIL_ENCRYPTION');
-            $mail->Port       = env('MAIL_PORT');
+	public function sendEmail(Request $request)
+	{
+		$mail = new PHPMailer(true);
 
-            //Recipients
-            $mail->setFrom(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
-            $mail->addAddress(env('MAIL_USERNAME'), $request->name);     //Add a recipient
+		try {
+			//Server settings
+			// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+			$mail->CharSet    = 'UTF-8';
+			$mail->isSMTP();
+			$mail->Host       = env('MAIL_HOST');
+			$mail->SMTPAuth   = true;
+			$mail->Username   = env('MAIL_USERNAME');
+			$mail->Password   = env('MAIL_PASSWORD');
+			$mail->SMTPSecure = env('MAIL_ENCRYPTION');
+			$mail->Port       = env('MAIL_PORT');
 
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Visita Sampa - contato';
-            $mail->Body    = '
+			//Recipients
+			$mail->setFrom(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+			$mail->addAddress(env('MAIL_USERNAME'), $request->name);     //Add a recipient
+
+			//Content
+			$mail->isHTML(true);                                  //Set email format to HTML
+			$mail->isHTML(true);                                  //Set email format to HTML
+			$mail->Subject = 'Visita Sampa - contato';
+			$mail->Body    = '
             <head>
                 <style>
                     @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300&display=swap");
@@ -213,15 +213,15 @@ class ContactController extends Controller
                     </div>
                 </div>
             </div>';
-            $mail->AltBody = 'Contato \n\nNome: ' . $request->name . '\n\nE-mail: ' . $request->email . '\n\nAssunto' . $request->subject . '\n\nMensagem: ' . $request->comments;
-            
-            $mail->send();
-            
-            $msgEmail = "O e-mail foi enviado.";
-            return redirect()->route('contact', app()->getLocale())->with('msgEmailSendSuccess', $msgEmail);
-        } catch (Exception $e) {
-            $msgEmail = "O e-mail não podê ser enviado. Tente novamente.";
-            return redirect()->route('contact', app()->getLocale())->with('msgEmailSendFail', $msgEmail);
-        }
-    }
+			$mail->AltBody = 'Contato \n\nNome: ' . $request->name . '\n\nE-mail: ' . $request->email . '\n\nAssunto' . $request->subject . '\n\nMensagem: ' . $request->comments;
+
+			$mail->send();
+
+			$msgEmail = "O e-mail foi enviado.";
+			return redirect()->route('contact', app()->getLocale())->with('msgEmailSendSuccess', $msgEmail);
+		} catch (Exception $e) {
+			$msgEmail = "O e-mail não podê ser enviado. Tente novamente.";
+			return redirect()->route('contact', app()->getLocale())->with('msgEmailSendFail', $msgEmail);
+		}
+	}
 }

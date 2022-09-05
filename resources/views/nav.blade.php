@@ -1,7 +1,7 @@
 @if (Auth::user())
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
   <div class="container">
-    <a href="home">
+    <a href="{{ route('home', app()->getLocale()) }}">
       <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
     </a>
     <div class="sec-center">
@@ -9,7 +9,6 @@
       <label class="for-dropdown" for="dropdown">
         <i class="icon-arrow_drop_down"></i>
         <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" alt="" class="profile-img-menu rounded-circle" alt="Foto Perfil Usuário" />
-        <!-- <i class="icon-user"></i> -->
       </label>
       <div class="section-dropdown">
         <input class="dropdown-profile" type="checkbox" id="dropdown-profile" name="dropdown-profile" />
@@ -20,8 +19,8 @@
           </a>
         </label>
 
-        <input class="dropdown-settings" type="checkbox" id="dropdown-settings" name="dropdown-settings" />
-        <label class="for-dropdown-settings" for="dropdown-settings" onclick="openModal('#modalConfiguration')">
+        <input class="dropdown-settings" type="checkbox" id="dropdown-settings" name="dropdown-settings" data-bs-toggle="dropdown"/>
+        <label class="for-dropdown-settings" for="dropdown-settings" data-bs-toggle="dropdown">
           <i class="icon-settings"></i>
           <span id="config" data-toggle="modal" data-target="#modalConfiguration">{{ __('Configurações') }}</span>
         </label>
@@ -34,13 +33,13 @@
           </div>
           <ul class="translate" id="translate">
             <li class="portuguese">
-              <a href="{{ route(Route::currentRouteName(), 'pt') }}">
+              <a href="{{ route(Route::currentRouteName(), 'pt') }}" id="pt-br">
                 <i class="icon-brazil"></i>
                 PT-BR
               </a>
             </li>
             <li class="english">
-              <a href="{{ route(Route::currentRouteName(), 'en') }}">
+              <a href="{{ route(Route::currentRouteName(), 'en') }}" id="en-us">
                 <i class="icon-usa"></i>
                 EN-US
               </a>
@@ -49,13 +48,13 @@
         </label>
 
         <input class="dropdown-paper" type="checkbox" id="dropdown-paper" name="dropdown-paper" />
-        <label class="for-dropdown-paper" for="dropdown-paper" onclick="openModal('#modalTerms')">
+        <label class="for-dropdown-paper" for="dropdown-paper">
           <i class="icon-paper"></i>
           <span id="terms" data-toggle="modal" data-target="#modalTerms">{{ __('Termo de Uso') }}</span>
         </label>
 
         <input class="dropdown-alert" type="checkbox" id="dropdown-alert" name="dropdown-alert" />
-        <label class="for-dropdown-alert" for="dropdown-alert" onclick="openModal('#modalAbout')">
+        <label class="for-dropdown-alert" for="dropdown-alert">
           <i class="icon-alert-circle"></i>
           <span id="about" data-toggle="modal" data-target="#modalAbout">{{ __('Sobre') }}</span>
         </label>
@@ -68,58 +67,61 @@
           </a>
         </label>
       </div>
-      <!-- Modais -->
 
+      <!-- Modais -->
       <div class="modal fade" id="modalConfiguration" tabindex="-1" role="dialog" aria-labelledby="modalConfiguration" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalConfigurationTitle">{{ __('Configurações') }}</h5>
-              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
-                <!-- <span aria-hidden="true">&times;</span> -->
-              </button>
-            </div>
-            <div class="modal-body modal-body-user">
-              <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" alt="" class="profile-img rounded-circle" />
-              <label for="profile-pic" class="change-picture">
-                {{ __('Alterar foto de perfil') }}
-              </label>
-              <input type="file" name="profile-pic" id="profile-pic" class="d-none" />
-              <div class="bio">
-                <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="floatingName" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
-                  <label for="floating-name">{{ __('Nome') }}</label>
+            <form method="POST" action="{{ route('update.profile', app()->getLocale()) }}">
+              @csrf
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalConfigurationTitle">{{ __('Configurações') }}</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body modal-body-user">
+                <div style="background-image: url({{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}})" alt="" class="profile-img rounded-circle" id="image-preview"></div>
+                <label for="profile-pic" class="change-picture">
+                  {{ __('Alterar foto de perfil') }}
+                </label>
+                <input type="file" name="profile-pic" id="profile-pic" class="d-none image-upload" />
+                <input type="hidden" name="base64image" id="base64image" />
+                <div class="bio">
+                  <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>
+                  <div class="form-floating" id="nameContent">
+                    <input type="text" class="form-control" id="floatingName" placeholder="{{ __('Nome') }}" value="{{Auth::user()->nome}}">
+                    <label for="floating-name">{{ __('Nome') }}</label>
+                  </div>
+                  <div class="form-floating" id="usernameContentFloating">
+                    <input type="text" class="form-control" id="floatingUsername" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
+                    <label for="floating-user-name">{{ __('Nome de usuário') }}</label>
+                    <span id="loading" class="loading-username">Verificando nome</span>
+                  </div>
+                  <div class="form-floating textarea">
+                    <textarea class="form-control" id="floatingBio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
+                    <label for="floating-bio">Bio</label>
+                  </div>
                 </div>
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="floatingUsername" placeholder="{{ __('Nome de usuário') }}" value="{{Auth::user()->nome_usuario}}">
-                  <label for="floating-user-name">{{ __('Nome de usuário') }}</label>
-                </div>
-                <div class="form-floating textarea">
-                  <textarea class="form-control" id="floatingBio" maxlength="128" placeholder="Bio">{{Auth::user()->descricao}}</textarea>
-                  <label for="floating-bio">Bio</label>
+                <div class="password">
+                  <span class="password-title"><i class="icon-lock"></i>{{ __('Senha') }}</span>
+                  <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="{{ __('Senha atual') }}">
+                    <label for="floating-password">{{ __('Senha atual') }}</label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingNewPassword" placeholder="{{ __('Nova senha') }}">
+                    <label for="floating-new-password">{{ __('Nova senha') }}</label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingRepeatPassword" placeholder="Repita a nova senha">
+                    <label for="floating-repeat-password">{{ __('Repita a nova senha') }}</label>
+                  </div>
                 </div>
               </div>
-              <div class="password">
-                <span class="password-title"><i class="icon-lock"></i>{{ __('Senha') }}</span>
-                <div class="form-floating">
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="{{ __('Senha atual') }}">
-                  <label for="floating-password">{{ __('Senha atual') }}</label>
-                </div>
-                <div class="form-floating">
-                  <input type="password" class="form-control" id="floatingNewPassword" placeholder="{{ __('Nova senha') }}">
-                  <label for="floating-new-password">{{ __('Nova senha') }}</label>
-                </div>
-                <div class="form-floating">
-                  <input type="password" class="form-control" id="floatingRepeatPassword" placeholder="Repita a nova senha">
-                  <label for="floating-repeat-password">Repita a nova senha</label>
-                </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary close" data-dismiss="modal">{{ __('Fechar') }}</button>
+                <button type="submit" class="btn btn-primary save">{{ __('Salvar') }}</button>
               </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-secondary close" id="btn-close" data-dismiss="modal" onclick="closeModal()">{{ __('Fechar') }}</button>
-              <button type="button" class="btn btn-primary save">{{ __('Salvar') }}</button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -130,7 +132,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="modalTermsTitle">{{ __('Termo de Uso') }}</h5>
-              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                 <!-- <span aria-hidden="true">&times;</span> -->
               </button>
             </div>
@@ -161,7 +163,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="modalAboutTitle">{{ __('Sobre') }}</h5>
-              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center p-3">
               <img class="logo my-3" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
@@ -203,14 +205,67 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </nav>
+
+<script>
+  $('#modalConfiguration').appendTo("body");
+  $('#modalTerms').appendTo("body");
+  $('#modalAbout').appendTo("body");
+
+  $(document).ready(function() {
+      $('#floatingUsername').on('focusout', function() {
+        var value = $(this).val();
+        $('#btn-submit').addClass("disabled");
+
+        let msg = document.getElementById("msgUsername");
+        if (msg) usernameContentConfig.removeChild(msg);
+        if (value === "") {
+          msgAlert(usernameContentConfig, "Campo obrigatório", "msgUsername");
+          usernameFlag = false;
+          return;
+        }
+        $.ajax({
+            url: "{{ route('username.availability', app()->getLocale()) }}",
+            type: 'GET',
+            data: {
+              'floatingUsername': value
+            },
+            beforeSend: () => {
+              let msg = document.getElementById("msgUsername");
+	            if (msg)
+                usernameContentConfig.removeChild(msg);;
+              $("#loading").css('display','block');
+              usenameFlag = false;
+            },
+            complete: () => {
+              $("#loading").css('display','none');
+            }
+          })
+          .done((response) => {
+            if (response) {
+              $('#btn-submit').removeClass("disabled");
+
+              let msg = document.getElementById("msgUsername");
+              usernameFlag = true;
+	            if (msg)
+                usernameContentConfig.removeChild(msg);
+            } else {
+              msgAlert(usernameContentConfig,'Nome já utilizado','msgUsername');
+              usernameFlag = false;
+            }
+          })
+      });
+    });
+
+
+</script>
+
 @else
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
   <div class="container">
-    <a href="home">
+    <a href="{{ route('home', app()->getLocale()) }}">
       <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
     </a>
 
@@ -236,13 +291,13 @@
           </div>
           <ul class="translate" id="translate">
             <li class="portuguese">
-              <a href="{{ route(Route::currentRouteName(), 'pt') }}">
+              <a href="{{ route(Route::currentRouteName(), 'pt') }}" id="pt-br">
                 <i class="icon-brazil"></i>
                 PT-BR
               </a>
             </li>
             <li class="english user">
-              <a href="{{ route(Route::currentRouteName(), 'en') }}">
+              <a href="{{ route(Route::currentRouteName(), 'en') }}" id="en-us">
                 <i class="icon-usa"></i>
                 EN-US
               </a>

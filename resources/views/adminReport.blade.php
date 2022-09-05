@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Denúncias</title>
+    <title>{{ __('Denúncias') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link href="/assets/css/style.css" rel="stylesheet" />
@@ -55,21 +55,27 @@
 
     <main class="">
       <div class="container" id="post-container">
-        <h1 class="title">Denúncias</h1>
+        <h1 class="title">{{ __('Denúncias') }}</h1>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="report-tab" data-bs-toggle="tab" data-bs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="true">Denúncias</button>
+            <button class="nav-link active" id="report-tab" data-bs-toggle="tab" data-bs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="true">{{ __('Denúncias') }}</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="report-accept-tab" data-bs-toggle="tab" data-bs-target="#report-accept" type="button" role="tab" aria-controls="report-accept" aria-selected="false">Denúncias Aceitas</button>
+            <button class="nav-link" id="report-accept-tab" data-bs-toggle="tab" data-bs-target="#report-accept" type="button" role="tab" aria-controls="report-accept" aria-selected="false">{{ __('Denúncias Aceitas') }}</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="report-refuse-tab" data-bs-toggle="tab" data-bs-target="#report-refuse" type="button" role="tab" aria-controls="report-refuse" aria-selected="false">Denúncias Recusadas</button>
+            <button class="nav-link" id="report-refuse-tab" data-bs-toggle="tab" data-bs-target="#report-refuse" type="button" role="tab" aria-controls="report-refuse" aria-selected="false">{{ __('Denúncias Recusadas') }}</button>
           </li>
         </ul>
         <div class="tab-content denounce" id="myTabContent">
           <!-- Ativos -->
           <div class="tab-pane fade show active" id="report" role="tabpanel" aria-labelledby="report-tab">
+            @if(empty($postReported))
+            <div class="warning d-flex flex-column align-items-center mt-3 text-center">
+              <i class="icon-alert-triangle two my-2"></i>
+              <h3>{{ __('No momento não há denúncia para serem avaliadas') }}</h3>
+            </div>
+            @else
             @foreach($postReported as $post)
             <div class="card" id="card-report-noreply-{{ $post->id_publicacao }}">
               <div class="card-body d-flex">
@@ -78,7 +84,7 @@
                 </div>
                 <div class="card-content">
                   <div class="card-infos">
-                    <div class="d-flex py-2 align-items-center">
+                    <div class="d-flex py-2 align-items-center reported-close-info">
                       <h5 class="card-title m-0">{{ $post->nome }}</h5>
                       <span class="text-muted mx-2">&#64;{{ $post->nome_usuario }}</span>
                     </div>
@@ -152,9 +158,9 @@
                             </div>
                             <p class="post-date">
                               @if($post->data == 0)
-                              Há menos de um dia
+                              {{ __('Há menos de um dia') }}
                               @else
-                              Há {{ $post->data }} dias
+                              {{ __('Há') }} {{ $post->data }} {{ __('dias') }}
                               @endif
                             </p>
                           </div>
@@ -165,13 +171,20 @@
                 </div>
               </div>
               <div class="card-footer text-muted d-flex justify-content-end align-items-center">
-                <button id="btn-see-more">Ver Mais <i class="icon-chevron-down p-1"></i></button>
+                <button id="btn-see-more">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
               </div>
             </div>
             @endforeach
+            @endif
           </div>
           <!-- Denúncias aceitas -->
           <div class="tab-pane fade" id="report-accept" role="tabpanel" aria-labelledby="report-accept-tab">
+            @if(empty($postComplaintAccepted))
+            <div class="warning d-flex flex-column align-items-center mt-3 text-center">
+              <i class="icon-alert-triangle two my-2"></i>
+              <h3>{{ __('No momento não há denúncia aceitas') }}</h3>
+            </div>
+            @else
             @foreach($postComplaintAccepted as $post)
             <div class="card" id="card-report-accept-{{ $post->id_publicacao }}">
               <div class="card-body d-flex">
@@ -251,9 +264,9 @@
                             </div>
                             <p class="post-date">
                               @if($post->data == 0)
-                                Há menos de um dia
+                              {{ __('Há menos de um dia') }}
                               @else
-                                Há {{ $post->data }} dias
+                              {{ __('Há') }} {{ $post->data }} {{ __('dias') }}
                               @endif
                             </p>
                           </div>
@@ -264,13 +277,20 @@
                 </div>
               </div>
               <div class="card-footer text-muted d-flex justify-content-end align-items-center">
-                <button id="btn-see-more">Ver Mais <i class="icon-chevron-down p-1"></i></button>
+                <button id="btn-see-more">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
               </div>
             </div>
             @endforeach
+            @endif
           </div>
           <!-- Denúncias recusadas -->
           <div class="tab-pane fade" id="report-refuse" role="tabpanel" aria-labelledby="report-refuse-tab">
+            @if(empty($postComplaintDenied))
+            <div class="warning d-flex flex-column align-items-center mt-3 text-center">
+              <i class="icon-alert-triangle two my-2"></i>
+              <h3>{{ __('No momento não há denúncia recusadas') }}</h3>
+            </div>
+            @else
             @foreach($postComplaintDenied as $post)
             <div class="card" id="card-report-refuse-{{ $post->id_publicacao }}">
               <div class="card-body d-flex">
@@ -350,9 +370,9 @@
                             </div>
                             <p class="post-date">
                               @if($post->data == 0)
-                                Há menos de um dia
+                              {{ __('Há menos de um dia') }}
                               @else
-                                Há {{ $post->data }} dias
+                              {{ __('Há') }} {{ $post->data }} {{ __('dias') }}
                               @endif
                             </p>
                           </div>
@@ -363,10 +383,11 @@
                 </div>
               </div>
               <div class="card-footer text-muted d-flex justify-content-end align-items-center">
-                <button id="btn-see-more">Ver Mais <i class="icon-chevron-down p-1"></i></button>
+                <button id="btn-see-more">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
               </div>
             </div>
             @endforeach
+            @endif
           </div>
         </div>
       </div>
@@ -378,13 +399,13 @@
       <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <strong class="me-auto text-info">
-            <i class="icon-check"></i>
-            Processando
+            <i class="icon-refresh-cw"></i>
+            {{ __('Processando') }}
           </strong>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-          A denúncia está sendo validada
+        {{ __('A denúncia está sendo validada') }}
         </div>
       </div>
     </div>

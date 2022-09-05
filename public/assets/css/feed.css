@@ -1,5 +1,5 @@
 /* container */
-body > div.container {
+body>div.container {
     padding-top: 2.38rem;
 }
 
@@ -51,9 +51,16 @@ p.user-name {
     font-weight: 600;
 }
 
+.user-localization {
+    margin-left: 1.1rem;
+    color: #8e8e8e;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
 i.icon-alert-triangle {
     color: var(--pink);
-    font-size: 25px;
+    font-size: 25px !important;
 }
 
 .report {
@@ -130,8 +137,7 @@ i.icon-alert-triangle {
     height: auto;
 }
 
-#motive-denounces {
-    padding: 1rem;
+.motive-denounces {
     resize: none;
 }
 

@@ -6,6 +6,7 @@
 .profile {
 	gap: 8rem;
 	font-size: 14px;
+	margin-top: 6rem !important;
 }
 
 /* subseção do perfil */
@@ -310,7 +311,7 @@ p.user-name {
 }
 
 /* Edição legenda */
-#floatingLegend {
+#floatingLegendReport {
 	height: auto;
 	display: block;
 	overflow: hidden;

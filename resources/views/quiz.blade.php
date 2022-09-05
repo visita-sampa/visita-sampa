@@ -83,10 +83,10 @@
                 <div class="buttons-content">
                   <button class="next-prev" onclick="prevQuestion()" type="button" id="prev">
                     <i class="icon-chevron-left"></i>
-                    Anterior
+                    {{ __('Anterior') }}
                   </button>
                   <button class="next-prev" onclick="nextQuestion()" type="button" id="next">
-                    Próximo
+                  {{ __('Próximo') }}
                     <i class="icon-chevron-right"></i>
                   </button>
                 </div>

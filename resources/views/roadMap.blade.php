@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ __('Roteiro Turístico') }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <link href="/assets/css/style.css" rel="stylesheet" />
   <link href="/assets/css/roadMap.css" rel="stylesheet" />
   <link href="/assets/icon/style.css" rel="stylesheet" />
@@ -83,15 +84,34 @@
     </div>
   </main>
 
-  <script src="/assets/js/jquery.slim.min.js"></script>
+  <!-- <script src="/assets/js/jquery.slim.min.js"></script> -->
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+  </script>
+  <script>
+    const langOptions = document.getElementById('for-dropdown-translate');
+    const ulLangOptions = document.getElementById('translate');
+    let open = false;
+
+    langOptions.addEventListener('click', () => {
+      if (open) {
+        ulLangOptions.classList.remove('open');
+        langOptions.classList.remove('active');
+        open = false;
+      } else {
+        ulLangOptions.classList.add('open');
+        langOptions.classList.add('active');
+        open = true;
+      }
+    })
   </script>
 </body>
 

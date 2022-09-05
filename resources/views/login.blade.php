@@ -49,12 +49,12 @@
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
-        @if(session('msgUpdatePasswordSuccess'))
+        @if(session('msgUpdatePasswordSuccess') || session('msgSignupCompleted'))
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
           Sucesso
         </strong>
-        @elseif(session('msgEmailNotConfirmed'))
+        @elseif(session('msgEmailNotConfirmed') || session('msgUserNotFound'))
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
           Falha
@@ -66,8 +66,14 @@
         @if(session('msgUpdatePasswordSuccess'))
         {{ session('msgUpdatePasswordSuccess') }}
 
+        @elseif(session('msgSignupCompleted'))
+        {{ session('msgSignupCompleted') }}
+
         @elseif(session('msgEmailNotConfirmed'))
         {{ session('msgEmailNotConfirmed') }}
+
+        @elseif(session('msgUserNotFound'))
+        {{ session('msgUserNotFound') }}
 
         @endif
       </div>
@@ -75,78 +81,8 @@
   </div>
 
   <!-- Footer -->
-  <footer class="text-center text-lg-start bg-light text-muted pt-4">
-    <!-- Section: Links  -->
-    <div class="container text-center text-md-start">
-      <!-- Grid row -->
-      <div class="row">
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
-          <img src="/assets/img/logoVisitaSampa.png" class="logo me-3" alt="{{ __('Logo Visita Sampa') }}" />
-          <p class="m-0 text-dark">
-            &copy; 2021 Copyright:
-          </p>
-          <p class="text-dark">
-            {{ __('Todos os direitos reservados') }}
-          </p>
-        </div>
-        <!-- Grid column -->
+  @include('footer')
 
-        <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            Home
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Perfil') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Teste') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Roteiro') }}</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            Social
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Facebook</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Instagram</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Twitter</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            {{ __('Sobre') }}
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Política de Privacidade') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Nossa Equipe') }}</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-    </div>
-  </footer>
 
   <script src="/assets/js/jquery.slim.min.js"></script>
   <script src="/assets/js/bootstrap.min.js"></script>
@@ -154,7 +90,14 @@
   <script src="/assets/js/login.js"></script>
   <script src="/assets/js/main.js"></script>
   <script>
-    @if(session('msgUpdatePasswordSuccess') || session('msgEmailNotConfirmed'))
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    @if(session('msgUpdatePasswordSuccess') || session('msgEmailNotConfirmed') || session('msgSignupCompleted') || session('msgUserNotFound'))
     $(document).ready(function() {
       $("#liveToastBtn").click();
     });

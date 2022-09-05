@@ -260,6 +260,10 @@ p.user-name {
     text-transform: uppercase;
 }
 
+.reported-close-info {
+    flex-direction: row;
+}
+
 /* Media Screen */
 @media screen and (max-width: 990px) {
     .report-body {
@@ -287,6 +291,12 @@ p.user-name {
 
     .user-comment {
         margin-right: 1rem;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .reported-close-info {
+        flex-direction: column;
     }
 }
 

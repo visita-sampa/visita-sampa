@@ -27,26 +27,18 @@
 
           <div id="signup" class="signup text-center h-100">
             <h2 class="title-login">{{ __('Redefinir senha') }}</h2>
-            <form method="POST" action="{{ route('update.password', app()->getLocale()) }}" class="form-signup d-flex flex-column h-100 justify-content-around">
+            <form method="POST" action="{{ route('update.password', app()->getLocale()) }}" class="form-signup d-flex flex-column h-50 justify-content-around">
               @csrf
               @if(session('msgError'))
               {{ session('msgError') }}
               @endif
-              <p>Informe sua nova senha</p>
+              <p>{{ __('Informe sua nova senha') }}</p>
               <input type="hidden" name="key" id="key" value="{{ $key }}">
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="{{ __('Senha') }}"
-                autocomplete="off"
-                class="input-signup"
-                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#_])[0-9a-zA-Z$*&@#_]{6,12}$"
-                title="A senha deve conter entre 6 e 12 caracteres, ter pelo menos uma letra maiúscula e uma letra minúscula, um número e um símbolo (#, @, _, $, &, *)"
-                required
-              />
-              <input type="checkbox" name="showPass" id="showPass" class="d-none" />
-              <label for="showPass" id="eye" class="showPass icon-eye-off"><span class="msg-pass">{{ __('Mostrar senha') }}</span></label>
+              <div id="passwordContent" class="inputcontent">
+                <input type="password" style="margin-bottom: 0px;" name="passwordLogin" id="passwordLogin" placeholder="{{ __('Senha') }}" autocomplete="off" class="input-signup" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#_])[0-9a-zA-Z$*&@#_]{6,12}$" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="A senha deve conter: <br/>Entre 6 e 12 caracteres;<br/>Ter pelo menos uma letra maiúscula e uma letra minúscula;</br>Um número;</br>Um símbolo (#, @, _, $, &, *)" required />
+              </div>
+              <input type="checkbox" name="showPass" id="showPassLogin" class="d-none" />
+              <label for="showPassLogin" id="eyeLogin" class="showPass reset icon-eye-off"><span class="msg-pass">{{ __('Mostrar senha') }}</span></label>
               <button type="submit" class="btn-signup">{{ __('Redefinir') }}</button>
             </form>
           </div>
@@ -63,7 +55,7 @@
         @if(session('msgUpdatePasswordFail'))
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
-          Falha
+          {{ __('Falha') }}
         </strong>
         @endif
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -77,90 +69,21 @@
   </div>
 
   <!-- Footer -->
-  <footer class="text-center text-lg-start bg-light text-muted pt-4">
-    <!-- Section: Links  -->
-    <div class="container text-center text-md-start">
-      <!-- Grid row -->
-      <div class="row">
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
-          <img src="/assets/img/logoVisitaSampa.png" class="logo me-3" alt="{{ __('Logo Visita Sampa') }}" />
-          <p class="m-0 text-dark">
-            &copy; 2021 Copyright:
-          </p>
-          <p class="text-dark">
-            {{ __('Todos os direitos reservados') }}
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            Home
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Perfil') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Teste') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Roteiro') }}</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            Social
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Facebook</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Instagram</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">Twitter</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-3 text-dark">
-            {{ __('Sobre') }}
-          </h6>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Política de Privacidade') }}</a>
-          </p>
-          <p>
-            <a href="#!" class="text-decoration-none text-dark">{{ __('Nossa Equipe') }}</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-    </div>
-  </footer>
+  @include('footer')
 
   <script src="/assets/js/jquery.slim.min.js"></script>
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="/assets/js/login.js"></script>
   <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/login.js"></script>
+  <script src="/assets/js/resetPassword.js"></script>
   <script>
-    @if(session('msgUpdatePasswordFail'))
-      $(document).ready(function () {
-        $("#liveToastBtn").click();
-      });
-    @endif
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
     var toastTrigger = document.getElementById('liveToastBtn')
     var toastLiveExample = document.getElementById('liveToast')
@@ -171,6 +94,12 @@
         toast.show()
       })
     }
+
+    @if(session('msgUpdatePasswordFail'))
+      $(document).ready(function () {
+        $("#liveToastBtn").click();
+      });
+    @endif
   </script>
 </body>
 </html>

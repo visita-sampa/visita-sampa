@@ -24,7 +24,7 @@
         @if(isset($msgError))
         <div class="card w-75 m-auto">
           <div class="card-header bg-light">
-            Erro
+          {{ __('Erro') }
           </div>
           <div class="card-body">
             <h5 class="card-title text-danger">{{ $msgError }}</h5>

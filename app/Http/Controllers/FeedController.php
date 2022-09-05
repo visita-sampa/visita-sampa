@@ -11,98 +11,98 @@ use Illuminate\Support\Facades\Hash;
 
 class FeedController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $publications = DB::table('publicacao')
-            ->join('usuario', function ($join) {
-                $join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');
-            })
-            ->join('ponto_turistico', function ($join) {
-                $join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico')
-                    ->where('ponto_turistico.fk_roteiro_id_roteiro', '=', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao);
-            })
-            ->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'publicacao.data', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil', 'ponto_turistico.nome_ponto_turistico')
-            ->where('publicacao.situacao', false)
-            ->orWhereNull('publicacao.situacao')
-            ->orderBy('id_publicacao', 'desc')
-            ->paginate(12);
-            
-        if ($request->ajax()) {
-            $view = view('feedPublication', ['publications' => $publications])->render();
-            return response()->json(['html' => $view]);
-        }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index(Request $request)
+	{
+		$publications = DB::table('publicacao')
+			->join('usuario', function ($join) {
+				$join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');
+			})
+			->join('ponto_turistico', function ($join) {
+				$join->on('publicacao.fk_ponto_turistico_id_ponto_turistico', '=', 'ponto_turistico.id_ponto_turistico')
+					->where('ponto_turistico.fk_roteiro_id_roteiro', '=', Auth::user()->fk_classificacao_perfil_roteiro_id_classificacao);
+			})
+			->select('publicacao.id_publicacao', 'publicacao.midia', 'publicacao.legenda', 'publicacao.data', 'usuario.nome_usuario', 'usuario.id_usuario', 'usuario.foto_perfil', 'ponto_turistico.nome_ponto_turistico')
+			->where('publicacao.situacao', false)
+			->orWhereNull('publicacao.situacao')
+			->orderBy('id_publicacao', 'desc')
+			->paginate(12);
 
-        return view('feed', ['publications' => $publications]);
-    }
+		if ($request->ajax()) {
+			$view = view('feedPublication', ['publications' => $publications])->render();
+			return response()->json(['html' => $view]);
+		}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function create()
-    // {
-    //     //
-    // }
+		return view('feed', ['publications' => $publications]);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function create()
+	// {
+	//     //
+	// }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\feed  $feed
-     * @return \Illuminate\Http\Response
-     */
-    // public function show(feed $feed)
-    // {
-    //     //
-    // }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function store(Request $request)
+	// {
+	//     //
+	// }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\feed  $feed
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit(feed $feed)
-    // {
-    //     //
-    // }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \App\Models\feed  $feed
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function show(feed $feed)
+	// {
+	//     //
+	// }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\feed  $feed
-     * @return \Illuminate\Http\Response
-     */
-    // public function update(Request $request, feed $feed)
-    // {
-    //     //
-    // }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  \App\Models\feed  $feed
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function edit(feed $feed)
+	// {
+	//     //
+	// }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\feed  $feed
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy(feed $feed)
-    // {
-    //     //
-    // }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\feed  $feed
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function update(Request $request, feed $feed)
+	// {
+	//     //
+	// }
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Models\feed  $feed
+	 * @return \Illuminate\Http\Response
+	 */
+	// public function destroy(feed $feed)
+	// {
+	//     //
+	// }
 }
