@@ -142,7 +142,7 @@ h4 {
 	align-items: center;
 	justify-content: center;
 	display: flex;
-	width: 22.69rem;
+	width: 100%;
 	height: 17rem;
 	position: absolute;
 	top: 0;
@@ -177,8 +177,11 @@ h4 {
 .modal-body-explore {
 	padding: 0;
 	display: grid;
-	grid-template-areas:
-		"img container-info";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 4fr;
+  grid-template-areas: "image header"
+                      "image comments";
+	padding-bottom: 0.6rem;
 }
 
 .modal-dialog-explore {
@@ -195,6 +198,7 @@ h4 {
 	border-radius: 5px;
 }
 
+
 .modal-header-explore {
 	justify-content: space-between;
 	padding: 0;
@@ -202,7 +206,7 @@ h4 {
 	height: 4.87rem;
 	border-bottom: 1px solid #efefef;
 	width: 100%;
-	grid-area: modal-header-explore;
+	grid-area: header;
 }
 
 .modal-image {
@@ -210,10 +214,11 @@ h4 {
 	width: 100%;
 	height: 29rem;
 	border-radius: 5px;
+	grid-area: image;
 }
 
 .comment-publication {
-	grid-area: comment-publication;
+	grid-area: comments;
 }
 
 .close {
@@ -360,6 +365,9 @@ p.user-name {
 
 	.posts {
 		grid-template-columns: auto;
+		display: flex !important;
+		flex-direction: column;
+		align-items: center;
 	}
 }
 
@@ -452,7 +460,7 @@ p.user-name {
 		overflow: auto;
 	}
 
-	.modal-dialog-explore {
+	.dialog-explore {
 		height: calc(100vh + 200px);
 	}
 

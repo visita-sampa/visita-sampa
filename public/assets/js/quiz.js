@@ -92,7 +92,6 @@ function switchQuestion(index) {
     const question = document.getElementById(`question-${index}`);
     const btn_question = document.getElementById(`btn-question-${index}`);
 
-    console.log(index);
     hideQuestions();
     disabledQuizButton();
     checkFirstQuestion(index);

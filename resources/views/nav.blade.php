@@ -83,7 +83,7 @@
                 <label for="profile-pic" class="change-picture">
                   {{ __('Alterar foto de perfil') }}
                 </label>
-                <input type="file" name="profile-pic" id="profile-pic" class="d-none image-upload" />
+                <input type="file" name="profile-pic" id="profile-pic" class="d-none image-upload image-upload-config" />
                 <input type="hidden" name="base64image" id="base64image" />
                 <div class="bio">
                   <span class="bio-title"><i class="icon-user"></i>{{ __('Editar Perfil') }}</span>

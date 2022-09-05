@@ -23,35 +23,7 @@
   </header>
 
   <div class="w-100 d-flex justify-content-center">
-    <nav class="nav-bottom position-fixed">
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('feed', app()->getLocale()) }}">
-            <i class="icon-image" data-bs-toggle="tooltip" data-bs-placement="top" title="Feed"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
-            <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('explore', app()->getLocale()) }}">
-            <i class="icon-globe" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Explorar') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('event', app()->getLocale()) }}">
-            <i class="icon-map-pin" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Eventos') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('quiz', app()->getLocale()) }}">
-            <i class="icon-edit-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Teste de Personalidade') }}"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    @include('navbar')
   </div>
 
   <main class="">
@@ -84,7 +56,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-      {{ __('A publicação foi reportada') }}
+        {{ __('A publicação foi reportada') }}
       </div>
     </div>
   </div>
@@ -101,17 +73,18 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-      {{ __('Não foi possível reportar a publicação') }}
+        {{ __('Não foi possível reportar a publicação') }}
       </div>
     </div>
   </div>
 
+  @include('cropProfilePic')
+
   <script src="/assets/js/bootstrap.min.js"></script>
-  <script src="/assets/js/main.js"></script>
+  <!-- <script src="/assets/js/main.js"></script> -->
   <script src="/assets/js/feed.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -157,7 +130,7 @@
         })
         .done(function(feedPublication) {
           if (feedPublication.html == "") {
-            $('.ajax-load').html('Nenhuma outra publicação encontrada');
+            $('.ajax-load').html("{{ __(('Nenhuma outra publicação encontrada')) }}");
             return;
           }
           $('.ajax-load').hide();

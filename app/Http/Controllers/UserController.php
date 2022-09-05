@@ -434,11 +434,11 @@ class UserController extends Controller
 				$this->deleteLastProfilePic($last_profile_pic);
 			}
 			$msg = "Perfil atualizado";
-			return redirect()->route('user', app()->getLocale())->with('msgUpdateProfileSuccess', $msg);
+			return redirect()->back()->with('msgUpdateProfileSuccess', $msg);
 		}
 
 		$msg = "Não foi possível atualizar o perfil";
-		return redirect()->route('user', app()->getLocale())->with('msgUpdateProfileFail', $msg);
+		return redirect()->back()->with('msgUpdateProfileFail', $msg);
 	}
 
 	/**

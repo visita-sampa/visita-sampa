@@ -44,7 +44,7 @@
               </div>
               <button type="button" class="btn-close close-all" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form name="formReport">
+            <form name="formReport" method="POST" action="{{ route('publication.report', app()->getLocale()) }}">
               @csrf
               <div class="modal-body modal-body-feed two">
                 <label class="my-3" for="motiveDenounces">{{ __('Por que deseja denunciar essa publicação') }}?</label>

@@ -18,40 +18,11 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
-      <div class="container">
-        <a href="home">
-          <img class="logo" src="/assets/img/logoVisitaSampa.png" alt="Logo Visita Sampa" />
-        </a>
-      </div>
-    </nav>
+    @include('nav')
   </header>
 
   <div class="w-100 d-flex justify-content-center">
-    <nav class="nav-bottom position-fixed">
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="icon-alert-triangle" data-bs-toggle="tooltip" data-bs-placement="top" title="Denúncias"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('explore', app()->getLocale()) }}">
-            <i class="icon-globe" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Explorar') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('event', app()->getLocale()) }}">
-            <i class="icon-map-pin" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Eventos') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('adminEvents', app()->getLocale()) }}">
-            <i class="icon-edit-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Criar Evento"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    @include('navbar')
   </div>
 
   <main class="">
@@ -475,5 +446,3 @@
     }
   </script>
 </body>
-
-</html>

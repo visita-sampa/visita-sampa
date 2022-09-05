@@ -1,10 +1,10 @@
 // edit profile
 // crop profile pic
 var $modalConfiguration = $("#modalConfiguration");
-var $modal = $(".imagecrop");
+var $modal = $(".imagecropconfig");
 var image = document.getElementById("image");
 var cropper;
-$("body").on("change", ".image-upload", function (e) {
+$("body").on("change", ".image-upload-config", function (e) {
     var files = e.target.files;
     var done = function (url) {
         image.src = url;
@@ -57,7 +57,7 @@ $("body").on("click", "#crop", function () {
         };
     });
 });
-$("body").on("click", "#cancelCrop", function () {
+$("body").on("click", "#cancelCropConfig", function () {
     $modalConfiguration.modal("show");
 });
 
@@ -193,7 +193,6 @@ if (usernameInputFloating) {
         usernameFlag = false;
     });
 }
-
 
 //Verficando submit form
 const formConfig = document.getElementById("formConfig");

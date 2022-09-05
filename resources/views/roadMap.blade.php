@@ -22,44 +22,16 @@
   </header>
 
   <div class="w-100 d-flex justify-content-center">
-    <nav class="nav-bottom position-fixed">
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('feed', app()->getLocale()) }}">
-            <i class="icon-image" data-bs-toggle="tooltip" data-bs-placement="top" title="Feed"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
-            <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('explore', app()->getLocale()) }}">
-            <i class="icon-globe" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Explorar') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('event', app()->getLocale()) }}">
-            <i class="icon-map-pin" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Eventos') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('quiz', app()->getLocale()) }}">
-            <i class="icon-edit-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Teste de Personalidade') }}"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    @include('navbar')
   </div>
 
   <main class="">
     <div class="container">
       @foreach($roadMapTitle as $titles)
-      <h1 class="title">{{$titles->nome_roteiro}}</h1>
+      <h1 class="title">{{ __($titles->nome_roteiro) }}</h1>
       @endforeach
       @foreach($roadMapType as $type)
-      <p>{{$type->descricao}}</p>
+      <p>{{ __($type->descricao) }}</p>
       @endforeach
       <h3>{{ __('Lugares para você') }}</h3>
       {{csrf_field()}}
@@ -72,7 +44,7 @@
           <div class="card-body">
             <h5 class="card-title">{{$ponto->nome_ponto_turistico}}</h5>
             <p class="card-text">
-              {{$ponto->informacoes}}
+              {{ __($ponto->informacoes) }}
             </p>
           </div>
           <div class="btn-information">
@@ -84,8 +56,10 @@
     </div>
   </main>
 
-  <!-- <script src="/assets/js/jquery.slim.min.js"></script> -->
+  @include('cropProfilePic')
+
   <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>

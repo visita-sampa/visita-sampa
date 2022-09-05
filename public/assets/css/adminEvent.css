@@ -233,6 +233,10 @@ i.icon-plus {
     border-color: var(--pink) !important;
 }
 
+.btn.save {
+    color: #fff;
+}
+
 /* Media Screen */
 @media screen and (max-width: 1700px) {
     .grid-container {

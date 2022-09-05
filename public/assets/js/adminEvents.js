@@ -3,7 +3,7 @@ var $modalNewEvent = $("#modalCreateEvent");
 var $modal = $(".imagecrop");
 var image = document.getElementById("image");
 var cropper;
-$("body").on("change", ".image-upload", function (e) {
+$("body").on("change", ".image-upload-event", function (e) {
     var files = e.target.files;
     var done = function (url) {
         image.src = url;

@@ -43,7 +43,7 @@ class PublicationController extends Controller
 
 		$post = new Publication;
 
-		$post->midia                                    = cloudinary()->upload($request->base64image, array("folder" => "publications", "overwrite" => TRUE, "resource_type" => "image"))->getSecurePath();
+		$post->midia                                    = cloudinary()->upload($request->base64imagePost, array("folder" => "publications", "overwrite" => TRUE, "resource_type" => "image"))->getSecurePath();
 		$post->legenda                                  = $request->postDescription;
 		$post->data                                     = now();
 		$post->fk_usuario_id_usuario                    = Auth::user()->id_usuario;
@@ -88,15 +88,14 @@ class PublicationController extends Controller
 	{
 		$post = Publication::find($id);
 
-		if ($request->floatingLegend) {
-			$post->legenda = $request->floatingLegend;
+		if ($request->input('floatingLegend-' . $id)) {
+			$post->legenda = $request->input('floatingLegend-' . $id);
 		}
 
-		if($post->save()) {
+		if ($post->save()) {
 			$msg = "Sua publicação foi atualizada";
 			return redirect()->route('user', app()->getLocale())->with('msgUpdatePostSuccess', $msg);
-		}
-		else {
+		} else {
 			$msg = "Não foi possível atualizar a publicação. Tente novamente";
 			return redirect()->route('user', app()->getLocale())->with('msgUpdatePostFail', $msg);
 		}
@@ -111,19 +110,18 @@ class PublicationController extends Controller
 	public function delete(Request $request)
 	{
 		$post = Publication::find($request->id);
-		
-		foreach(explode('/', $post->midia) as $row) {
+
+		foreach (explode('/', $post->midia) as $row) {
 			$midia = $row;
 		}
-		foreach(array_reverse(explode('.', $midia)) as $row) {
+		foreach (array_reverse(explode('.', $midia)) as $row) {
 			$midia = $row;
 		}
 
-		if($post->delete()) {
-			cloudinary()->destroy('publications/'.$midia);
+		if ($post->delete()) {
+			cloudinary()->destroy('publications/' . $midia);
 			$response = true;
-		}
-		else {
+		} else {
 			$response = false;
 		}
 
@@ -139,18 +137,24 @@ class PublicationController extends Controller
 
 	public function report(Request $request)
 	{
-		$complaint = new Complaint;
+		$checkReport = DB::table('denuncia')
+			->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+			->where('fk_publicacao_id_publicacao', $request->idPostDenouce)
+			->first();
+		$report = false;
+		if (!$checkReport) {
+			$complaint = new Complaint;
 
-		$complaint->motivo                      = $request->motiveDenounces;
-		$complaint->fk_usuario_id_usuario       = Auth::user()->id_usuario;
-		$complaint->fk_publicacao_id_publicacao = $request->idPostDenouce;
+			$complaint->motivo                      = $request->motiveDenounces;
+			$complaint->fk_usuario_id_usuario       = Auth::user()->id_usuario;
+			$complaint->fk_publicacao_id_publicacao = $request->idPostDenouce;
 
-		if ($complaint->save()) {
-			$report = true;
-		} else {
-			$report = false;
+			if ($complaint->save()) {
+				$report = true;
+			} else {
+				$report = false;
+			}
 		}
-
 		echo json_encode($report);
 		return;
 	}

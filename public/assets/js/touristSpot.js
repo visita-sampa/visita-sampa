@@ -1,13 +1,13 @@
 // crop publication midia
 var $modalNewPost = $("#new-post-modal");
-var $modal = $(".imagecrop");
-var image = document.getElementById("image");
-var cropper;
+var $modalPost = $(".imagecrop");
+var imagePost = document.getElementById("imagePost");
+var cropperPost;
 $("body").on("change", ".image-upload", function (e) {
     var files = e.target.files;
     var done = function (url) {
-        image.src = url;
-        $modal.modal("show");
+        imagePost.src = url;
+        $modalPost.modal("show");
         $modalNewPost.modal("hide");
     };
     var reader;
@@ -26,38 +26,38 @@ $("body").on("change", ".image-upload", function (e) {
         }
     }
 });
-$modal
+$modalPost
     .on("shown.bs.modal", function () {
-        cropper = new Cropper(image, {
+        cropperPost = new Cropper(image, {
             aspectRatio: 7 / 5,
             viewMode: 1,
         });
     })
     .on("hidden.bs.modal", function () {
-        cropper.destroy();
-        cropper = null;
+        cropperPost.destroy();
+        cropperPost = null;
     });
-$("body").on("click", "#crop", function () {
-    canvas = cropper.getCroppedCanvas({
+$("body").on("click", "#cropPost", function () {
+    canvasPost = cropperPost.getCroppedCanvas({
         width: 605,
         height: 450,
     });
-    canvas.toBlob(function (blob) {
+    canvasPost.toBlob(function (blob) {
         url = URL.createObjectURL(blob);
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
             var base64data = reader.result;
-            $("#base64image").val(base64data);
-            document.getElementById("img-preview").style.backgroundImage =
+            $("#base64imagePost").val(base64data);
+            document.getElementById("img-preview-post").style.backgroundImage =
                 "url(" + base64data + ")";
-            $modal.modal("hide");
+            $modalPost.modal("hide");
             $modalNewPost.modal("show");
         };
     });
 });
-$("body").on("click", ".cancel-crop", function () {
-    $modal.modal("hide");
+$("body").on("click", ".cancel-post", function () {
+    $modalPost.modal("hide");
     $modalNewPost.modal("show");
 });
 

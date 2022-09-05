@@ -23,35 +23,7 @@
   </header>
 
   <div class="w-100 d-flex justify-content-center">
-    <nav class="nav-bottom position-fixed">
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="icon-alert-triangle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Denúncias') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('explore', app()->getLocale()) }}">
-            <i class="icon-globe" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Explorar') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
-            <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('event', app()->getLocale()) }}">
-            <i class="icon-map-pin" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Eventos') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="icon-edit-2" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Criar Evento') }}"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    @include('navbar')
   </div>
 
   <main class="">
@@ -91,7 +63,7 @@
                     <label class="input-event picture" for="picture__input" tabIndex="0" id="img-preview">
                       <span class="picture__image"></span>
                     </label>
-                    <input type="file" name="picture__input" id="picture__input" class="image-upload">
+                    <input type="file" name="picture__input" id="picture__input" class="image-upload-event">
                     <input type="hidden" name="base64data" id="base64data">
                     <input class="input-event event-name" type="text" name="event_name" id="event_name" placeholder="Nome do Evento" autocomplete="off">
                     <input class="input-event cep" type="text" id="event_cep" name="event_cep" data-js="cep" placeholder="CEP">
@@ -110,30 +82,30 @@
         </div>
 
         <div class="modal fade bd-example-modal-lg imagecrop" id="model" tabindex="-1" role="dialog" aria-labelledby="modalCropProfilePic" aria-hidden="true">
-            <div class="modal-dialog modal-lg d-flex justify-content-center">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Cortar</h5>
-                  <button type="button" class="btn-close cancel-crop" data-bs-dismiss="modal" aria-label="Close">
-                    <!-- <span aria-hidden="true">&times;</span> -->
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="img-container">
-                    <div class="row justify-content-center w-100 mx-0">
-                      <div class="col-md-11 p-0">
-                        <img id="image" src="https://avatars0.githubusercontent.com/u/3456749" class="d-block mw-100">
-                      </div>
+          <div class="modal-dialog modal-lg d-flex justify-content-center">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cortar</h5>
+                <button type="button" class="btn-close cancel-crop" data-bs-dismiss="modal" aria-label="Close">
+                  <!-- <span aria-hidden="true">&times;</span> -->
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="img-container">
+                  <div class="row justify-content-center w-100 mx-0">
+                    <div class="col-md-11 p-0">
+                      <img id="image" src="https://avatars0.githubusercontent.com/u/3456749" class="d-block mw-100">
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary cancel-crop" data-bs-dismiss="modal" id="cancelCrop">Cancelar</button>
-                  <button type="button" class="btn btn-primary crop" id="crop">Cortar</button>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary cancel-crop" data-bs-dismiss="modal" id="cancelCrop">Cancelar</button>
+                <button type="button" class="btn btn-primary crop" id="crop">Cortar</button>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </main>
@@ -173,10 +145,10 @@
   </div>
 
   <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/adminEvents.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
-  <script src="/assets/js/adminEvents.js"></script>
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
@@ -193,11 +165,7 @@
         })
         .done((response) => {
           if (response) {
-            $('.btn-close').click();
-            $('.btn-close').click();
-            var $modalNewEvent = $("#modalCreateEvent");
-            $modalNewEvent.modal("hide");
-
+            $('.close-confirmation').click();
 
             $(document).ready(function() {
               $("#toastBtnDeleteEventSuccess").click();
@@ -205,8 +173,7 @@
 
             $(`#event-${id}`).remove();
           } else {
-            $('.btn-close').click();
-            $('.btn-close').click();
+            $('.close-confirmation').click();
 
             $(document).ready(function() {
               $("#toastBtnDeleteEventFail").click();
@@ -244,8 +211,6 @@
       }
     });
   </script>
-
-  <script src="/assets/js/main.js"></script>
 
 </body>
 

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ __('Teste de Personalidade') }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <link href="/assets/css/style.css" rel="stylesheet" />
   <link href="/assets/css/quiz.css" rel="stylesheet" />
   <link href="/assets/icon/style.css" rel="stylesheet" />
@@ -21,35 +22,7 @@
   </header>
 
   <div class="w-100 d-flex justify-content-center">
-    <nav class="nav-bottom position-fixed">
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('feed', app()->getLocale()) }}">
-            <i class="icon-image" data-bs-toggle="tooltip" data-bs-placement="top" title="Feed"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('user', app()->getLocale()) }}">
-            <i class="icon-user" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Perfil') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('explore', app()->getLocale()) }}">
-            <i class="icon-globe" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Explorar') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('event', app()->getLocale()) }}">
-            <i class="icon-map-pin" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Eventos') }}"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('quiz', app()->getLocale()) }}">
-            <i class="icon-edit-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Teste de Personalidade') }}"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    @include('navbar')
   </div>
 
   <main class="d-flex">
@@ -86,7 +59,7 @@
                     {{ __('Anterior') }}
                   </button>
                   <button class="next-prev" onclick="nextQuestion()" type="button" id="next">
-                  {{ __('Próximo') }}
+                    {{ __('Próximo') }}
                     <i class="icon-chevron-right"></i>
                   </button>
                 </div>
@@ -160,13 +133,13 @@
     </div>
 
     @csrf @if(!$answer->isEmpty())
-    <div class="modal fade" id="quiz-or-roadmap" tabindex="-1" aria-labelledby="quiz-or-roadmap-modal-label" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
+    <div class="modal fade modal-quiz" id="quiz-or-roadmap" tabindex="-1" aria-labelledby="quiz-or-roadmap-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-quiz">
+        <div class="modal-content modal-quiz">
+          <div class="modal-body modal-quiz">
             <p>{{ __('Você deseja visualizar seu roteiro ou responder o questionário novamente') }}?</p>
           </div>
-          <div class="modal-footer justify-content-between">
+          <div class="modal-footer justify-content-between modal-quiz">
             <a href="{{ route('roadMap', app()->getLocale()) }}" class="btn cancel">
               {{ __('Roteiro') }}
             </a>
@@ -178,34 +151,15 @@
       </div>
     </div>
     @endif
-
-    <!-- @csrf @if(!Cookie::get('laravel_cookie_consent'))
-      <div class="modal fade" id="cookie-consent-modal" tabindex="-1" aria-labelledby="cookie-consent-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              <p>{{ __('Ao continuar no site você estará permitindo a utilização de cookies') }}?</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <a href="{{ route('roadMap', app()->getLocale()) }}" class="btn cancel">
-                {{ __('Roteiro') }}
-              </a>
-              <button type="button" class="btn" data-bs-dismiss="modal">
-                {{ __('Responder novamente') }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      @endif -->
   </main>
 
-  <script src="/assets/js/jquery.slim.min.js"></script>
+  @include('cropProfilePic')
+
   <script src="/assets/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="/assets/js/quiz.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/quiz.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script>
     $(window).load(function() {
       $("#quiz-or-roadmap").modal("show");

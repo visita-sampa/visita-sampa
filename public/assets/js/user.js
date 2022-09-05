@@ -67,20 +67,22 @@ function overlapModal(id_publicacao) {
         .addEventListener("keydown", function (event) {
             var tecla = event.keyCode;
 
-            if (
-                tecla == 27 &&
-                !id2.classList.contains("show") &&
-                !id3.classList.contains("show")
-            ) {
+            if (tecla == 27 && !id2.classList.contains("show")) {
                 id.style.zIndex = 1055;
             }
         });
-    id2.addEventListener("focus", (id.style.zIndex = 1050));
-    id2.addEventListener("blur", (id.style.zIndex = 1055));
+    id2.addEventListener("focus", function () {
+        id.style.zIndex = 1050;
+    });
+    id2.addEventListener("blur", overlapModalClose(id_publicacao, 2));
 }
 
-function overlapModalClose(id_publicacao) {
+function overlapModalClose(id_publicacao, type) {
     var id = document.getElementById(`post-modal-${id_publicacao}`);
-    var id4 = document.getElementById(`editModal`);
-    id.style.zIndex = 1055;
+    var id2 = document.getElementById(`editModal-${id_publicacao}`);
+    if (type == 1) {
+        id.style.zIndex = 1055;
+    } else {
+        id.style.zIndex = 1050;
+    }
 }

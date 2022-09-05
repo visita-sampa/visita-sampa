@@ -28,7 +28,7 @@
         Tem certeza que deseja excluir esse evento?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-secondary close-confirmation" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary delete" onclick="deleteEvent({{ $event->id_evento }})">Excluir</button>
       </div>
     </div>

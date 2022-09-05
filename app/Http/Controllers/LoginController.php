@@ -45,7 +45,10 @@ class LoginController extends Controller
 			return redirect()->route('login', app()->getLocale())->with('msgEmailNotConfirmed', $msg);
 		} elseif (!empty($findUser) && Hash::check($request->passwordLogin, $findUser->senha)) {
 			Auth::loginUsingId($findUser->id_usuario);
-		}
+		} else {
+            $msg = 'Senha inválida';
+            return back()->with('msgInvalidPassword', $msg);
+        }
 
 		return redirect()->route('login', app()->getLocale());
 	}

@@ -54,7 +54,7 @@
           <i class="icon-check"></i>
           Sucesso
         </strong>
-        @elseif(session('msgEmailNotConfirmed') || session('msgUserNotFound'))
+        @elseif(session('msgEmailNotConfirmed') || session('msgUserNotFound') || session('msgInvalidPassword'))
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
           Falha
@@ -74,6 +74,9 @@
 
         @elseif(session('msgUserNotFound'))
         {{ session('msgUserNotFound') }}
+
+        @elseif(session('msgInvalidPassword'))
+        {{ session('msgInvalidPassword') }}
 
         @endif
       </div>
@@ -97,7 +100,7 @@
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    @if(session('msgUpdatePasswordSuccess') || session('msgEmailNotConfirmed') || session('msgSignupCompleted') || session('msgUserNotFound'))
+    @if(session('msgUpdatePasswordSuccess') || session('msgEmailNotConfirmed') || session('msgSignupCompleted') || session('msgUserNotFound') || session('msgInvalidPassword'))
     $(document).ready(function() {
       $("#liveToastBtn").click();
     });
