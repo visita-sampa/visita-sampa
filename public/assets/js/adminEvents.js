@@ -61,11 +61,11 @@ $("body").on("click", ".cancel-crop", function () {
     $modalNewEvent.modal("show");
 });
 //Inserir foto
-// const inputFile = document.querySelector("#picture__input");
-// const inputFileAux = document.querySelector("#picture__input_aux");
-// const pictureImage = document.querySelector(".picture__image");
-// const pictureImageTxt = "Escolha uma imagem";
-// pictureImage.innerHTML = pictureImageTxt;
+const inputFile = document.querySelector("#picture__input");
+const inputFileAux = document.querySelector("#picture__input_aux");
+const pictureImage = document.querySelector(".picture__image");
+const pictureImageTxt = "Escolha uma imagem";
+pictureImage.innerHTML = pictureImageTxt;
 
 // inputFile.addEventListener("change", function (e) {
 //     const inputTarget = e.target;

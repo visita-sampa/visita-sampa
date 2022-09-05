@@ -26,7 +26,7 @@
     @include('navbar')
   </div>
 
-  <main class="">
+  <main class="margin-fixed">
     <div class="container" id="post-container">
       @if(!empty($publications))
       @include('feedPublication')

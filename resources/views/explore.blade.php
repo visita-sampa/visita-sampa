@@ -25,7 +25,7 @@
     @include('navbar')
   </div>
 
-  <main class="">
+  <main class="margin-fixed">
     <div class="container">
       <div class="d-flex flex-wrap position-relative justify-content-center">
         <form class="search" method="GET" action="{{ route('explore', app()->getLocale()) }}" name="formSearch">
@@ -34,20 +34,6 @@
             <div class="icon">
               <i class="icon-search"></i>
             </div>
-            <!-- <div class="">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="typeSearch" id="touristSpotRadio" value="1" checked>
-                <label class="form-check-label" for="touristSpotRadio">
-                  Busca por ponto turístico
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="typeSearch" id="profileRadio" value="2">
-                <label class="form-check-label" for="profileRadio">
-                  Busca por perfil
-                </label>
-              </div>
-            </div> -->
             <input type="hidden" name="typeSearch" id="typeSearch" value="1">
             <input class="form-control dropdown-toggle" type="text" id="search" name="search" placeholder="@if($search) {{ __('Buscando por') }} &#34;{{ $search }}&#34; {{ __('em') }} {{ $typeSearch }} @else {{ __('Pesquisar') }} @endif" aria-label="Search" autocomplete="off" data-bs-toggle="dropdown" aria-expanded="false" />
             <div class="card search p-3 h-auto position-absolute search-result-container dropdown-menu" id="search-result-container" aria-labelledby="search">

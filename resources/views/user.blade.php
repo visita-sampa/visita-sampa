@@ -161,14 +161,16 @@
         })
         .done((response) => {
           if (response) {
+            location.reload();
             $('.close').click();
-
+            
             $(document).ready(function() {
               $("#toastBtnDeletePostSuccess").click();
             });
-
+            
             $(`#post-${id}`).remove();
           } else {
+            location.reload();
             $('.close').click();
 
             $(document).ready(function() {

@@ -1,7 +1,7 @@
 // crop publication midia
 // edit profile
 // crop profile pic
-var $newPostModal = $("#modalConfiguration");
+var $newPostModal = $("#new-post-modal");
 var $modal = $(".imagecrop");
 var image = document.getElementById("image");
 var cropper;
@@ -31,7 +31,7 @@ $("body").on("change", ".image-upload", function (e) {
 $modal
     .on("shown.bs.modal", function () {
         cropper = new Cropper(image, {
-            aspectRatio: 1,
+            aspectRatio: 7 / 5,
             viewMode: 1,
         });
     })
@@ -41,8 +41,8 @@ $modal
     });
 $("body").on("click", "#crop", function () {
     canvas = cropper.getCroppedCanvas({
-        width: 200,
-        height: 200,
+        width: 605,
+        height: 450,
     });
     canvas.toBlob(function (blob) {
         url = URL.createObjectURL(blob);
@@ -50,8 +50,8 @@ $("body").on("click", "#crop", function () {
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
             var base64data = reader.result;
-            $("#base64image").val(base64data);
-            document.getElementById("image-preview").style.backgroundImage =
+            $("#base64imagePost").val(base64data);
+            document.getElementById("img-preview").style.backgroundImage =
                 "url(" + base64data + ")";
             $modal.modal("hide");
             $newPostModal.modal("show");

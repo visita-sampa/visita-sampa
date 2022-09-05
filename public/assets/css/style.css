@@ -24,6 +24,10 @@ body > main > .container {
 }
 
 /* navbar */
+.margin-fixed {
+    margin-top: 6rem;
+}
+
 .logo {
     width: 7.7rem;
 }

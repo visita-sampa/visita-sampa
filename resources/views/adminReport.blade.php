@@ -25,7 +25,7 @@
     @include('navbar')
   </div>
 
-  <main class="">
+  <main class="margin-fixed">
     <div class="container" id="post-container">
       <h1 class="title">{{ __('Denúncias') }}</h1>
       <ul class="nav nav-tabs" id="myTab" role="tablist">

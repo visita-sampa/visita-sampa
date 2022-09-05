@@ -26,7 +26,7 @@
     @include('navbar')
   </div>
 
-  <main class="">
+  <main class="margin-fixed">
     <div class="container" id="post-container">
       <div class="added-events">
         <div class="new-event">
@@ -51,7 +51,7 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="modalCreateEventTitle">{ __("Novo Evento") }}</h5>
+                <h5 class="modal-title" id="modalCreateEventTitle">{{ __("Novo Evento") }}</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                   <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
@@ -65,15 +65,15 @@
                     </label>
                     <input type="file" name="picture__input" id="picture__input" class="image-upload-event">
                     <input type="hidden" name="base64data" id="base64data">
-                    <input class="input-event event-name" type="text" name="event_name" id="event_name" placeholder="{{ __('Nome do Evento') }}" autocomplete="off">
-                    <input class="input-event cep" type="text" id="event_cep" name="event_cep" data-js="cep" placeholder="CEP">
+                    <input class="input-event event-name" type="text" name="event_name" id="event_name" placeholder="{{ __('Nome do Evento') }}" autocomplete="off" required>
+                    <input class="input-event cep" type="text" id="event_cep" name="event_cep" data-js="cep" placeholder="CEP" required>
                     <input class="input-event road" type="text" id="event_road" name="event_road" placeholder="{{ __('Logradouro') }}" readonly>
                     <input class="input-event district" type="text" id="event_district" name="event_district" placeholder="{{ __('Bairro') }}" readonly>
                     <input class="input-event number" name="event_number" id="event_number" type="text" placeholder="{{ __('Número') }}">
                     <input class="input-event complement" name="event_complement" id="event_complement" type="text" placeholder="{{ __('Complemento') }}">
-                    <input class="input-event date" name="event_date" id="event_date" type="date" placeholder="{{ __('Data') }}">
+                    <input class="input-event date" name="event_date" id="event_date" type="date" placeholder="{{ __('Data') }}" required>
                     <input class="input-event link" name="event_link" id="event_link" type="text" placeholder="{{ __('Link Evento') }}">
-                    <button type="submit" class="btn-signup btn-primary">{{ __('Cadastrar') }}</button>
+                    <button type="submit" class="btn btn-secondary mt-2 me-1 float-end">{{ __('Cadastrar') }}</button>
                   </form>
                 </div>
               </div>

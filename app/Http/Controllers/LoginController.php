@@ -261,7 +261,7 @@ class LoginController extends Controller
                                     <p>Olá, ' . $user->nome . '</p>
                                     <p>Recebemos sua solicitação de atualização de senha. Para continuar, clique no link a seguir e redefina uma nova senha para sua conta: </p>
                                     <div class="d-flex m-auto">
-                                        <a href="http://localhost/pt/resetPassword/' . $user->recuperar_senha . '" class="btn btn-danger m-auto">Redefinir senha</a>
+                                        <a href="https://visita-sampa.herokuapp.com/pt/resetPassword/' . $user->recuperar_senha . '" class="btn btn-danger m-auto">Redefinir senha</a>
                                     </div>
                                     <p class="mt-3">Após confirmar uma nova senha, sua senha anterior não será mais válida.</p>
                                     <hr class="m-2">
@@ -273,7 +273,7 @@ class LoginController extends Controller
                             </div>
                         </div>
                     </div>';
-          $mail->AltBody = 'Olá, ' . $user->nome . '\n\nRecebemos sua solicitação de atualização de senha. Para continuar, clique no link a seguir e redefina uma nova senha para sua conta: \n\nhttp://localhost/pt/resetPassword/' . $user->recuperar_senha . '\n\nApós confirmar uma nova senha, sua senha anterior não será mais válida.\n\n&copy; 2021 Copyright:\n\nTodos os direitos reservados.';
+                    $mail->AltBody = 'Olá, ' . $user->nome . '\n\nRecebemos sua solicitação de atualização de senha. Para continuar, clique no link a seguir e redefina uma nova senha para sua conta: \n\nhttps://visita-sampa.herokuapp.com/pt/resetPassword/' . $user->recuperar_senha . '\n\nApós confirmar uma nova senha, sua senha anterior não será mais válida.\n\n&copy; 2021 Copyright:\n\nTodos os direitos reservados.';
 
           $mail->send();
 

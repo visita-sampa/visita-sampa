@@ -282,7 +282,7 @@ class UserController extends Controller
 								<p>Olá, ' . $request->nameSignup . '</p>
 								<p>Agradecemos a sua visita em nosso site! Para finalizar seu cadastro, confirme seu endereço de e-mail clicando no link abaixo: </p>
 								<div class="d-flex m-auto">
-									<a href="http://localhost/pt/emailConfirmation/' . $user->chave_confirmacao . '" class="btn btn-danger m-auto">Confirmar e-mail</a>
+									<a href="https://visita-sampa.herokuapp.com/pt/emailConfirmation/' . $user->chave_confirmacao . '" class="btn btn-danger m-auto">Confirmar e-mail</a>
 								</div>
 								<p class="mt-3">Após a confirmação será possível entrar no sistema com suas credenciais.</p>
 								<hr class="m-2">
@@ -294,7 +294,7 @@ class UserController extends Controller
 						</div>
 					</div>
 				</div>';
-				$mail->AltBody = 'Olá, ' . $request->nameSignup . '\n\nAgradecemos a sua visita em nosso site! Para finalizar seu cadastro, confirme seu endereço de e-mail clicando no link abaixo: \n\nhttp://localhost/pt/emailConfirmation/' . $user->chave_confirmacao;
+				$mail->AltBody = 'Olá, ' . $request->nameSignup . '\n\nAgradecemos a sua visita em nosso site! Para finalizar seu cadastro, confirme seu endereço de e-mail clicando no link abaixo: \n\nhttps://visita-sampa.herokuapp.com/pt/emailConfirmation/' . $user->chave_confirmacao;
 
 				// $checkEmail = $mail->send();
 				$checkEmail = true;

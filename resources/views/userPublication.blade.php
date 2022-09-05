@@ -48,7 +48,7 @@
                       @csrf
                       <div class="modal-header edit-modal">
                         <h5 class="modal-title" id="editModalTitle">{{ __('Editar ou Excluir') }}</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close close" data-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body edit-modal">
                         <h5 class="title-edit">{{ __('Editar') }}</h5>
@@ -103,32 +103,6 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" onfocus="overlapModal({{ $post->id_publicacao }})" onblur="overlapModalClose({{ $post->id_publicacao }}, 1)" id="editModal-{{ $post->id_publicacao }}" tabindex="-1" role="dialog" aria-labelledby="editModal-{{ $post->id_publicacao }}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered edit-modal" role="document">
-      <div class="modal-content edit-modal">
-        <form method="POST" action="{{ route('update.publication', ['language'=>app()->getLocale(), 'id'=>$post->id_publicacao]) }}">
-          @csrf
-          <div class="modal-header edit-modal">
-            <h5 class="modal-title" id="editModalTitle">{{ __('Editar ou Excluir') }}</h5>
-            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body edit-modal">
-            <h5 class="title-edit">{{ __('Editar') }}</h5>
-            <div class="form-floating textarea">
-              <textarea onfocus="overlapModal({{ $post->id_publicacao }})" class="form-control" id="floatingLegendReport" name="floatingLegendReport" placeholder="Legenda">{{ $post->legenda }}</textarea>
-              <label for="floating-legend-report">{{ __('Legenda') }}</label>
-            </div>
-
-            <h5 class="title-edit">{{ __('Deseja excluir publicação') }}?</h5>
-            <button class="delete" type="button" onclick="deletePublication({{ $post->id_publicacao}} )"><i class="icon-alert-circle"></i>{{ __('Excluir publicação') }}</button>
-          </div>
-          <div class="modal-footer edit-modal">
-            <button type="button" class="btn close" data-dismiss="modal">{{ __('Cancelar') }}</button>
-            <button type="submit" class="btn save">{{ __('Salvar') }}</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+  
 </div>
 @endforeach

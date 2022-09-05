@@ -25,7 +25,7 @@
     @include('navbar')
   </div>
 
-  <main class="">
+  <main class="margin-fixed">
     <div class="container">
       <h1 class="title">{{ __('Eventos') }}</h1>
       <div class="grid-container" id="event-container">

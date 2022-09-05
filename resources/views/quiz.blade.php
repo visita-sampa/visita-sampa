@@ -25,7 +25,7 @@
     @include('navbar')
   </div>
 
-  <main class="d-flex">
+  <main class="d-flex mt-5">
     <div class="web-background w-100 h-100">
       <div class="background-blur w-100 h-100">
         <div class="container p-5 d-flex flex-row">
