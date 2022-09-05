@@ -433,7 +433,12 @@ p.user-name {
     .modal-body-tourist,
     .modal-body-tourist-spot {
         display: flex;
-        flex-direction: column-reverse;
+        flex-wrap: wrap;
+    }
+
+    .modal-header-tourist-spot {
+        order: -1;
+        border: none;
     }
 
     .modal-post {

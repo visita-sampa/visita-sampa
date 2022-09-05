@@ -416,9 +416,9 @@ li {
     overflow-y: auto;
 }
 
-.modal-header {
+/* .modal-header {
     justify-content: center;
-}
+} */
 
 .modal-body {
     padding: 0;
