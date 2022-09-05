@@ -7,7 +7,7 @@
     <h5 class="card-title">{{ $event->nome }}</h5>
     <div class="card-text">
       <p class="localization"><i class="icon-map-pin two"></i>{{ $event->local_evento }}</p>
-      <p class="time"><i class="icon-clock"></i>{{ $event->data_evento }}</p>
+      <p class="time"><i class="icon-clock"></i>{{ __($event->data_evento) }}</p>
     </div>
   </div>
   <div class="btn-delete-event">
@@ -19,17 +19,17 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content delete">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteEventLongTitle">Excluir</h5>
+        <h5 class="modal-title" id="deleteEventLongTitle">{{ __('Excluir') }}</h5>
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
           <!-- <span aria-hidden="true">&times;</span> -->
         </button>
       </div>
       <div class="modal-body delete">
-        Tem certeza que deseja excluir esse evento?
+        {{ __('Tem certeza que deseja excluir esse evento?') }}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary close-confirmation" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary delete" onclick="deleteEvent({{ $event->id_evento }})">Excluir</button>
+        <button type="button" class="btn btn-secondary close-confirmation" data-dismiss="modal">{{ __('Cancelar') }}</button>
+        <button type="button" class="btn btn-primary delete" onclick="deleteEvent({{ $event->id_evento }})">{{ __('Excluir') }}</button>
       </div>
     </div>
   </div>

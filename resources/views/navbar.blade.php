@@ -1,4 +1,4 @@
-@if(Auth::user()->id_usuario == 1)
+@if(Auth::user() && Auth::user()->id_usuario == 1)
 <nav class="nav-bottom position-fixed">
   <ul class="nav nav-pills nav-fill">
     <li class="nav-item">

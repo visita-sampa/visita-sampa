@@ -85,7 +85,7 @@
           <div class="modal-dialog modal-lg d-flex justify-content-center">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{ __("Cortar") }}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ __("Cortar") }}</h5>
                 <button type="button" class="btn-close cancel-crop" data-bs-dismiss="modal" aria-label="Close">
                   <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
@@ -100,8 +100,8 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary cancel-crop" data-bs-dismiss="modal" id="cancelCrop">{ __("Cancelar") }}</button>
-                <button type="button" class="btn btn-primary crop" id="crop">{ __("Cortar") }}</button>
+                <button type="button" class="btn btn-secondary cancel-crop" data-bs-dismiss="modal" id="cancelCrop">{{ __("Cancelar") }}</button>
+                <button type="button" class="btn btn-primary crop" id="crop">{{ __("Cortar") }}</button>
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@
       <div class="toast-header">
         <strong class="me-auto text-success">
           <i class="icon-check"></i>
-          Sucesso
+          {{ __("Sucesso") }}
         </strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
@@ -210,6 +210,9 @@
         loadMoreData(page);
       }
     });
+    const pictureImage = document.querySelector(".picture__image");
+    const pictureImageTxt = '{ __("Escolha uma imagem") }}';
+    pictureImage.innerHTML = pictureImageTxt;
   </script>
 
 </body>
