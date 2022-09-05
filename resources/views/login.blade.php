@@ -57,26 +57,26 @@
         @elseif(session('msgEmailNotConfirmed') || session('msgUserNotFound') || session('msgInvalidPassword'))
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
-          Falha
+          {{ __('Falha') }}
         </strong>
         @endif
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
         @if(session('msgUpdatePasswordSuccess'))
-        {{ session('msgUpdatePasswordSuccess') }}
+        {{ __(session('msgUpdatePasswordSuccess') }}
 
         @elseif(session('msgSignupCompleted'))
-        {{ session('msgSignupCompleted') }}
+        {{ __(session('msgSignupCompleted')) }}
 
         @elseif(session('msgEmailNotConfirmed'))
-        {{ session('msgEmailNotConfirmed') }}
+        {{ __(session('msgEmailNotConfirmed')) }}
 
         @elseif(session('msgUserNotFound'))
-        {{ session('msgUserNotFound') }}
+        {{ __(session('msgUserNotFound')) }}
 
         @elseif(session('msgInvalidPassword'))
-        {{ session('msgInvalidPassword') }}
+        {{ __(session('msgInvalidPassword')) }}
 
         @endif
       </div>

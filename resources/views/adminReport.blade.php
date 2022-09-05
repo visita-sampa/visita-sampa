@@ -75,19 +75,19 @@
                   <span class="badge badge-pill badge-report" id="badge-report">{{ $cont }}</span>
                 </div>
                 <div class="card-buttons">
-                  <button type="button" class="btn btn-accept" id="btn-accept-report-noreply-{{ $post->id_publicacao }}" onclick="acceptComplaint({{ $post->id_publicacao }}, 'noreply')"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceitar denúncia"></i></button>
-                  <button type="button" class="btn btn-refuse" id="btn-refuse-report-noreply-{{ $post->id_publicacao }}" onclick="refuseComplaint({{ $post->id_publicacao }}, 'noreply')"><i class="icon-x" data-bs-toggle="tooltip" data-bs-placement="top" title="Rejeitar denúncia"></i></button>
+                  <button type="button" class="btn btn-accept" id="btn-accept-report-noreply-{{ $post->id_publicacao }}" onclick="acceptComplaint({{ $post->id_publicacao }}, 'noreply')"><i class="icon-check" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Aceitar denúncia') }}"></i></button>
+                  <button type="button" class="btn btn-refuse" id="btn-refuse-report-noreply-{{ $post->id_publicacao }}" onclick="refuseComplaint({{ $post->id_publicacao }}, 'noreply')"><i class="icon-x" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Rejeitar denúncia') }}"></i></button>
                 </div>
               </div>
             </div>
             <div class="card-description" id="card-description">
               <!-- Informações Ocultadas -->
               <div class="card-text">
-                <div class="card w-100">
+                <div class="card w-100 shadow-none">
                   <ul class="list-group list-group-flush">
                     @foreach($complaints as $report)
                     @if($report->fk_publicacao_id_publicacao == $post->id_publicacao)
-                    <li class="list-group-item reason">{{ $report->motivo }}</li>
+                    <li class="list-group-item bg-transparent reason">{{ $report->motivo }}</li>
                     @endif
                     @endforeach
                   </ul>

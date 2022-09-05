@@ -30,11 +30,11 @@
     <div class="container" id="post-container">
       <div class="added-events">
         <div class="new-event">
-          <h1 class="title">Eventos</h1>
+          <h1 class="title">{{ __('Eventos') }}</h1>
           <div class="add-event">
             <a class="more-event" data-toggle="modal" data-target="#modalCreateEvent" href="">
               <i class="icon-plus"></i>
-              <h5>Novo Evento</h5>
+              <h5>{{ __('Novo Evento') }}</h5>
             </a>
           </div>
         </div>
@@ -43,7 +43,7 @@
         </div>
         <div class="ajax-load text-center">
           <div class="spinner-border text-danger" role="status">
-            <span class="visually-hidden">Carregando...</span>
+            <span class="visually-hidden">{{ __("Carregando") }}...</span>
           </div>
         </div>
         <!-- Modal -->
@@ -51,7 +51,7 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="modalCreateEventTitle">Novo Evento</h5>
+                <h5 class="modal-title" id="modalCreateEventTitle">{ __("Novo Evento") }}</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                   <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
@@ -65,15 +65,15 @@
                     </label>
                     <input type="file" name="picture__input" id="picture__input" class="image-upload-event">
                     <input type="hidden" name="base64data" id="base64data">
-                    <input class="input-event event-name" type="text" name="event_name" id="event_name" placeholder="Nome do Evento" autocomplete="off">
+                    <input class="input-event event-name" type="text" name="event_name" id="event_name" placeholder="{{ __('Nome do Evento') }}" autocomplete="off">
                     <input class="input-event cep" type="text" id="event_cep" name="event_cep" data-js="cep" placeholder="CEP">
-                    <input class="input-event road" type="text" id="event_road" name="event_road" placeholder="Logradouro" readonly>
-                    <input class="input-event district" type="text" id="event_district" name="event_district" placeholder="Bairro" readonly>
-                    <input class="input-event number" name="event_number" id="event_number" type="text" placeholder="Número">
-                    <input class="input-event complement" name="event_complement" id="event_complement" type="text" placeholder="Complemento">
-                    <input class="input-event date" name="event_date" id="event_date" type="date" placeholder="Data">
-                    <input class="input-event link" name="event_link" id="event_link" type="text" placeholder="Link Evento">
-                    <button type="submit" class="btn-signup">{{ __('Cadastrar') }}</button>
+                    <input class="input-event road" type="text" id="event_road" name="event_road" placeholder="{{ __('Logradouro') }}" readonly>
+                    <input class="input-event district" type="text" id="event_district" name="event_district" placeholder="{{ __('Bairro') }}" readonly>
+                    <input class="input-event number" name="event_number" id="event_number" type="text" placeholder="{{ __('Número') }}">
+                    <input class="input-event complement" name="event_complement" id="event_complement" type="text" placeholder="{{ __('Complemento') }}">
+                    <input class="input-event date" name="event_date" id="event_date" type="date" placeholder="{{ __('Data') }}">
+                    <input class="input-event link" name="event_link" id="event_link" type="text" placeholder="{{ __('Link Evento') }}">
+                    <button type="submit" class="btn-signup btn-primary">{{ __('Cadastrar') }}</button>
                   </form>
                 </div>
               </div>
@@ -85,7 +85,7 @@
           <div class="modal-dialog modal-lg d-flex justify-content-center">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cortar</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{ __("Cortar") }}</h5>
                 <button type="button" class="btn-close cancel-crop" data-bs-dismiss="modal" aria-label="Close">
                   <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
@@ -100,8 +100,8 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary cancel-crop" data-bs-dismiss="modal" id="cancelCrop">Cancelar</button>
-                <button type="button" class="btn btn-primary crop" id="crop">Cortar</button>
+                <button type="button" class="btn btn-secondary cancel-crop" data-bs-dismiss="modal" id="cancelCrop">{ __("Cancelar") }}</button>
+                <button type="button" class="btn btn-primary crop" id="crop">{ __("Cortar") }}</button>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        O evento foi excluído permanentemente
+        { __("O evento foi excluído permanentemente") }}
       </div>
     </div>
   </div>
@@ -134,12 +134,12 @@
       <div class="toast-header">
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
-          Falha
+          { __("Falha") }}
         </strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        Não foi possível excluir o evento
+        { __("Não foi possível excluir o evento") }}
       </div>
     </div>
   </div>
@@ -192,14 +192,14 @@
         })
         .done(function(eventDivulgation) {
           if (eventDivulgation.html == "") {
-            $('.ajax-load').html('Nenhum outro evento encontrado');
+            $('.ajax-load').html('{ __("Nenhum outro evento encontrado") }}');
             return;
           }
           $('.ajax-load').hide();
           $('#event-container').append(eventDivulgation.html);
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("Servidor não está respondendo...");
+          alert("{ __('Servidor não está respondendo') }}...");
         });
     }
 

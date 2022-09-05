@@ -371,5 +371,24 @@
 	"Horário de Funcionamento": "Hour of Operation",
 	"Valor": "Value",
 	"Escreva sua experiência com o local": "Write your experience with the place",
-	"Publicar": "Publish"
-}
+	"Publicar": "Publish",
+	"Enviamos um e-mail com o link para atualização de senha. Verifique sua caixa de entrada.": "We have sent you an email with the link to update your password. Check your inbox.",
+	"O e-mail não pôde ser enviado. Tente novamente em alguns instantes": "The email could not be sent. Try again in a few moments",
+	"Falha na solicitação de recuperação de senha. Tente novamente.": "Password recovery request failed. Try again.",
+	"Usuário não encontrado. Verifique o e-mail fornecido para recuperação de senha.": "User not found. Check the email provided for password recovery.",
+	"Verificando nome": "Checking name",
+	"Verificando email": "Checking email",
+	"Campo obrigatório": "Required field",
+	"Nome já utilizado": "Name already used",
+	"Email já utilizado": "Email already used",
+	"O evento foi excluído permanentemente": "The event has been permanently deleted",
+	"Não foi possível excluir o evento": "Could not delete event",
+	"Nenhum outro evento encontrado": "No other events found",
+	"Servidor não está respondendo": "Server is not responding",
+	"Esse usuário não existe. Verifique suas credenciais": "This user does not exist. Check your credentials",
+	"Erro: O cadastro não foi finalizado. Verifique seu e-mail para confirmar suas credenciais.": "Error: Registration has not been completed. Check your email to confirm your credentials.",
+	"Senha inválida": "Invalid password",
+	"Aceitar denúncia": "Accept denunciation",
+	"Rejeitar denúncia": "Reject denunciation",
+	"Logradouro"
+"}

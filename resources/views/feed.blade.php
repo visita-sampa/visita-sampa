@@ -115,6 +115,9 @@
                 $("#toastBtnReportFail").click();
               });
             }
+            document.querySelectorAll('.motive-denounces').forEach(element => {
+              element.value = ""
+            })
           }
         });
       });

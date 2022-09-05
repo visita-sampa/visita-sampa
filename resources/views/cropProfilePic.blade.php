@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCropConfig">{{ __('Cancelar') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCrop">{{ __('Cancelar') }}</button>
         <button type="button" class="btn btn-primary crop" id="crop">{{ __('Cortar') }}</button>
       </div>
     </div>
@@ -55,8 +55,9 @@
       </div>
     </div>
   </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+  
+  <script src="/assets/js/cropimage.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 
 <script>
   var btnToastEditProfile = document.getElementById("btnToastEditProfile");

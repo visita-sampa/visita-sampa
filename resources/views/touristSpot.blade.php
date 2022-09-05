@@ -70,7 +70,7 @@
                 <div class="modal-content">
                   <div class="modal-body modal-body-tourist">
                     <div class="position-relative img-publication-area d-flex justify-content-center align-items-center">
-                      <div src="" alt="" id="img-preview-post" class="post-img position-absolute w-100 h-100"></div>
+                      <div src="" alt="" id="img-preview" class="post-img position-absolute w-100 h-100"></div>
                       <label for="newPost" class="position-absolute w-100 h-100 top-0 p-3 text-center d-flex justify-content-center align-items-center select-img-fixed">
                         <i class="icon-image position-absolute"></i>
                         {{ __('Selecionar arquivo') }}
@@ -79,8 +79,8 @@
                         <i class="icon-image text-light position-absolute"></i>
                         {{ __('Selecionar arquivo') }}
                       </label>
-                      <input type="file" name="newPost" id="newPost" class="d-none image-upload image-upload-post" />
-                      <input type="hidden" name="base64imagePost" id="base64imagePost" class="" />
+                      <input type="file" name="newPost" id="newPost" class="d-none image-upload" />
+                      <input type="hidden" name="base64image" id="base64image" class="" />
                     </div>
                     <!-- <img src="https://veja.abril.com.br/wp-content/uploads/2016/05/alx_sao-paulo-cultura-museu-masp-avenida-paulista-20140222-001_original2.jpeg" class="img-publication"> -->
                     <!-- Informações Usuário -->
@@ -107,7 +107,7 @@
                         <input type="hidden" name="touristSpotId" id="touristSpotId" value="{{ $point->id_ponto_turistico }}" />
                         <textarea name="postDescription" id="postDescription" class="m-4 p-2" placeholder="{{ __('Escreva sua experiência com o local') }}" cols="35" rows="5"></textarea>
                       </div>
-                      <input type="submit" value="Publicar" class="mx-4 float-end btn-submit" />
+                      <input type="submit" value="{{ __('Publicar') }}" class="mx-4 float-end btn-submit" />
                     </div>
                   </div>
                 </div>
@@ -115,12 +115,12 @@
             </form>
           </div>
 
-          <div class="modal fade bd-example-modal-lg imagecrop imagecropPost" id="modelPost" tabindex="-1" role="dialog" aria-labelledby="modelPost" aria-hidden="true">
+          <div class="modal fade bd-example-modal-lg imagecrop" id="modelPost" tabindex="-1" role="dialog" aria-labelledby="modelPost" aria-hidden="true">
             <div class="modal-dialog modal-lg d-flex justify-content-center">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">{{ __('Cortar') }}</h5>
-                  <button type="button" class="btn-close cancel-crop cancel-post" data-bs-dismiss="modal" aria-label="Close">
+                  <button type="button" class="btn-close cancel-crop" data-bs-dismiss="modal" aria-label="Close">
                     <!-- <span aria-hidden="true">&times;</span> -->
                   </button>
                 </div>
@@ -128,14 +128,14 @@
                   <div class="img-container">
                     <div class="row justify-content-center w-100 mx-0">
                       <div class="col-md-11 p-0">
-                        <img id="imagePost" src="https://avatars0.githubusercontent.com/u/3456749" class="d-block mw-100">
+                        <img id="image" src="https://avatars0.githubusercontent.com/u/3456749" class="d-block mw-100">
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary cancel-crop" data-bs-dismiss="modal" id="cancelCrop">{{ __('Cancelar') }}</button>
-                  <button type="button" class="btn btn-primary crop" id="cropPost">{{ __('Cortar') }}</button>
+                  <button type="button" class="btn btn-primary crop" id="crop">{{ __('Cortar') }}</button>
                 </div>
               </div>
             </div>
@@ -188,8 +188,6 @@
       </div>
     </div>
   </div>
-
-  @include('cropProfilePic')
 
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/main.js"></script>

@@ -77,10 +77,10 @@
         {{ __(session('msgUpdatePasswordRequestFail')) }}
 
         @elseif(session('msgFindUserFail'))
-        {{ session('msgFindUserFail') }}
+        {{ __(session('msgFindUserFail')) }}
 
         @elseif(session('msgInvalidLink'))
-        {{ session('msgInvalidLink') }}
+        {{ __(session('msgInvalidLink')) }}
 
         @endif
       </div>

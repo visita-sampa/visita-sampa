@@ -5,13 +5,13 @@ body > div.container {
 
 /* Título da página */
 .title {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  font-size: 36px;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 36px;
 }
 
 h3 {
-  font-size: 25px;
+    font-size: 25px;
 }
 
 /* card */
@@ -49,16 +49,16 @@ h3 {
 }
 
 .card-text {
-  justify-content: center;
-  padding: 0 1.63rem;
-  font-weight: 300;
-  font-size: 18px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  /* Altura do paragrafo */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    justify-content: center;
+    padding: 0 1.63rem;
+    font-weight: 300;
+    font-size: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Altura do paragrafo */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Imagem do local */
@@ -99,6 +99,12 @@ h3 {
     transform: scale(1.05);
 }
 
+.roadmap-description {
+    margin-top: 5.31rem;
+    background-color: var(--bs-teal);
+    color: white;
+}
+
 /* Media Screen */
 @media screen and (max-width: 1700px) {
     .grid-container {
@@ -115,6 +121,12 @@ h3 {
 @media screen and (max-width: 1200px) {
     .grid-container {
         grid-template-columns: auto auto;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .roadmap-description {
+        margin-top: 3.9rem;
     }
 }
 
@@ -136,5 +148,10 @@ h3 {
 
     .card-img-top {
         width: 100%;
+    }
+
+    .px-5 {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
     }
 }

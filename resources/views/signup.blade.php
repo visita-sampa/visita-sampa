@@ -36,11 +36,11 @@
               </div>
               <div id="usernameContent" class="inputContent">
                 <input type="text" name="usernameSignup" id="usernameSignup" placeholder="{{ __('Nome de usuário') }}" autocomplete="off" class="input-signup" required />
-                <span id="loading" class="loading-username">Verificando nome</span>
+                <span id="loading" class="loading-username">{{ __('Verificando nome') }}</span>
               </div>
               <div id="emailContent" class="inputContent">
                 <input type="email" name="emailSignup" id="emailSignup" placeholder="E-mail" autocomplete="off" class="input-signup" required />
-                <span id="loading-email" class="loading-username">Verificando email</span>
+                <span id="loading-email" class="loading-username">{{ __('Verificando email') }}</span>
               </div>
               <div id="passwordContent" class="inputContent">
                 <input type="password" name="passwordSignup" id="passwordSignup" placeholder="{{ __('Senha') }}" autocomplete="off" class="input-signup" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#_])[0-9a-zA-Z$*&@#_]{6,12}$" required data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="A senha deve conter: <br/>Entre 6 e 12 caracteres;<br/>Ter pelo menos uma letra maiúscula e uma letra minúscula;</br>Um número;</br>Um símbolo (#, @, _, $, &, *)" />
@@ -135,7 +135,7 @@
         let msg = document.getElementById("msgUsername");
         if (msg) usernameContent.removeChild(msg);
         if (value === "") {
-          msgAlert(usernameContent, "Campo obrigatório", "msgUsername");
+          msgAlert(usernameContent, "{{ __('Campo obrigatório') }}", "msgUsername");
           usernameFlag = false;
           return;
         }
@@ -165,7 +165,7 @@
               if (msg)
                 usernameContent.removeChild(msg);
             } else {
-              msgAlert(usernameContent, 'Nome já utilizado', 'msgUsername');
+              msgAlert(usernameContent, '{{ __("Nome já utilizado") }}', 'msgUsername');
               usernameFlag = false;
             }
           })
@@ -180,7 +180,7 @@
         let msg = document.getElementById("msgEmail");
         if (msg) emailContent.removeChild(msg);
         if (value === "") {
-          msgAlert(emailContent, "Campo obrigatório", "msgEmail");
+          msgAlert(emailContent, "{{ __('Campo obrigatório') }}", "msgEmail");
           emailFlag = false;
           return;
         }
@@ -210,7 +210,7 @@
               if (msg)
                 emailContent.removeChild(msg);
             } else {
-              msgAlert(emailContent, 'Email já utilizado', 'msgEmail');
+              msgAlert(emailContent, "{{ __('Email já utilizado') }}", 'msgEmail');
               emailFlag = false;
             }
           })

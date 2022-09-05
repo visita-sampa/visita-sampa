@@ -26,13 +26,17 @@
   </div>
 
   <main class="">
+    <div class="roadmap-description">
+      <div class="mx-5 py-3 px-5">
+        @foreach($roadMapTitle as $titles)
+        <h1 class="title">{{$titles->nome_roteiro}}</h1>
+        @endforeach
+        @foreach($roadMapType as $type)
+        <p>{{ __($type->descricao) }}</p>
+        @endforeach
+      </div>
+    </div>
     <div class="container">
-      @foreach($roadMapTitle as $titles)
-      <h1 class="title">{{ __($titles->nome_roteiro) }}</h1>
-      @endforeach
-      @foreach($roadMapType as $type)
-      <p>{{ __($type->descricao) }}</p>
-      @endforeach
       <h3>{{ __('Lugares para você') }}</h3>
       {{csrf_field()}}
       <div class="grid-container">

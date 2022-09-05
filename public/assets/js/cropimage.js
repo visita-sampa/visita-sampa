@@ -1,7 +1,6 @@
-// crop publication midia
 // edit profile
 // crop profile pic
-var $newPostModal = $("#modalConfiguration");
+var $modalConfiguration = $("#modalConfiguration");
 var $modal = $(".imagecrop");
 var image = document.getElementById("image");
 var cropper;
@@ -10,7 +9,7 @@ $("body").on("change", ".image-upload", function (e) {
     var done = function (url) {
         image.src = url;
         $modal.modal("show");
-        $newPostModal.modal("hide");
+        $modalConfiguration.modal("hide");
     };
     var reader;
     var file;
@@ -54,31 +53,10 @@ $("body").on("click", "#crop", function () {
             document.getElementById("image-preview").style.backgroundImage =
                 "url(" + base64data + ")";
             $modal.modal("hide");
-            $newPostModal.modal("show");
+            $modalConfiguration.modal("show");
         };
     });
 });
-$("body").on("click", ".cancel-crop", function () {
-    $newPostModal.modal("show");
+$("body").on("click", "#cancelCrop", function () {
+    $modalConfiguration.modal("show");
 });
-
-// active toasts
-var btnReportSuccess = document.getElementById("toastBtnReportSuccess");
-var toastReportSuccess = document.getElementById("toastReportSuccess");
-if (btnReportSuccess) {
-    btnReportSuccess.addEventListener("click", function () {
-        var toast = new bootstrap.Toast(toastReportSuccess);
-
-        toast.show();
-    });
-}
-
-var btnReportFail = document.getElementById("toastBtnReportFail");
-var toastReportFail = document.getElementById("toastReportFail");
-if (btnReportFail) {
-    btnReportFail.addEventListener("click", function () {
-        var toast = new bootstrap.Toast(toastReportFail);
-
-        toast.show();
-    });
-}
