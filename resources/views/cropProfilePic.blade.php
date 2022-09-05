@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
+<link href="/assets/css/style.css" rel="stylesheet" />
 
 <div class="modal fade bd-example-modal-lg imagecrop imagecropconfig" id="model" tabindex="-1" role="dialog" aria-labelledby="modalCropProfilePic" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -13,14 +14,14 @@
         <div class="img-container">
           <div class="row">
             <div class="col-md-11">
-              <img id="image" src="https://avatars0.githubusercontent.com/u/3456749" class="d-block mw-100">
+              <img id="image" src="https://avatars0.githubusercontent.com/u/3456749" class="d-block mw-100 img-crop">
             </div>
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCrop">{{ __('Cancelar') }}</button>
-        <button type="button" class="btn btn-primary crop" id="crop">{{ __('Cortar') }}</button>
+      <div class="modal-footer modal-footer-crop">
+        <button type="button" class="btn-crop-cancel" data-bs-dismiss="modal" id="cancelCrop">{{ __('Cancelar') }}</button>
+        <button type="button" class="crop btn-crop-cut" id="crop">{{ __('Cortar') }}</button>
       </div>
     </div>
   </div>
