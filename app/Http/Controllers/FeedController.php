@@ -18,6 +18,14 @@ class FeedController extends Controller
 	 */
 	public function index(Request $request)
 	{
+		$checkAnswer = DB::table('usuario_questionario_resposta')
+			->where('fk_usuario_id_usuario', Auth::user()->id_usuario)
+			->first();
+
+		if($checkAnswer->fk_respostas_id_resposta == null) {
+			return redirect()->route('quiz', app()->getLocale());
+		}
+
 		$publications = DB::table('publicacao')
 			->join('usuario', function ($join) {
 				$join->on('publicacao.fk_usuario_id_usuario', '=', 'usuario.id_usuario');

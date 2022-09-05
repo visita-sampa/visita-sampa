@@ -135,7 +135,7 @@ button:focus {
     font-size: 1.25rem;
 }
 
-#btn-see-more {
+.btn-see-more {
     display: flex;
     border: none;
     align-items: center;

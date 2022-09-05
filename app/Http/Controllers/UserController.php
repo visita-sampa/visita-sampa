@@ -454,6 +454,10 @@ class UserController extends Controller
 
 	public function signup()
 	{
+		if (Auth::user()) {
+			return redirect()->route('feed', app()->getLocale());
+		}
+		
 		return view('signup');
 	}
 

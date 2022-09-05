@@ -19,25 +19,25 @@ class AdminEventsController extends Controller
   {
     $now = now()->format('Y-m-d');
 
-		$events = DB::table('eventos')
-			->where('data_evento', '>', $now)
-			->paginate(12);
+    $events = DB::table('eventos')
+      ->where('data_evento', '>', $now)
+      ->paginate(12);
 
-		setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-		date_default_timezone_set('America/Sao_Paulo');
+    setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+    date_default_timezone_set('America/Sao_Paulo');
 
-		$now = time();
+    $now = time();
 
-		foreach ($events as $event) {
-			$event->data_evento = strftime('%A, %d de %B de %Y', strtotime($event->data_evento));
-		}
+    foreach ($events as $event) {
+      $event->data_evento = strftime('%A, %d de %B de %Y', strtotime($event->data_evento));
+    }
 
-		if ($request->ajax()) {
-			$view = view('adminEventDivulgation', ['events' => $events])->render();
-			return response()->json(['html' => $view]);
-		}
+    if ($request->ajax()) {
+      $view = view('adminEventDivulgation', ['events' => $events])->render();
+      return response()->json(['html' => $view]);
+    }
 
-		return view('adminEvents', ['events' => $events]);
+    return view('adminEvents', ['events' => $events]);
   }
 
   /**
@@ -74,26 +74,25 @@ class AdminEventsController extends Controller
   }
 
   public function delete(Request $request)
-	{
-		$event = Event::find($request->id);
-		
-		foreach(explode('/', $event->imagem) as $row) {
-			$midia = $row;
-		}
-		foreach(array_reverse(explode('.', $midia)) as $row) {
-			$midia = $row;
-		}
+  {
+    $event = Event::find($request->id);
 
-		if($event->delete()) {
-			cloudinary()->destroy('events/'.$midia);
-			$response = true;
-		}
-		else {
-			$response = false;
-		}
+    foreach (explode('/', $event->imagem) as $row) {
+      $midia = $row;
+    }
+    foreach (array_reverse(explode('.', $midia)) as $row) {
+      $midia = $row;
+    }
 
-		return $response;
-	}
+    if ($event->delete()) {
+      cloudinary()->destroy('events/' . $midia);
+      $response = true;
+    } else {
+      $response = false;
+    }
+
+    return $response;
+  }
 
   public function searchAdminId()
   {

@@ -105,7 +105,7 @@
                       <!-- DescriÃ§Ã£o PublicaÃ§Ã£o -->
                       <div class="description-publication d-grid">
                         <input type="hidden" name="touristSpotId" id="touristSpotId" value="{{ $point->id_ponto_turistico }}" />
-                        <textarea name="postDescription" id="postDescription" class="m-4 p-2" placeholder="{{ __('Escreva sua experiÃªncia com o local') }}" cols="35" rows="5"></textarea>
+                        <textarea name="postDescription" id="postDescription" class="m-4 p-2" placeholder="{{ __('Escreva sua experiência com o local') }}" cols="35" rows="5"></textarea>
                       </div>
                       <input type="submit" value="{{ __('Publicar') }}" class="mx-4 float-end btn-submit" />
                     </div>
@@ -119,7 +119,7 @@
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Cortar</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">{{ __('Cortar') }}</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <!-- <span aria-hidden="true">&times;</span> -->
                   </button>
@@ -134,8 +134,8 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCrop">Cancelar</button>
-                  <button type="button" class="btn btn-primary crop" id="crop">Cortar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCrop">{{ __('Cancelar') }}</button>
+                  <button type="button" class="btn btn-primary crop" id="crop">{{ __('Cortar') }}</button>
                 </div>
               </div>
             </div>

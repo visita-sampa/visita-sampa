@@ -122,7 +122,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        { __("O evento foi excluído permanentemente") }}
+        {{ __("O evento foi excluído permanentemente") }}
       </div>
     </div>
   </div>
@@ -134,12 +134,12 @@
       <div class="toast-header">
         <strong class="me-auto text-danger">
           <i class="icon-x"></i>
-          { __("Falha") }}
+          {{ __("Falha") }}
         </strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        { __("Não foi possível excluir o evento") }}
+        {{ __("Não foi possível excluir o evento") }}
       </div>
     </div>
   </div>
@@ -192,14 +192,14 @@
         })
         .done(function(eventDivulgation) {
           if (eventDivulgation.html == "") {
-            $('.ajax-load').html('{ __("Nenhum outro evento encontrado") }}');
+            $('.ajax-load').html('{{ __("Nenhum outro evento encontrado") }}');
             return;
           }
           $('.ajax-load').hide();
           $('#event-container').append(eventDivulgation.html);
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
-          alert("{ __('Servidor não está respondendo') }}...");
+          alert("{{ __('Servidor não está respondendo') }}...");
         });
     }
 
@@ -213,6 +213,23 @@
     const pictureImage = document.querySelector(".picture__image");
     const pictureImageTxt = '{ __("Escolha uma imagem") }}';
     pictureImage.innerHTML = pictureImageTxt;
+  </script>
+  <script>
+    const langOptions = document.getElementById('for-dropdown-translate');
+    const ulLangOptions = document.getElementById('translate');
+    let open = false;
+
+    langOptions.addEventListener('click', () => {
+      if (open) {
+        ulLangOptions.classList.remove('open');
+        langOptions.classList.remove('active');
+        open = false;
+      } else {
+        ulLangOptions.classList.add('open');
+        langOptions.classList.add('active');
+        open = true;
+      }
+    })
   </script>
 
 </body>

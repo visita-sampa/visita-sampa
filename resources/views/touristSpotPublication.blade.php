@@ -7,14 +7,14 @@
     </div>
   </div>
   <!-- Modal -->
-  <div class="modal fade" onfocus="overlapModalClose({{ $post->id_publicacao }})" id="post-modal-{{ $post->id_publicacao }}" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-{{ $post->id_publicacao }}" aria-hidden="true">
+  <div class="modal fade modal-post" onfocus="overlapModalClose({{ $post->id_publicacao }})" id="post-modal-{{ $post->id_publicacao }}" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-{{ $post->id_publicacao }}" aria-hidden="true">
     <div class="close-publication">
       <button type="button" class="close close-all" data-dismiss="modal" aria-label="Close">
         <span class="close-post" aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-dialog modal-dialog-tourist-spot" role="document">
-      <div class="modal-content">
+      <div class="modal-content modal-post-content">
         <div class="modal-body modal-body-tourist-spot">
           <div class="modal-image">
             <img src="{{ $post->midia }}" class="img-publication" alt="{{ $post->nome_ponto_turistico }}" />

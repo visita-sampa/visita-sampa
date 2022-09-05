@@ -1,11 +1,11 @@
 // abrir denúncia
-let cardDescription = document.getElementById("card-description");
-let card = document.getElementById("card");
-const btnReadMore = document.getElementById("btn-see-more");
-let cardOpen = true;
-
-function readMore() {
-    if (!cardOpen) {
+function readMore(index) {
+    let cardDescription = document.getElementById(`card-description-${index}`);
+    let card = document.getElementById("card");
+    const btnReadMore = document.getElementById(`btn-see-more-${index}`);
+    let cardOpen = true;
+    console.log(btnReadMore.innerText);
+    if (btnReadMore.innerText == "Ver Menos") {
         btnReadMore.innerHTML =
             "Ver Mais <i class='icon-chevron-down p-1'></i>";
         cardDescription.classList.remove("card-open");
@@ -17,7 +17,6 @@ function readMore() {
         cardOpen = false;
     }
 }
-btnReadMore.addEventListener("click", readMore);
 
 // Mudar cor e quantidade de denúncias
 let badgeReportArray = document.querySelectorAll(".badge-report");

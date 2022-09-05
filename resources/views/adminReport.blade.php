@@ -80,7 +80,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-description" id="card-description">
+            <div class="card-description" id="card-description-{{ $post->id_publicacao }}">
               <!-- Informações Ocultadas -->
               <div class="card-text">
                 <div class="card w-100 shadow-none">
@@ -143,7 +143,7 @@
               </div>
             </div>
             <div class="card-footer text-muted d-flex justify-content-end align-items-center">
-              <button id="btn-see-more">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
+              <button class="btn-see-more" id="btn-see-more-{{ $post->id_publicacao }}" onclick="readMore({{ $post->id_publicacao }})">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
             </div>
           </div>
           @endforeach
@@ -186,7 +186,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-description" id="card-description">
+            <div class="card-description" id="card-description-{{ $post->id_publicacao }}">
               <!-- Informações Ocultadas -->
               <div class="card-text">
                 <div class="card w-100">
@@ -249,7 +249,7 @@
               </div>
             </div>
             <div class="card-footer text-muted d-flex justify-content-end align-items-center">
-              <button id="btn-see-more">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
+              <button class="btn-see-more" id="btn-see-more-{{ $post->id_publicacao }}" onclick="readMore({{ $post->id_publicacao }})">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
             </div>
           </div>
           @endforeach
@@ -292,7 +292,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-description" id="card-description">
+            <div class="card-description" id="card-description-{{ $post->id_publicacao }}">
               <!-- Informações Ocultadas -->
               <div class="card-text">
                 <div class="card w-100">
@@ -355,7 +355,7 @@
               </div>
             </div>
             <div class="card-footer text-muted d-flex justify-content-end align-items-center">
-              <button id="btn-see-more">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
+              <button class="btn-see-more" id="btn-see-more-{{ $post->id_publicacao }}" onclick="readMore({{ $post->id_publicacao }})">{{ __('Ver Mais') }}<i class="icon-chevron-down p-1"></i></button>
             </div>
           </div>
           @endforeach
@@ -444,5 +444,22 @@
           $(`#btn-accept-report-${from}-${value}`).removeClass('disabled');
         });
     }
+  </script>
+  <script>
+    const langOptions = document.getElementById('for-dropdown-translate');
+    const ulLangOptions = document.getElementById('translate');
+    let open = false;
+
+    langOptions.addEventListener('click', () => {
+      if (open) {
+        ulLangOptions.classList.remove('open');
+        langOptions.classList.remove('active');
+        open = false;
+      } else {
+        ulLangOptions.classList.add('open');
+        langOptions.classList.add('active');
+        open = true;
+      }
+    })
   </script>
 </body>

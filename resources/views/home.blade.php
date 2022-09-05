@@ -22,7 +22,7 @@
     @include('nav')
   </header>
 
-  <main class="">
+  <main class="pt-5">
     <div class="meet">
       <h3>{{ __('Conheça o') }}</h3>
       <img class="img-meet" src="/assets/img/logoVisitaSampa.png" alt="{{ __('Conheça o Visita Sampa!') }}" />
