@@ -162,6 +162,7 @@
 
               let msg = document.getElementById("msgUsername");
               usernameFlag = true;
+
               if (msg)
                 usernameContent.removeChild(msg);
             } else {
