@@ -6026,12 +6026,10 @@ reference element's position.
                             let add2 = () => {
                                 if (!addedAttributes.has(el))
                                     addedAttributes.set(el, []);
-                                addedAttributes
-                                    .get(el)
-                                    .push({
-                                        name,
-                                        value: el.getAttribute(name),
-                                    });
+                                addedAttributes.get(el).push({
+                                    name,
+                                    value: el.getAttribute(name),
+                                });
                             };
                             let remove = () => {
                                 if (!removedAttributes.has(el))

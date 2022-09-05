@@ -1,5 +1,5 @@
 /* container */
-body>div.container {
+body > div.container {
     padding-top: 2.38rem;
 }
 
@@ -170,8 +170,7 @@ textarea {
 .modal-body-explore {
     padding: 0;
     display: grid;
-    grid-template-areas:
-        "img container-info";
+    grid-template-areas: "img container-info";
 }
 
 .modal-dialog {
