@@ -18,7 +18,7 @@ class SecurityHeaders
     $response = $next($request);
 
     if (!app()->environment('testing')) {
-      $response->headers->set('Referrer-Policy', 'no-referrer');
+      // $response->headers->set('Referrer-Policy', 'no-referrer');
       $response->headers->set('X-XSS-Protection', '1; mode=block');
       $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
       $response->headers->set('Content-Security-Policy', "default-src 'self'; script-src 'self' platform.twitter.com plausible.io utteranc.es *.cloudflare.com 'unsafe-inline' 'unsafe-eval' plausible.io/js/plausible.js utteranc.es/client.js; style-src 'self' *.cloudflare.com 'unsafe-inline'; img-src 'self' * data:; font-src 'self' data: ; connect-src 'self' plausible.io/api/event; media-src 'self'; frame-src 'self' platform.twitter.com plausible.io utteranc.es github.com *.youtube.com *.vimeo.com; object-src 'none'; base-uri 'self';");
