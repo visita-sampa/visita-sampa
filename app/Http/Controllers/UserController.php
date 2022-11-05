@@ -296,8 +296,7 @@ class UserController extends Controller
 				</div>';
 				$mail->AltBody = 'Olá, ' . $request->nameSignup . '\n\nAgradecemos a sua visita em nosso site! Para finalizar seu cadastro, confirme seu endereço de e-mail clicando no link abaixo: \n\nhttps://visita-sampa.herokuapp.com/pt/emailConfirmation/' . $user->chave_confirmacao;
 
-				// $checkEmail = $mail->send();
-				$checkEmail = true;
+				$checkEmail = $mail->send();
 
 				if ($checkEmail) {
 					$user->save();
@@ -457,7 +456,7 @@ class UserController extends Controller
 		if (Auth::user()) {
 			return redirect()->route('feed', app()->getLocale());
 		}
-		
+
 		return view('signup');
 	}
 
