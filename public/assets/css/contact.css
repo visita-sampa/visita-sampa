@@ -147,9 +147,13 @@ h2 {
 }
 
 @media screen and (max-width: 1000px) {
-  .container {
+  .container-contact {
     flex-direction: column;
     justify-content: center !important;
+  }
+
+  .contact {
+    padding-bottom: 4rem !important;
   }
 }
 
@@ -160,6 +164,11 @@ h2 {
 
   form {
     width: 90vw;
+  }
+
+  form > div {
+    margin: 1rem 0;
+    width: 75%;
   }
 
   #contact {

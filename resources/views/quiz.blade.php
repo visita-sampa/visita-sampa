@@ -25,112 +25,110 @@
     @include('navbar')
   </div>
 
-  <main class="d-flex mt-5">
+  <main class="main d-flex">
     <div class="web-background w-100 h-100">
-      <div class="background-blur w-100 h-100">
-        <div class="container p-5 d-flex flex-row">
-          <div class="d-flex justify-content-center w-100">
-            <form method="POST" action="{{ route('quiz.store', app()->getLocale()) }}" class="d-flex w-100 alternative-index quiz-form">
-              <div class="col-9">
-                @csrf @foreach ($questions as $question)
-                <div id="question-{{$question->id_questao}}" class="question-container col-12 px-3">
-                  <div class="row mx-3">
-                    <div class="question">
-                      <h2>{{$question->id_questao}}. {{ __($question->conteudo) }}</h2>
-                    </div>
-                  </div>
-                  <div class="alternative-container">
-                    @foreach ($alternatives as $alternative) @if($alternative->fk_questao_id_questao == $question->id_questao)
-                    <div class="card my-3">
-                      <div class="card-body p-0">
-                        <input class="input-alternative d-none" value="{{$alternative->id_alternativa}}" type="radio" name="question-{{$question->id_questao}}" id="alternative-{{$alternative->id_alternativa}}" />
-                        <label id="alternative-label-{{$alternative->id_alternativa}}" class="alternative-label w-100 p-3" for="alternative-{{$alternative->id_alternativa}}">
-                          {{ __($alternative->enunciado) }}.
-                        </label>
-                      </div>
-                    </div>
-                    @endif @endforeach
+      <div class="container p-5 d-flex flex-row">
+        <div class="d-flex justify-content-center w-100">
+          <form method="POST" action="{{ route('quiz.store', app()->getLocale()) }}" class="d-flex w-100 alternative-index quiz-form">
+            <div class="col-9">
+              @csrf @foreach ($questions as $question)
+              <div id="question-{{$question->id_questao}}" class="question-container col-12 px-3">
+                <div class="row mx-3">
+                  <div class="question">
+                    <h2>{{$question->id_questao}}. {{ __($question->conteudo) }}</h2>
                   </div>
                 </div>
-                @endforeach
-                <div class="buttons-content">
-                  <button class="next-prev" onclick="prevQuestion()" type="button" id="prev">
-                    <i class="icon-chevron-left"></i>
-                    {{ __('Anterior') }}
-                  </button>
-                  <button class="next-prev" onclick="nextQuestion()" type="button" id="next">
-                    {{ __('Próximo') }}
-                    <i class="icon-chevron-right"></i>
-                  </button>
+                <div class="alternative-container">
+                  @foreach ($alternatives as $alternative) @if($alternative->fk_questao_id_questao == $question->id_questao)
+                  <div class="card my-3">
+                    <div class="card-body p-0">
+                      <input class="input-alternative d-none" value="{{$alternative->id_alternativa}}" type="radio" name="question-{{$question->id_questao}}" id="alternative-{{$alternative->id_alternativa}}" />
+                      <label id="alternative-label-{{$alternative->id_alternativa}}" class="alternative-label w-100 p-3" for="alternative-{{$alternative->id_alternativa}}">
+                        {{ __($alternative->enunciado) }}.
+                      </label>
+                    </div>
+                  </div>
+                  @endif @endforeach
                 </div>
               </div>
+              @endforeach
+              <div class="buttons-content">
+                <button class="next-prev" onclick="prevQuestion()" type="button" id="prev">
+                  <i class="icon-chevron-left"></i>
+                  {{ __('Anterior') }}
+                </button>
+                <button class="next-prev" onclick="nextQuestion()" type="button" id="next">
+                  {{ __('Próximo') }}
+                  <i class="icon-chevron-right"></i>
+                </button>
+              </div>
+            </div>
 
-              <div class="col-3 question-index-container justify-content-center">
-                <div class="card my-3 text-center">
-                  <div class="card-header border-bottom-0 bg-transparent">
-                    {{ __('Perguntas') }}
+            <div class="col-3 question-index-container justify-content-center">
+              <div class="card my-3 text-center">
+                <div class="card-header border-bottom-0 bg-transparent">
+                  {{ __('Perguntas') }}
+                </div>
+                <div class="card-body question-index pt-0">
+                  <div class="quiz question-1" onclick="switchQuestion(1)">
+                    <button type="button" class="quiz-button p quiz-button-active" id="btn-question-1">1</button>
                   </div>
-                  <div class="card-body question-index pt-0">
-                    <div class="quiz question-1" onclick="switchQuestion(1)">
-                      <button type="button" class="quiz-button p quiz-button-active" id="btn-question-1">1</button>
-                    </div>
-                    <div class="quiz question-2" onclick="switchQuestion(2)">
-                      <button type="button" class="quiz-button p" id="btn-question-2">2</button>
-                    </div>
-                    <div class="quiz question-3" onclick="switchQuestion(3)">
-                      <button type="button" class="quiz-button p" id="btn-question-3">3</button>
-                    </div>
-                    <div class="quiz question-4" onclick="switchQuestion(4)">
-                      <button type="button" class="quiz-button p" id="btn-question-4">4</button>
-                    </div>
-                    <div class="quiz question-5" onclick="switchQuestion(5)">
-                      <button type="button" class="quiz-button p" id="btn-question-5">5</button>
-                    </div>
-                    <div class="quiz question-6" onclick="switchQuestion(6)">
-                      <button type="button" class="quiz-button p" id="btn-question-6">6</button>
-                    </div>
-                    <div class="quiz question-7" onclick="switchQuestion(7)">
-                      <button type="button" class="quiz-button p" id="btn-question-7">7</button>
-                    </div>
-                    <div class="quiz question-8" onclick="switchQuestion(8)">
-                      <button type="button" class="quiz-button p" id="btn-question-8">8</button>
-                    </div>
-                    <div class="quiz question-9" onclick="switchQuestion(9)">
-                      <button type="button" class="quiz-button p" id="btn-question-9">9</button>
-                    </div>
-                    <div class="quiz question-10" onclick="switchQuestion(10)">
-                      <button type="button" class="quiz-button p" id="btn-question-10">10</button>
-                    </div>
-                    <div class="quiz question-11" onclick="switchQuestion(11)">
-                      <button type="button" class="quiz-button p" id="btn-question-11">11</button>
-                    </div>
-                    <div class="quiz question-12" onclick="switchQuestion(12)">
-                      <button type="button" class="quiz-button p" id="btn-question-12">12</button>
-                    </div>
-                    <div class="quiz question-13" onclick="switchQuestion(13)">
-                      <button type="button" class="quiz-button p" id="btn-question-13">13</button>
-                    </div>
-                    <div class="quiz question-14" onclick="switchQuestion(14)">
-                      <button type="button" class="quiz-button p" id="btn-question-14">14</button>
-                    </div>
-                    <div class="quiz question-15" onclick="switchQuestion(15)">
-                      <button type="button" class="quiz-button p" id="btn-question-15">15</button>
-                    </div>
+                  <div class="quiz question-2" onclick="switchQuestion(2)">
+                    <button type="button" class="quiz-button p" id="btn-question-2">2</button>
                   </div>
-                  <div class="card-footer border-top-0 bg-transparent text-start">
-                    <div class="button">
-                      <input id="finish" type="submit" value="{{ __('Finalizar') }}" name="questionario" />
-                      <input type="hidden" id="resposta" name="resposta" />
-                    </div>
+                  <div class="quiz question-3" onclick="switchQuestion(3)">
+                    <button type="button" class="quiz-button p" id="btn-question-3">3</button>
+                  </div>
+                  <div class="quiz question-4" onclick="switchQuestion(4)">
+                    <button type="button" class="quiz-button p" id="btn-question-4">4</button>
+                  </div>
+                  <div class="quiz question-5" onclick="switchQuestion(5)">
+                    <button type="button" class="quiz-button p" id="btn-question-5">5</button>
+                  </div>
+                  <div class="quiz question-6" onclick="switchQuestion(6)">
+                    <button type="button" class="quiz-button p" id="btn-question-6">6</button>
+                  </div>
+                  <div class="quiz question-7" onclick="switchQuestion(7)">
+                    <button type="button" class="quiz-button p" id="btn-question-7">7</button>
+                  </div>
+                  <div class="quiz question-8" onclick="switchQuestion(8)">
+                    <button type="button" class="quiz-button p" id="btn-question-8">8</button>
+                  </div>
+                  <div class="quiz question-9" onclick="switchQuestion(9)">
+                    <button type="button" class="quiz-button p" id="btn-question-9">9</button>
+                  </div>
+                  <div class="quiz question-10" onclick="switchQuestion(10)">
+                    <button type="button" class="quiz-button p" id="btn-question-10">10</button>
+                  </div>
+                  <div class="quiz question-11" onclick="switchQuestion(11)">
+                    <button type="button" class="quiz-button p" id="btn-question-11">11</button>
+                  </div>
+                  <div class="quiz question-12" onclick="switchQuestion(12)">
+                    <button type="button" class="quiz-button p" id="btn-question-12">12</button>
+                  </div>
+                  <div class="quiz question-13" onclick="switchQuestion(13)">
+                    <button type="button" class="quiz-button p" id="btn-question-13">13</button>
+                  </div>
+                  <div class="quiz question-14" onclick="switchQuestion(14)">
+                    <button type="button" class="quiz-button p" id="btn-question-14">14</button>
+                  </div>
+                  <div class="quiz question-15" onclick="switchQuestion(15)">
+                    <button type="button" class="quiz-button p" id="btn-question-15">15</button>
+                  </div>
+                </div>
+                <div class="card-footer border-top-0 bg-transparent text-start">
+                  <div class="button">
+                    <input id="finish" type="submit" value="{{ __('Finalizar') }}" name="questionario" />
+                    <input type="hidden" id="resposta" name="resposta" />
                   </div>
                 </div>
               </div>
+            </div>
 
-            </form>
-          </div>
+          </form>
         </div>
       </div>
-    </div>        
+    </div>
 
     @csrf @if(!$answer->isEmpty())
     <div class="modal fade modal-quiz" id="quiz-or-roadmap" tabindex="-1" aria-labelledby="quiz-or-roadmap-modal-label" aria-hidden="true">

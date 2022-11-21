@@ -1,5 +1,5 @@
 /* container */
-body > div.container {
+body>div.container {
     padding-top: 2.38rem;
 }
 
@@ -59,7 +59,7 @@ p.user-name {
 }
 
 i.icon-alert-triangle {
-    color: var(--pink);
+    color: var(--pink) !important;
     font-size: 25px !important;
 }
 

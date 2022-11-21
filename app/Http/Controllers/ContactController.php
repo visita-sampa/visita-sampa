@@ -87,23 +87,23 @@ class ContactController extends Controller
                     .flex-column {
                         flex-direction: column!important;
                     }
-                    
+
                     .m-0 {
                         margin: 0!important;
                     }
-                    
+
                     .m-2 {
                         margin: 0.5rem!important;
                     }
-                    
+
                     .mt-2 {
                         margin-top: 0.5rem!important;
                     }
-                    
+
                     .mt-3 {
                         margin-top: 1rem!important;
                     }
-                    
+
                     .m-auto {
                         margin: auto!important;
                     }
@@ -127,7 +127,7 @@ class ContactController extends Controller
                         border-radius: 0.25rem;
                         text-align: center;
                     }
-                    
+
                     .card-body {
                         flex: 1 1 auto;
                         padding: 1rem 1rem;
@@ -206,7 +206,7 @@ class ContactController extends Controller
                             </table>
                             <hr class="m-2">
                             <div class="mt-2 fw-light fs-6">
-                                <p class="m-0">&copy; 2021 Copyright:</p>
+                                <p class="m-0">&copy; 2022 Copyright:</p>
                                 <p class="">Todos os direitos reservados</p>
                             </div>
                         </div>

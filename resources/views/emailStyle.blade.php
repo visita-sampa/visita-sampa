@@ -177,7 +177,7 @@
 					<p class="mt-3">Após confirmar uma nova senha, sua senha anterior não será mais válida.</p>
 					<hr class="m-2">
 					<div class="mt-2 fw-light fs-6">
-						<p class="m-0">&copy; 2021 Copyright:</p>
+						<p class="m-0">&copy; 2022 Copyright:</p>
 						<p class="">Todos os direitos reservados</p>
 					</div>
 				</div>

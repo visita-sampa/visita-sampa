@@ -1,4 +1,11 @@
 <?php return array (
+  'bepsvpt/secure-headers' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Bepsvpt\\SecureHeaders\\SecureHeadersServiceProvider',
+    ),
+  ),
   'cloudinary-labs/cloudinary-laravel' => 
   array (
     'providers' => 
@@ -90,6 +97,13 @@
     'aliases' => 
     array (
       'Livewire' => 'Livewire\\Livewire',
+    ),
+  ),
+  'mikefrancis/laravel-secureheaders' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'MikeFrancis\\LaravelSecureHeaders\\ServiceProvider',
     ),
   ),
   'nesbot/carbon' => 

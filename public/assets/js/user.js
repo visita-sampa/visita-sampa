@@ -74,7 +74,7 @@ function overlapModal(id_publicacao) {
 	id2.addEventListener("focus", function () {
 		id.style.zIndex = 1050;
 	});
-	id2.addEventListener("blur", overlapModalClose(id_publicacao, 2));
+	id2.addEventListener("blur", overlapModalClose(id_publicacao, 1));
 }
 
 function overlapModalClose(id_publicacao, type) {

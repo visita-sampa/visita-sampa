@@ -22,14 +22,14 @@
   </header>
 
   <main class="d-flex">
-    <div class="web-background w-100 vh-100">
-      <div class="background-blur w-100 h-100">
+    <div class="web-background w-100">
+      <div class="background-blur w-100">
         <div class="container login p-4 d-flex flex-row w-100 align-items-center">
           <img src="/assets/img/logoVisitaSampa.png" alt="" class="img-logo" />
 
-          <div id="signup" class="signup text-center h-100">
+          <div id="signup" class="signup text-center">
             <h2 class="title-login">{{ __('CADASTRE-SE') }}</h2>
-            <form id="form" method="POST" action="{{ route('user.store', app()->getLocale()) }}" class="form-signup d-flex flex-column h-100 justify-content-around">
+            <form id="form" method="POST" action="{{ route('user.store', app()->getLocale()) }}" class="form-signup d-flex flex-column">
               @csrf
               <div id="nameSignupContent" class="inputContent">
                 <input type="text" name="nameSignup" id="nameSignup" placeholder="{{ __('Nome') }}" autocomplete="off" class="input-signup" required />
@@ -50,8 +50,8 @@
               </div>
 
               <button type="submit" class="btn-signup">{{ __('Cadastrar') }}</button>
+              <p class="py-3">{{ __('Já tem cadastro?') }} <a href="{{ route('login', app()->getLocale()) }}" class="text-decoration-underline">{{ __('Entre em sua conta') }}</a></p>
             </form>
-            <p>{{ __('Já tem cadastro?') }} <a href="{{ route('login', app()->getLocale()) }}" class="text-decoration-underline">{{ __('Entre em sua conta') }}</a></p>
           </div>
         </div>
       </div>

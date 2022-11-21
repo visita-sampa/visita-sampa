@@ -1,14 +1,14 @@
 <footer class="text-center text-lg-start bg-light text-muted pt-4">
   <!-- Section: Links  -->
-  <div class="container text-center text-md-start">
+  <div class="container text-center text-md-start pt-4">
     <!-- Grid row -->
     <div class="row">
       <!-- Grid column -->
       <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
         <!-- Content -->
-        <img src="/assets/img/logoVisitaSampa.png" class="logo me-3" alt="{{ __('Logo Visita Sampa') }}" />
-        <p class="m-0 text-dark">
-          &copy; 2021 Copyright:
+        <img src="/assets/img/logoVisitaSampa.png" class="logo mb-3" alt="{{ __('Logo Visita Sampa') }}" />
+        <p class="mb-2 text-dark">
+          &copy; 2022 Copyright:
         </p>
         <p class="text-dark">
           {{ __('Todos os direitos reservados') }}

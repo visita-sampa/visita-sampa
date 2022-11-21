@@ -25,7 +25,7 @@
   <main class="d-flex meet">
     <div class="web-background w-100 vh-100">
       <div class="background-blur w-100 h-100">
-        <div class="container p-4 d-flex w-100 h-100 align-items-center justify-content-between">
+        <div class="container container-contact p-4 d-flex w-100 h-100 align-items-center justify-content-between">
           <img src="/assets/img/formVisitaSampa.png" alt="" class="img-logo" />
           <div id="contact" class="contact text-center h-100">
             <h2 class="title-contact">{{ __('FORMULÁRIO') }}</h2>

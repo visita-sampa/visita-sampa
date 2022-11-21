@@ -130,19 +130,19 @@ class UserController extends Controller
 						padding: 0;
 						box-sizing: border-box;
 					}
-					
+
 					body {
 						color: #212529 !important;
 					}
-					
+
 					.email p {
 						color: #26547c !important;
 					}
-					
+
 					.logo {
 						width: 7.7rem;
 					}
-					
+
 					h3 {
 						font-size: 1.5rem;
 						margin-top: 0;
@@ -150,52 +150,52 @@ class UserController extends Controller
 						font-weight: 500;
 						line-height: 1.2;
 					}
-					
+
 					.bg-light {
 						background-color: rgba(248,249,250,1)!important;
 					}
-					
+
 					.p-3 {
 						padding: 1rem!important;
 					}
-					
+
 					.d-flex {
 						display: flex!important;
 						flex-direction: column!important;
 					}
-					
+
 					.flex-column {
 						flex-direction: column!important;
 					}
-					
+
 					.m-0 {
 						margin: 0!important;
 					}
-					
+
 					.m-2 {
 						margin: 0.5rem!important;
 					}
-					
+
 					.mt-2 {
 						margin-top: 0.5rem!important;
 					}
-					
+
 					.mt-3 {
 						margin-top: 1rem!important;
 					}
-					
+
 					.m-auto {
 						margin: auto!important;
 					}
-					
+
 					.h-100 {
 						height: 100%!important;
 					}
-					
+
 					.w-75 {
 						width: 75%!important;
 					}
-					
+
 					.card {
 						position: relative;
 						flex-direction: column;
@@ -207,37 +207,37 @@ class UserController extends Controller
 						border-radius: 0.25rem;
 						text-align: center;
 					}
-					
+
 					.card-body {
 						flex: 1 1 auto;
 						padding: 1rem 1rem;
 						text-align: left;
 					}
-					
+
 					p {
 						margin-top: 0;
 						margin-bottom: 1rem;
 						font-size: 1rem!important;
 					}
-					
+
 					hr:not([size]) {
 						height: 1px;
 					}
-					
+
 					hr {
 						margin: 1rem 0;
 						color: 26547c;
 						background-color: currentColor;
 					}
-					
+
 					.fw-light {
 						font-weight: 300!important;
 					}
-					
+
 					.fs-6 {
 						font-size: 1rem!important;
 					}
-					
+
 					.btn {
 						display: inline-block;
 						font-weight: 400;
@@ -257,13 +257,13 @@ class UserController extends Controller
 						border-radius: 0.25rem;
 						transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 					}
-					
+
 					.btn-danger {
 						color: #fff !important;
 						background-color: #dc3545;
 						border-color: #dc3545;
 					}
-					
+
 					.btn-danger:hover {
 						color: #fff !important;
 						background-color: #bb2d3b;
@@ -287,7 +287,7 @@ class UserController extends Controller
 								<p class="mt-3">Após a confirmação será possível entrar no sistema com suas credenciais.</p>
 								<hr class="m-2">
 								<div class="mt-2 fw-light fs-6">
-									<p class="m-0">&copy; 2021 Copyright:</p>
+									<p class="m-0">&copy; 2022 Copyright:</p>
 									<p class="">Todos os direitos reservados</p>
 								</div>
 							</div>

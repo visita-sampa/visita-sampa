@@ -75,39 +75,40 @@
                         {{ __('Selecionar arquivo') }}
                       </label>
                       <label for="newPost" class="position-absolute w-100 h-100 top-0 p-3 text-center d-flex justify-content-center align-items-center select-img">
-                        <i class="icon-image text-light position-absolute"></i>
+                        <i class="icon-image text-light positionposition-relative img-publication-area d-flex justify-content-center align-items-center"></i>
                         {{ __('Selecionar arquivo') }}
                       </label>
                       <input type="file" name="newPost" id="newPost" class="d-none image-upload" />
                       <input type="hidden" name="base64imagePost" id="base64imagePost" class="" />
                     </div>
-                    <!-- <img src="https://veja.abril.com.br/wp-content/uploads/2016/05/alx_sao-paulo-cultura-museu-masp-avenida-paulista-20140222-001_original2.jpeg" class="img-publication"> -->
                     <!-- InformaÃ§Ãµes UsuÃ¡rio -->
-                    <div>
-                      <div class="modal-header modal-header-tourist p-3">
-                        <div class="user">
-                          <div class="user-image">
-                            <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" />
-                          </div>
-                          <div class="user-information">
-                            <p class="user-name">
-                              {{Auth::user()->nome}}
-                            </p>
-                            <p class="user-localization">
-                              {{ $point->nome_ponto_turistico }}
-                            </p>
-                          </div>
+
+                    <div class="modal-header modal-header-tourist p-3">
+                      <div class="user">
+                        <div class="user-image">
+                          <img src="{{ Auth::user()->foto_perfil == '' ? '/img/users/profileDefault.png' : Auth::user()->foto_perfil}}" />
                         </div>
-                        <!-- Denuncia -->
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="user-information">
+                          <p class="user-name">
+                            {{Auth::user()->nome}}
+                          </p>
+                          <p class="user-localization">
+                            {{ $point->nome_ponto_turistico }}
+                          </p>
+                        </div>
                       </div>
-                      <!-- DescriÃ§Ã£o PublicaÃ§Ã£o -->
-                      <div class="description-publication d-grid">
+                      <!-- Denuncia -->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- DescriÃ§Ã£o PublicaÃ§Ã£o -->
+                    <div class="description-publication">
+                      <div class="d-grid">
                         <input type="hidden" name="touristSpotId" id="touristSpotId" value="{{ $point->id_ponto_turistico }}" />
                         <textarea name="postDescription" id="postDescription" class="m-4 p-2" placeholder="{{ __('Escreva sua experiência com o local') }}" cols="35" rows="5"></textarea>
                       </div>
                       <input type="submit" value="{{ __('Publicar') }}" class="mx-4 float-end btn-submit" />
                     </div>
+
                   </div>
                 </div>
               </div>

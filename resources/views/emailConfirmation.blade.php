@@ -47,7 +47,7 @@
             <!-- Content -->
             <img src="/assets/img/logoVisitaSampa.png" class="logo me-3" alt="{{ __('Logo Visita Sampa') }}" />
             <p class="m-0 text-dark">
-              &copy; 2021 Copyright:
+              &copy; 2022 Copyright:
             </p>
             <p class="text-dark">
               {{ __('Todos os direitos reservados') }}

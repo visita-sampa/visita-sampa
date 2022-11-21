@@ -146,23 +146,23 @@ class LoginController extends Controller
                             .flex-column {
                                 flex-direction: column!important;
                             }
-                            
+
                             .m-0 {
                                 margin: 0!important;
                             }
-                            
+
                             .m-2 {
                                 margin: 0.5rem!important;
                             }
-                            
+
                             .mt-2 {
                                 margin-top: 0.5rem!important;
                             }
-                            
+
                             .mt-3 {
                                 margin-top: 1rem!important;
                             }
-                            
+
                             .m-auto {
                                 margin: auto!important;
                             }
@@ -186,7 +186,7 @@ class LoginController extends Controller
                                 border-radius: 0.25rem;
                                 text-align: center;
                             }
-                            
+
                             .card-body {
                                 flex: 1 1 auto;
                                 padding: 1rem 1rem;
@@ -266,14 +266,14 @@ class LoginController extends Controller
                                     <p class="mt-3">Após confirmar uma nova senha, sua senha anterior não será mais válida.</p>
                                     <hr class="m-2">
                                     <div class="mt-2 fw-light fs-6">
-                                        <p class="m-0">&copy; 2021 Copyright:</p>
+                                        <p class="m-0">&copy; 2022 Copyright:</p>
                                         <p class="">Todos os direitos reservados</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>';
-                    $mail->AltBody = 'Olá, ' . $user->nome . '\n\nRecebemos sua solicitação de atualização de senha. Para continuar, clique no link a seguir e redefina uma nova senha para sua conta: \n\nhttps://visita-sampa.herokuapp.com/pt/resetPassword/' . $user->recuperar_senha . '\n\nApós confirmar uma nova senha, sua senha anterior não será mais válida.\n\n&copy; 2021 Copyright:\n\nTodos os direitos reservados.';
+                    $mail->AltBody = 'Olá, ' . $user->nome . '\n\nRecebemos sua solicitação de atualização de senha. Para continuar, clique no link a seguir e redefina uma nova senha para sua conta: \n\nhttps://visita-sampa.herokuapp.com/pt/resetPassword/' . $user->recuperar_senha . '\n\nApós confirmar uma nova senha, sua senha anterior não será mais válida.\n\n&copy; 2022 Copyright:\n\nTodos os direitos reservados.';
 
           $mail->send();
 

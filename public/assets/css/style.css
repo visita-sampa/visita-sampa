@@ -19,7 +19,7 @@
 }
 
 /* container */
-body > main > .container {
+body>main>.container {
     padding-top: 2rem;
 }
 
@@ -76,7 +76,7 @@ i.icon-map-pin,
 i.icon-edit-3,
 i.icon-alert-triangle,
 i.icon-edit-2 {
-    font-size: 2rem !important;
+    font-size: 2rem;
     color: var(--blue);
 }
 
@@ -96,8 +96,8 @@ i.icon-edit-2 {
     pointer-events: none;
 }
 
-.dropdown:checked + label,
-.dropdown:not(:checked) + label {
+.dropdown:checked+label,
+.dropdown:not(:checked)+label {
     position: relative;
     font-weight: 500;
     font-size: 15px;
@@ -141,13 +141,13 @@ i.icon-edit-2 {
     margin-right: 0;
 }
 
-.dropdown:not(:checked) + label .uil {
+.dropdown:not(:checked)+label .uil {
     font-size: 24px;
     margin-left: 10px;
     transition: transform 200ms linear;
 }
 
-.dropdown:checked + label .uil {
+.dropdown:checked+label .uil {
     transform: rotate(180deg);
     font-size: 24px;
     margin-left: 10px;
@@ -169,7 +169,7 @@ i.icon-edit-2 {
     transition: all 200ms linear;
 }
 
-.dropdown:checked ~ .section-dropdown {
+.dropdown:checked~.section-dropdown {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
@@ -213,22 +213,22 @@ i.icon-edit-2 {
     border: none;
 }
 
-.dropdown-profile:checked + label,
-.dropdown-profile:not(:checked) + label,
-.dropdown-settings:checked + label,
-.dropdown-settings:not(:checked) + label,
-.dropdown-translate:checked + label,
-.dropdown-translate:not(:checked) + label,
-.dropdown-paper:checked + label,
-.dropdown-paper:not(:checked) + label,
-.dropdown-alert:checked + label,
-.dropdown-alert:not(:checked) + label,
-.dropdown-log-out:checked + label,
-.dropdown-log-out:not(:checked) + label,
-.dropdown-report:checked + label,
-.dropdown-report:not(:checked) + label,
-.dropdown-events:checked + label,
-.dropdown-events:not(:checked) + label,
+.dropdown-profile:checked+label,
+.dropdown-profile:not(:checked)+label,
+.dropdown-settings:checked+label,
+.dropdown-settings:not(:checked)+label,
+.dropdown-translate:checked+label,
+.dropdown-translate:not(:checked)+label,
+.dropdown-paper:checked+label,
+.dropdown-paper:not(:checked)+label,
+.dropdown-alert:checked+label,
+.dropdown-alert:not(:checked)+label,
+.dropdown-log-out:checked+label,
+.dropdown-log-out:not(:checked)+label,
+.dropdown-report:checked+label,
+.dropdown-report:not(:checked)+label,
+.dropdown-events:checked+label,
+.dropdown-events:not(:checked)+label,
 label a {
     position: relative;
     color: var(--black);
@@ -241,22 +241,22 @@ label a {
     cursor: pointer;
 }
 
-.dropdown-profile:checked + label:hover,
-.dropdown-profile:not(:checked) + label:hover,
-.dropdown-settings:checked + label:hover,
-.dropdown-settings:not(:checked) + label:hover,
-.dropdown-translate:checked + label:hover,
-.dropdown-translate:not(:checked) + label:hover,
-.dropdown-paper:checked + label:hover,
-.dropdown-paper:not(:checked) + label:hover,
-.dropdown-alert:checked + label:hover,
-.dropdown-alert:not(:checked) + label:hover,
-.dropdown-log-out:checked + label:hover,
-.dropdown-log-out:not(:checked) + label:hover,
-.dropdown-report:checked + label:hover,
-.dropdown-report:not(:checked) + label:hover,
-.dropdown-events:checked + label:hover,
-.dropdown-events:not(:checked) + label:hover,
+.dropdown-profile:checked+label:hover,
+.dropdown-profile:not(:checked)+label:hover,
+.dropdown-settings:checked+label:hover,
+.dropdown-settings:not(:checked)+label:hover,
+.dropdown-translate:checked+label:hover,
+.dropdown-translate:not(:checked)+label:hover,
+.dropdown-paper:checked+label:hover,
+.dropdown-paper:not(:checked)+label:hover,
+.dropdown-alert:checked+label:hover,
+.dropdown-alert:not(:checked)+label:hover,
+.dropdown-log-out:checked+label:hover,
+.dropdown-log-out:not(:checked)+label:hover,
+.dropdown-report:checked+label:hover,
+.dropdown-report:not(:checked)+label:hover,
+.dropdown-events:checked+label:hover,
+.dropdown-events:not(:checked)+label:hover,
 label a:hover {
     color: var(--black);
     background-color: #d9d9d9;
@@ -275,8 +275,8 @@ label a {
     padding-right: 0.75rem;
 }
 
-.dropdown-log-out:checked + label:hover,
-.dropdown-log-out:not(:checked) + label:hover {
+.dropdown-log-out:checked+label:hover,
+.dropdown-log-out:not(:checked)+label:hover {
     border-radius: 0 0 6px 6px;
 }
 
@@ -305,7 +305,7 @@ label a {
     border-radius: 0 0 6px 6px;
 }
 
-.dropdown-profile:not(:checked) + label:hover,
+.dropdown-profile:not(:checked)+label:hover,
 label.for-dropdown-profile.user a:hover,
 .for-dropdown-profile a:hover {
     border-radius: 6px 6px 0 0 !important;
@@ -566,7 +566,7 @@ i.icon-lock {
     margin: 0 1rem 0.5rem 1rem;
 }
 
-.form-floating > label {
+.form-floating>label {
     padding: 1rem 0.7rem;
 }
 
@@ -744,6 +744,7 @@ i.icon-lock {
 }
 
 @media (min-width: 426px) and (max-width: 768px) {
+
     i.icon-brazil,
     i.icon-usa,
     i.icon-image,
@@ -794,6 +795,7 @@ i.icon-lock {
 }
 
 @media screen and (max-width: 425px) {
+
     i.icon-brazil,
     i.icon-usa,
     i.icon-image,
@@ -816,8 +818,9 @@ i.icon-lock {
 }
 
 @media screen and (max-width: 338px) {
-    .dropdown:checked + label,
-    .dropdown:not(:checked) + label {
+
+    .dropdown:checked+label,
+    .dropdown:not(:checked)+label {
         width: 100%;
     }
 
